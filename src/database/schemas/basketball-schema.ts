@@ -24,71 +24,71 @@ const basketballGameSchema : mongoose.Schema = new mongoose.Schema({
     minutesPlayed: {
         type: Number,
         min: 0,
-        required: true,
+        default: 0
     },
     pointsScored: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     fieldGoalsMade: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     fieldGoalsAttempted: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     threePointersMade: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     threePointersAttempted: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     freeThrowsMade: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     freeThrowsAttempted: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     offensiveRebounds: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     defensiveRebounds: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     turnovers: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     steals: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     blocks: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
     personalFouls: {
         type: Number,
-        required: true,
+        default: 0,
         min: 0
     },
 });
