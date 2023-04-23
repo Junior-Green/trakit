@@ -1,88 +1,98 @@
 import mongoose from 'mongoose';
 
-const hockeySchema: mongoose.Schema = new mongoose.Schema({
+export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
     opponentTeam: {
         type: String,
-        required: true,
+        required: [true, 'Opponent team cannot be undefined'],
         trim: true,
         minLength: 1
     },
     teamScore: {
         type: Number,
-        required: true,
+        required: [true, 'Team score cannot be undefined'],
         min: 0
     },
     opponentScore: {
         type: Number,
-        required: true,
+        required: [true, 'Opponent score cannot be undefined'],
         min: 0,
     },
     date: {
         type: Date,
-        required: true
+        required: [true, 'Date of game is required']
     },
-    goals: {
+    minutesPlayed: {
+        type: Number,
+        min: 0,
+        default: 0
+    },
+    pointsScored: {
         type: Number,
         default: 0,
         min: 0
     },
-    assists: {
+    fieldGoalsMade: {
         type: Number,
         default: 0,
         min: 0
     },
-    penaltyMinutes: {
+    fieldGoalsAttempted: {
         type: Number,
         default: 0,
         min: 0
     },
-    powerPlayGoals: {
+    threePointersMade: {
         type: Number,
         default: 0,
         min: 0
     },
-    shortHandedGoals: {
+    threePointersAttempted: {
         type: Number,
         default: 0,
         min: 0
     },
-    overTimeGoals: {
+    freeThrowsMade: {
         type: Number,
         default: 0,
         min: 0
     },
-    shotsTaken: {
+    freeThrowsAttempted: {
         type: Number,
         default: 0,
         min: 0
     },
-    faceoffWins: {
+    offensiveRebounds: {
         type: Number,
         default: 0,
         min: 0
     },
-    faceOffLosses: {
+    defensiveRebounds: {
         type: Number,
         default: 0,
         min: 0
     },
-    saves: {
+    turnovers: {
         type: Number,
         default: 0,
         min: 0
     },
-    goalsAgainst: {
+    steals: {
         type: Number,
         default: 0,
         min: 0
     },
-    shutOuts: {
+    blocks: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    personalFouls: {
         type: Number,
         default: 0,
         min: 0
     },
 });
 
-const hockeyGame = mongoose.model('Hockey Game', hockeySchema);
+const basketballGame = mongoose.model('Basketball Game', basketballGameSchema);
 
-export default hockeyGame;
+export default basketballGame;

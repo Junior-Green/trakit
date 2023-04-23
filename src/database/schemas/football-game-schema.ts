@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const kickingStatsSchema = new mongoose.Schema({
+export const kickingStatsSchema = new mongoose.Schema({
     kickoffs : {
         type: Number,
         default: 0,
@@ -23,7 +23,7 @@ const kickingStatsSchema = new mongoose.Schema({
     }
 });
 
-const rushingStatsSchema = new mongoose.Schema({
+export const rushingStatsSchema = new mongoose.Schema({
     carries: {
         type: Number,
         default: 0,
@@ -46,7 +46,7 @@ const rushingStatsSchema = new mongoose.Schema({
     }
 });
 
-const receivingStatsSchema = new mongoose.Schema({
+export const receivingStatsSchema = new mongoose.Schema({
     receptions: {
         type: Number,
         default: 0,
@@ -74,7 +74,7 @@ const receivingStatsSchema = new mongoose.Schema({
     },
 });
 
-const defenceStatsSchema = new mongoose.Schema({
+export const defenceStatsSchema = new mongoose.Schema({
     tackles: {
         type: Number,
         default: 0,
@@ -107,7 +107,7 @@ const defenceStatsSchema = new mongoose.Schema({
     }
 });
 
-const passingStatsSchema = new mongoose.Schema({
+export const passingStatsSchema = new mongoose.Schema({
     passesMade: {
         type: Number,
         default: 0,
@@ -135,26 +135,26 @@ const passingStatsSchema = new mongoose.Schema({
     }
 });
 
-const footballGameSchema: mongoose.Schema = new mongoose.Schema({
+export const footballGameSchema: mongoose.Schema = new mongoose.Schema({
     opponentTeam: {
         type: String,
-        required: true,
+        required: [true, 'Opponent team cannot be undefined'],
         trim: true,
         minLength: 1
     },
     teamScore: {
         type: Number,
-        required: true,
+        required: [true, 'Team score cannot be undefined'],
         min: 0
     },
     opponentScore: {
         type: Number,
-        required: true,
+        required: [true, 'Opponent score cannot be undefined'],
         min: 0,
     },
     date: {
         type: Date,
-        required: true
+        required: [true, 'Date of game is required']
     },
     passingStats: passingStatsSchema,
 
