@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/dev-server.js"  ],
   "exclude": [
     "node_modules"
   ]
