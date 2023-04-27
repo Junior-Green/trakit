@@ -1,18 +1,51 @@
 import {randomBytes, randomUUID} from "crypto";
 import NextAuth, {NextAuthOptions} from "next-auth";
 import AppleProvider from "next-auth/providers/apple";
+import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
+import TwitterProvider from "next-auth/providers/twitter";
+import clientPromise from "@/src/database/mongo-client";
+import {MongoDBAdapter} from "@next-auth/mongodb-adapter";
 
-const APPLE_ID = process.env.APPLE_ID
-const APPLE_SECRET = process.env.APPLE_SECRET
+const APPLE_ID = process.env.APPLE_ID;
+const APPLE_SECRET = process.env.APPLE_SECRET;
 
-if(!APPLE_ID) throw Error('Apple client id not defined.')
-if (!APPLE_SECRET) throw Error('Apple secret id not defined.')
+const DISCORD_ID = process.env.DISCORD_ID;
+const DISCORD_SECRET = process.env.DISCORD_SECRET;
 
-export const authOptions : NextAuthOptions = {
+const GOOGLE_ID = process.env.GOOGLE_ID;
+const GOOGLE_SECRET = process.env.GOOGLE_SECRET;
+
+const TWITTER_ID = process.env.TWITTER_ID;
+const TWITTER_SECRET = process.env.TWITTER_SECRET;
+
+if (!APPLE_ID) throw new Error('Invalid/Missing environment variable: "APPLE_ID"');
+if (!APPLE_SECRET) throw new Error('Invalid/Missing environment variable: "APPLE_SECRET"');
+if (!DISCORD_ID) throw new Error('Invalid/Missing environment variable: "DISCORD_ID"');
+if (!DISCORD_SECRET) throw new Error('Invalid/Missing environment variable: "DISCORD_SECRET"');
+if (!GOOGLE_ID) throw new Error('Invalid/Missing environment variable: "GOOGLE_ID"');
+if (!GOOGLE_SECRET) throw new Error('Invalid/Missing environment variable: "GOOGLE_SECRET"');
+if (!TWITTER_ID) throw new Error('Invalid/Missing environment variable: "TWITTER_ID"');
+if (!TWITTER_SECRET) throw new Error('Invalid/Missing environment variable: "TWITTER_SECRET"');
+
+export const authOptions: NextAuthOptions = {
     providers: [
         AppleProvider({
             clientId: APPLE_ID,
             clientSecret: APPLE_SECRET
+        }),
+        DiscordProvider({
+            clientId: DISCORD_ID,
+            clientSecret: DISCORD_SECRET
+        }),
+        GoogleProvider({
+            clientId: GOOGLE_ID,
+            clientSecret: GOOGLE_SECRET
+        }),
+        TwitterProvider({
+            clientId: TWITTER_ID,
+            clientSecret: TWITTER_SECRET,
+            version: "2.0", // opt-in to Twitter OAuth 2.0
         })
         // ...add more providers here
     ],
@@ -38,7 +71,8 @@ export const authOptions : NextAuthOptions = {
         generateSessionToken: () => {
             return randomUUID?.() ?? randomBytes(32).toString("hex");
         }
-    }
+    },
+    adapter: MongoDBAdapter(clientPromise)
 };
 
 export default NextAuth(authOptions);

@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 
 export default async function connectDatabase(): Promise<void> {
-    dotenv.config();
-    await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ggacb6d.mongodb.net/?retryWrites=true&w=majority`).then(
+    if (!process.env.MONGODB_URI) {
+        return Promise.reject('Invalid/Missing environment variable: "MONGODB_URI"');
+    }
+
+    await mongoose.connect(process.env.MONGODB_URI).then(
         () => {
             console.log('Database connected...');
         },
