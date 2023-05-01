@@ -1,14 +1,14 @@
 import {randomBytes, randomUUID} from "crypto";
 import NextAuth, {NextAuthOptions} from "next-auth";
-import AppleProvider from "next-auth/providers/apple";
+import RedditProvider from "next-auth/providers/reddit";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
 import clientPromise from "@/src/database/mongo-client";
 import {MongoDBAdapter} from "@next-auth/mongodb-adapter";
 
-const APPLE_ID = process.env.APPLE_ID;
-const APPLE_SECRET = process.env.APPLE_SECRET;
+const REDDIT_ID = process.env.REDDIT_ID;
+const REDDIT_SECRET = process.env.REDDIT_SECRET;
 
 const DISCORD_ID = process.env.DISCORD_ID;
 const DISCORD_SECRET = process.env.DISCORD_SECRET;
@@ -19,20 +19,23 @@ const GOOGLE_SECRET = process.env.GOOGLE_SECRET;
 const TWITTER_ID = process.env.TWITTER_ID;
 const TWITTER_SECRET = process.env.TWITTER_SECRET;
 
-if (!APPLE_ID) throw new Error('Invalid/Missing environment variable: "APPLE_ID"');
-if (!APPLE_SECRET) throw new Error('Invalid/Missing environment variable: "APPLE_SECRET"');
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+
+if (!REDDIT_ID) throw new Error('Invalid/Missing environment variable: "REDDIT_ID"');
+if (!REDDIT_SECRET) throw new Error('Invalid/Missing environment variable: "REDDIT_SECRET"');
 if (!DISCORD_ID) throw new Error('Invalid/Missing environment variable: "DISCORD_ID"');
 if (!DISCORD_SECRET) throw new Error('Invalid/Missing environment variable: "DISCORD_SECRET"');
 if (!GOOGLE_ID) throw new Error('Invalid/Missing environment variable: "GOOGLE_ID"');
 if (!GOOGLE_SECRET) throw new Error('Invalid/Missing environment variable: "GOOGLE_SECRET"');
 if (!TWITTER_ID) throw new Error('Invalid/Missing environment variable: "TWITTER_ID"');
 if (!TWITTER_SECRET) throw new Error('Invalid/Missing environment variable: "TWITTER_SECRET"');
+if (!NEXTAUTH_SECRET) throw new Error('Invalid/Missing environment variable: "NEXTAUTH_SECRET"');
 
 export const authOptions: NextAuthOptions = {
     providers: [
-        AppleProvider({
-            clientId: APPLE_ID,
-            clientSecret: APPLE_SECRET
+        RedditProvider({
+            clientId: REDDIT_ID,
+            clientSecret: REDDIT_SECRET
         }),
         DiscordProvider({
             clientId: DISCORD_ID,
@@ -40,7 +43,14 @@ export const authOptions: NextAuthOptions = {
         }),
         GoogleProvider({
             clientId: GOOGLE_ID,
-            clientSecret: GOOGLE_SECRET
+            clientSecret: GOOGLE_SECRET,
+            authorization: {
+                params: {
+                    prompt: 'consent',
+                    access_type: 'offline',
+                    response_type: 'code'
+                }
+            }
         }),
         TwitterProvider({
             clientId: TWITTER_ID,
@@ -49,6 +59,10 @@ export const authOptions: NextAuthOptions = {
         })
         // ...add more providers here
     ],
+    secret: NEXTAUTH_SECRET,
+    pages: {
+        signIn: '/login'
+    },
     session: {
         // Choose how you want to save the user session.
         // The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.

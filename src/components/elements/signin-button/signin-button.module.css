@@ -16,6 +16,7 @@
 
 .label {
     margin: 0;
+    margin-left: 3%;
     vertical-align: middle;
     display: inline-flex;
     line-height: 100%;

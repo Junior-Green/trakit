@@ -9,13 +9,14 @@ type SignInButtonProps = {
         b: number;
     },
     provider: string,
-    textColor: 'white' | 'black';
+    textColor: 'white' | 'black',
+    onClick: () => void;
 };
 
-export const SignInButton = ({image, backgroundColor, provider, textColor}: SignInButtonProps) => {
+export const SignInButton = ({image, backgroundColor, provider, textColor, onClick}: SignInButtonProps) => {
     return (
-        <div className={styles.main} style={{backgroundColor: `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`}}>
-            <Image alt={``} src={image} style={{objectFit: 'contain', display:'inline-flex'}}></Image>
+        <div className={styles.main} style={{backgroundColor: `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`}} onClick={() => onClick()}>
+            <Image alt={``} src={image} style={{objectFit: 'contain', display: 'inline-flex', width: '3vmin', height: '3vmin'}} width={30} height={30}></Image>
             <p className={styles.label} style={{color: `${textColor}`}}>{`Sign in with ${provider}`}</p>
         </div>
     );
