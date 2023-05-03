@@ -11,6 +11,8 @@
 
 .main:hover {
     cursor: pointer;
+    filter: brightness(0.85);
+    box-shadow: 0px 3px 15px -2px #090F09;
 }
 
 

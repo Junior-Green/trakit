@@ -86,6 +86,13 @@ export const authOptions: NextAuthOptions = {
             return randomUUID?.() ?? randomBytes(32).toString("hex");
         }
     },
+    callbacks: {
+        async session({session, token, user}) {
+            // Send properties to the client, like an access_token and user id from a provider.
+            session.user.id = user.id;
+            return session;
+        }
+    },
     adapter: MongoDBAdapter(clientPromise)
 };
 

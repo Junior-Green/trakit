@@ -5,10 +5,17 @@ import {footballSeasonSchema} from './football-season-schema copy';
 import {soccerSeasonSchema} from './soccer-season-schema';
 import {hockeySeasonSchema} from './hockey-season-schema';
 
-export const userSchema: mongoose.Schema = new mongoose.Schema({
-    
+export const userDataSchema: mongoose.Schema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Types.ObjectId,
+        required: [true, 'field "userId" is undefined'],
+    },
+    basketballSeasons: [basketballSeasonSchema],
+    footballSeasons: [footballSeasonSchema],
+    soccerSeasons: [soccerSeasonSchema],
+    hockeySeasons: [hockeySeasonSchema]
 });
 
-const user = mongoose.model('User', userSchema);
+const userData = mongoose.model('User', userDataSchema);
 
-export default user;
+export default userData;

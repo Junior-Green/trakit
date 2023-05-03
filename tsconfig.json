@@ -27,14 +27,17 @@
       {
         "name": "next"
       }
-    ]
+    ],
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "src/dev-server.js", "src/database/mongo-client.ts"  ],
+    ".next/types/**/*.ts",
+    "src/dev-server.js",
+    "src/database/mongo-client.ts",
+    "src/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
