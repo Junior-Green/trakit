@@ -1,0 +1,19 @@
+html {
+  background-color: rgb(32, 35, 68);
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* div {
+  background-color: rgb(45, 48, 91);
+  border-radius: 20px
+} */
+
+/* Tertiary color: rgb(140, 113, 244) */
+/* Secondary color: rgb(45, 48, 91) */
+/* Primary color rgb(32, 35, 68) */ 

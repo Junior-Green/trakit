@@ -1,0 +1,14 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%
+}
+
+.child {
+    width: 88%;
+}
+
+.sidebar {
+    width: 12%
+}
