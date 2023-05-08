@@ -2,9 +2,15 @@ import {SideBar} from '@/src/components/sidebar/sidebar';
 import {getServerSession} from 'next-auth/next';
 import {authOptions} from '../api/auth/[...nextauth]/route';
 import styles from './Layout.module.css'
+import {redirect} from 'next/navigation';
 
 export default async function HomeLayout({children}: {children: React.ReactNode;}) {
     const session = await getServerSession(authOptions);
+
+    if(!session)
+    {
+        redirect('/signin')
+    }
 
     return (
         <div className={styles.root}>
