@@ -5,6 +5,7 @@ import styles from './Sidebar.module.css';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
 import {DashBoardIcon, RecordIcon, ScoreIcon} from '../svgs';
+import {useRouter} from 'next/navigation';
 
 type SideBarProps = {
     username: string | null | undefined,
@@ -12,20 +13,21 @@ type SideBarProps = {
 };
 
 export const SideBar = ({username, profileImagePath}: SideBarProps) => {
-    const currPath: string = usePathname().substring(1);
+    const currPath: string | undefined = usePathname().split('/').pop()
+    const router = useRouter();
 
     return (
         <div className={styles.panel}>
             <Image className={styles.logo} src={'/trakit_logo.png'} alt={'logo'} width={65} height={80}></Image>
-            <div className={currPath == 'home' ? styles.containerSelected : styles.container}>
+            <div className={currPath == 'home' ? styles.containerSelected : styles.container} onClick={() => router.push('/home')}>
                 <DashBoardIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Dashboard</p>
             </div>
-            <div className={currPath == 'seasons' ? styles.containerSelected : styles.container}>
-                <ScoreIcon className={styles.containerIcon}/>
+            <div className={currPath == 'seasons' ? styles.containerSelected : styles.container} onClick={() => router.push('./home/seasons')}>
+                <ScoreIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Game History</p>
             </div>
-            <div className={currPath == 'livegame' ? styles.containerSelected : styles.container}>
+            <div className={currPath == 'livegame' ? styles.containerSelected : styles.container} onClick={() => router.push('./home/livegame')}>
                 <RecordIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Record Game</p>
             </div>

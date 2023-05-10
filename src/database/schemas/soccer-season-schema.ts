@@ -5,6 +5,6 @@ export const soccerSeasonSchema: mongoose.Schema = new mongoose.Schema({
     seasons: [soccerGameSchema]
 });
 
-const soccerSeason = mongoose.model('Soccer Season', soccerSeasonSchema);
+const SoccerSeason = mongoose.models.SoccerSeason || mongoose.model('SoccerSeason', soccerSeasonSchema);
 
-export default soccerSeason;
+export default SoccerSeason;

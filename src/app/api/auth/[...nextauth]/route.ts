@@ -92,7 +92,9 @@ export const authOptions: NextAuthOptions = {
             return session;
         }
     },
-    adapter: MongoDBAdapter(clientPromise)
+    adapter: MongoDBAdapter(clientPromise, {
+        databaseName: process.env.DATABASE_NAME
+    })
 };
 
 const handler = NextAuth(authOptions);

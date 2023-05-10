@@ -167,6 +167,6 @@ export const footballGameSchema: mongoose.Schema = new mongoose.Schema({
     kickingStats: kickingStatsSchema
 });
 
-const footballGame = mongoose.model('Football Game', footballGameSchema);
+const FootballGame = mongoose.models.FootballGame || mongoose.model('FootballGame', footballGameSchema);
 
-export default footballGame;
+export default FootballGame;

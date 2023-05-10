@@ -10,12 +10,16 @@ export const userDataSchema: mongoose.Schema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'field "userId" is undefined'],
     },
+    selectedSport: {
+        type: String, 
+        enum: ['basketball', 'football','soccer','hockey']
+    },
     basketballSeasons: [basketballSeasonSchema],
     footballSeasons: [footballSeasonSchema],
     soccerSeasons: [soccerSeasonSchema],
     hockeySeasons: [hockeySeasonSchema]
 });
 
-const userData = mongoose.model('User', userDataSchema);
+const UserData = mongoose.models.UserData || mongoose.model('UserData', userDataSchema);
 
-export default userData;
+export default UserData;

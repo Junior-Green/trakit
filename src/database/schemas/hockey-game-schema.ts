@@ -83,6 +83,6 @@ export const hockeyGameSchema: mongoose.Schema = new mongoose.Schema({
     },
 });
 
-const hockeyGame = mongoose.model('Hockey Game', hockeyGameSchema);
+const HockeyGame = mongoose.models.HockeyGame || mongoose.model('HockeyGame', hockeyGameSchema);
 
-export default hockeyGame;
+export default HockeyGame;

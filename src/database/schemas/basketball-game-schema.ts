@@ -93,6 +93,6 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
     },
 });
 
-const basketballGame = mongoose.model('Basketball Game', basketballGameSchema);
+const BasketballGame = mongoose.models.BasketballGame|| mongoose.model('BasketballGame', basketballGameSchema)
 
-export default basketballGame;
+export default BasketballGame;
