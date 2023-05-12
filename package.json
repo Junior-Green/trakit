@@ -13,6 +13,8 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
+    "classnames": "^2.3.2",
+    "css-module-class-lister": "^1.2.0",
     "dotenv": "^16.0.3",
     "eslint": "8.38.0",
     "jose": "^4.14.4",
