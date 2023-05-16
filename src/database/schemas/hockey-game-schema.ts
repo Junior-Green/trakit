@@ -1,6 +1,25 @@
-import mongoose from 'mongoose';
+import { Schema, model, Model, Document, models } from 'mongoose';
 
-export const hockeyGameSchema: mongoose.Schema = new mongoose.Schema({
+export interface IHockeyGame extends Document {
+    opponentTeam: string,
+    teamScore: number
+    opponentScore: number,
+    date: Date,
+    goals: number,
+    assists: number,
+    penaltyMinutes: number
+    powerPlayGoals: number,
+    shortHandedGoals: number,
+    overTimeGoals: number,
+    shotsTaken: number,
+    faceoffWins: number,
+    faceOffLosses: number,
+    saves: number,
+    goalsGiven: number,
+    shutOuts: number,
+}
+
+export const hockeyGameSchema: Schema = new Schema({
     opponentTeam: {
         type: String,
         required: [true, 'Opponent team cannot be undefined'],
@@ -83,6 +102,6 @@ export const hockeyGameSchema: mongoose.Schema = new mongoose.Schema({
     },
 });
 
-const HockeyGame = mongoose.models.HockeyGame || mongoose.model('HockeyGame', hockeyGameSchema);
+const HockeyGame : Model<IHockeyGame> = models.HockeyGame || model('HockeyGame', hockeyGameSchema);
 
 export default HockeyGame;

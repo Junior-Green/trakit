@@ -1,16 +1,13 @@
 'use client';
 
-import {BasketballIcon, FootballIcon, HockeyIcon, SoccerIcon} from '../svgs';
+import { BasketballIcon, FootballIcon, HockeyIcon, RightArrowIcon, SoccerIcon } from '../svgs';
 import styles from './SelectSportModal.module.css';
-import {useState} from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
-import {useEffect} from 'react';
-import {useSession} from 'next-auth/react';
+import { URL } from '@/src/utils';
 
 export const SelectSportModal = () => {
     const [index, setIndex] = useState(-1);
-    const {data: session} = useSession();
-
 
     return (
         <div className={classNames(styles.panel, styles.slidetop)}>
@@ -31,31 +28,23 @@ export const SelectSportModal = () => {
                 <HockeyIcon width={25} />
                 <p className={styles.buttonLabel}>Hockey</p>
             </div>
-            <button className={index != -1 ? styles.continueButton : styles.hidden}>{'>'}</button>
+            <button className={index != -1 ? styles.continueButton : styles.hidden} onClick={async e => {
+                e.preventDefault();
+                await updateUserData();
+            }}>
+                <RightArrowIcon width={25} />
+            </button>
         </div>
     );
 
     async function updateUserData() {
-        let selection: string;
+        const sportArr = ['soccer', 'basketball', 'football', 'hockey'] as const
 
-        if (index === 0) {
-            selection = 'soccer';
-        }
-        else if (index === 1) {
-            selection = 'basketball';
-        }
-        else if (index === 2) {
-            selection = 'football';
-        }
-        else if (index === 3) {
-            selection = 'hockey';
-        }
-        else {
-            throw new Error('index invalid');
-        }
+        const res = await fetch(`/api/users/updatesport?sport=${sportArr[index]}`, { cache: 'no-store', method: 'PUT' });
 
-        const res = await fetch(`/api/users/updatesport/${selection}`);
+        if (res.status === 200) {
 
+        }
     }
 
 };

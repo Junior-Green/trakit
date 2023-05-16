@@ -1,6 +1,27 @@
-import mongoose from 'mongoose';
+import { Schema, model, Model, Document, models } from 'mongoose';
 
-export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
+export interface IBasketBallGame extends Document {
+    opponentTeam: string
+    teamScore: number,
+    opponentScore: number,
+    date: Date,
+    minutesPlayed: number,
+    pointsScored: number,
+    fieldGoalsMade: number,
+    fieldGoalsAttempted: number,
+    threePointersMade: number,
+    threePointersAttempted: number,
+    freeThrowsMade: number,
+    freeThrowsAttempted: number,
+    offensiveRebounds: number,
+    defensiveRebounds: number,
+    turnovers: number,
+    steals: number,
+    blocks: number,
+    personalFouls: number,
+}
+
+export const basketballGameSchema: Schema = new Schema({
     opponentTeam: {
         type: String,
         required: [true, 'Opponent team cannot be undefined'],
@@ -93,6 +114,6 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
     },
 });
 
-const BasketballGame = mongoose.models.BasketballGame|| mongoose.model('BasketballGame', basketballGameSchema)
+const BasketballGame: Model<IBasketBallGame> = models.BasketballGame || model('BasketballGame', basketballGameSchema)
 
 export default BasketballGame;

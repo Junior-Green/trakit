@@ -1,29 +1,81 @@
-import mongoose from 'mongoose';
+import { Schema, model, Model, Document, models } from 'mongoose';
 
-export const kickingStatsSchema = new mongoose.Schema({
-    kickoffs : {
+export interface IKickingStats {
+    kickoffs: number,
+    touchbacks: number,
+    fieldGoalsMade: number,
+    fieldGoalsMissed: number
+}
+
+export interface IRushingStats {
+    carries: number,
+    totalRushingYards: number,
+    rushingTouchDowns: number,
+    fumbles: number
+}
+
+export interface IRecievingStats {
+    receptions: number,
+    targets: number,
+    totalRecievingYards: number,
+    receivingTouchDowns: number,
+    drops: number,
+}
+
+export interface IDefenceStats {
+    tackles: number,
+    sacks: number,
+    passesDefended: number,
+    interceptions: number,
+    hurries: number,
+    safeties: number
+}
+
+export interface IPassingStats {
+    passesMade: number,
+    passesMissed: number,
+    passingTouchDowns: number,
+    interceptions: number,
+    totalPassingYards: number
+}
+
+export interface IFootballGame extends Document {
+    opponentTeam: string,
+    teamScore: number,
+    opponentScore: number,
+    date: Date,
+    passingStats: IPassingStats,
+    rushingStats: IRushingStats,
+    receivingStats: IRecievingStats,
+    defenceStats: IDefenceStats,
+    kickingStats: IKickingStats
+}
+
+
+export const kickingStatsSchema = new Schema({
+    kickoffs: {
         type: Number,
         default: 0,
         min: 0
     },
-    touchbacks : {
+    touchbacks: {
         type: Number,
         default: 0,
         min: 0
     },
-    fieldGoalsMade : {
+    fieldGoalsMade: {
         type: Number,
         default: 0,
         min: 0
     },
-    fieldGoalsMissed : {
+    fieldGoalsMissed: {
         type: Number,
         default: 0,
         min: 0
     }
 });
 
-export const rushingStatsSchema = new mongoose.Schema({
+export const rushingStatsSchema = new Schema({
     carries: {
         type: Number,
         default: 0,
@@ -46,7 +98,7 @@ export const rushingStatsSchema = new mongoose.Schema({
     }
 });
 
-export const receivingStatsSchema = new mongoose.Schema({
+export const receivingStatsSchema = new Schema({
     receptions: {
         type: Number,
         default: 0,
@@ -74,7 +126,7 @@ export const receivingStatsSchema = new mongoose.Schema({
     },
 });
 
-export const defenceStatsSchema = new mongoose.Schema({
+export const defenceStatsSchema = new Schema({
     tackles: {
         type: Number,
         default: 0,
@@ -107,7 +159,7 @@ export const defenceStatsSchema = new mongoose.Schema({
     }
 });
 
-export const passingStatsSchema = new mongoose.Schema({
+export const passingStatsSchema = new Schema({
     passesMade: {
         type: Number,
         default: 0,
@@ -135,7 +187,7 @@ export const passingStatsSchema = new mongoose.Schema({
     }
 });
 
-export const footballGameSchema: mongoose.Schema = new mongoose.Schema({
+export const footballGameSchema: Schema = new Schema({
     opponentTeam: {
         type: String,
         required: [true, 'Opponent team cannot be undefined'],
@@ -167,6 +219,6 @@ export const footballGameSchema: mongoose.Schema = new mongoose.Schema({
     kickingStats: kickingStatsSchema
 });
 
-const FootballGame = mongoose.models.FootballGame || mongoose.model('FootballGame', footballGameSchema);
+const FootballGame: Model<IFootballGame> = models.FootballGame || model('FootballGame', footballGameSchema);
 
 export default FootballGame;
