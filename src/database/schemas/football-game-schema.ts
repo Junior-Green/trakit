@@ -35,7 +35,7 @@ export interface IPassingStats {
     passesMade: number,
     passesMissed: number,
     passingTouchDowns: number,
-    interceptions: number,
+    interceptedPasses: number,
     totalPassingYards: number
 }
 
@@ -175,7 +175,7 @@ export const passingStatsSchema = new Schema({
         default: 0,
         min: 0
     },
-    interceptions: {
+    interceptedPasses: {
         type: Number,
         default: 0,
         min: 0

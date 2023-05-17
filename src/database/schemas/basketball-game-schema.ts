@@ -8,11 +8,11 @@ export interface IBasketBallGame extends Document {
     minutesPlayed: number,
     pointsScored: number,
     fieldGoalsMade: number,
-    fieldGoalsAttempted: number,
+    fieldGoalsMissed: number,
     threePointersMade: number,
-    threePointersAttempted: number,
+    threePointersMissed: number,
     freeThrowsMade: number,
-    freeThrowsAttempted: number,
+    freeThrowsMissed: number,
     offensiveRebounds: number,
     defensiveRebounds: number,
     turnovers: number,
@@ -57,7 +57,7 @@ export const basketballGameSchema: Schema = new Schema({
         default: 0,
         min: 0
     },
-    fieldGoalsAttempted: {
+    fieldGoalsMissed: {
         type: Number,
         default: 0,
         min: 0
@@ -67,7 +67,7 @@ export const basketballGameSchema: Schema = new Schema({
         default: 0,
         min: 0
     },
-    threePointersAttempted: {
+    threePointersMissed: {
         type: Number,
         default: 0,
         min: 0
@@ -77,7 +77,7 @@ export const basketballGameSchema: Schema = new Schema({
         default: 0,
         min: 0
     },
-    freeThrowsAttempted: {
+    freeThrowsMissed: {
         type: Number,
         default: 0,
         min: 0
