@@ -1,11 +1,10 @@
 .panel {
     width: 300px;
-    height: 425px;
     display: flex;
     flex-direction: column;
     background-color: rgb(45, 48, 91);
     border-radius: 20px;
-    padding: 3% 5%;
+    padding: 3% 4%;
     box-shadow: 0px 0px 12px -2px #090F09;
 }
 
@@ -33,7 +32,7 @@
     justify-content: left;
     border-radius: 10px;
     height: 45px;
-    width: 75%;
+    width: 90%;
     cursor: pointer;
     transition: background .2s ease-in;
 }
@@ -115,6 +114,11 @@
     font-weight: 700;
 }
 
+.circularLoader {
+    margin-top: 20px;
+    align-self: center;
+}
+
 .continueButton:hover {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     filter: brightness(0.90);
@@ -123,6 +127,10 @@
 .slidetop {
     -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.alert {
+    margin: 30px
 }
 
 /* ----------------------------------------------

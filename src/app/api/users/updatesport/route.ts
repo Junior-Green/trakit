@@ -8,7 +8,7 @@ import { ObjectId } from "mongodb";
 export async function PUT(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const { searchParams } = new URL(req.url);
-    console.log(searchParams.toString());
+    
     if (!session) {
         return new NextResponse(null, {
             status: 403,
