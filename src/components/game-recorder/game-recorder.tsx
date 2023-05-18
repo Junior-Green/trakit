@@ -1,6 +1,9 @@
 'use client'
 
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import styles from './GameRecorder.module.css'
+import { StatTracker } from "../stat-tracker/stat-tracker";
+import { StopWatch } from "../stopwatch/stopwatch";
 
 type GameRecorderProps = {
     sport: 'soccer' | 'basketball' | 'hockey' | 'football'
@@ -28,7 +31,7 @@ const soccerInitState = {
     foulsCommitted: 0,
     redCards: 0,
     yellowCards: 0,
-    offSides: 0,
+    offsides: 0,
     shotsOffTarget: 0,
     shotsOnTarget: 0,
     tackles: 0,
@@ -52,7 +55,7 @@ const hockeyInitState = {
     faceOffLosses: 0,
     saves: 0,
     goalsGiven: 0,
-    shutOuts: 0,
+    shutouts: 0,
 } as const
 
 const footballInitState = {
@@ -181,7 +184,7 @@ function soccerReducer(state: any, action: { type: string, payload: 'increment' 
                 yellowCards: action.payload == 'increment' ? state.yellowCards + 1 : state.yellowCards - 1,
                 ...state
             };
-        case 'offSides':
+        case 'offsides':
             return {
                 offSides: action.payload == 'increment' ? state.offSides + 1 : state.offSides - 1,
                 ...state
@@ -432,7 +435,7 @@ function hockeyReducer(state: any, action: { type: string, payload: 'increment' 
 
 export const GameRecorder = ({ sport }: GameRecorderProps) => {
     let reducer: (state: any, action: { type: string, payload: 'increment' | 'decrement' }) => any;
-    let initialState: any;
+    let initialState;
 
     switch (sport) {
         case 'basketball':
@@ -442,24 +445,59 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
         case 'soccer':
             reducer = soccerReducer
             initialState = soccerInitState
+
             break;
         case 'hockey':
             reducer = hockeyReducer
             initialState = hockeyInitState
+            Object.keys(initialState)
             break;
         case 'football':
             reducer = footballReducer
             initialState = footballInitState
             break;
         default:
-            throw new Error('Error initializing reducer function')
+            throw new Error('Error initializing useReducer dependencies')
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [teamScore, setTeamScore] = useState(0)
+    const [opponentScore, setOpponentScore] = useState(0)
+    const [time, setTime] = useState(0);
 
     return (
         <>
-
+            <div className={styles.scoreboard}>
+                <div className={styles.score}>
+                    <h2 className={styles.teamLabel}>Team</h2>
+                    <h1 className={styles.scoreLabel}>{String(teamScore).padStart(3,'0')}</h1>
+                    <div className={styles.buttons}>
+                        <button className={styles.increment} onClick={() => setTeamScore(teamScore + 1)}>+</button>
+                        <button className={styles.decrement} onClick={() => setTeamScore(Math.max(0, teamScore - 1))}>-</button>
+                    </div>
+                </div>
+                <StopWatch time={0} setTime={(newVal: number) => { setTime(newVal) }} />
+                <div className={styles.score}>
+                    <h2 className={styles.teamLabel}>Opponent</h2>
+                    <h1 className={styles.scoreLabel}>{String(opponentScore).padStart(3,'0')}</h1>
+                    <div className={styles.buttons}>
+                        <button className={styles.increment} onClick={() => setOpponentScore(opponentScore + 1)}>+</button>
+                        <button className={styles.decrement} onClick={() => setOpponentScore(Math.max(0, opponentScore - 1))}>-</button>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.trackerContainer}>
+                {
+                    Object.keys(initialState).map(
+                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />
+                    )
+                }
+            </div>
         </>
     )
+}
+
+function camelCaseToTitleCase(str: string): string {
+    const result = str.replace(/([A-Z])/g, " $1");
+    return result.charAt(0).toUpperCase() + result.slice(1);
 }

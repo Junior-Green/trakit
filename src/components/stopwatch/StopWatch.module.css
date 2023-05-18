@@ -1,0 +1,24 @@
+.main {
+    height: 200px;
+    width: 33%;
+    border: solid;
+    border-radius: 20px;
+    border-width: 6px;
+    border-color: rgb(116, 121, 177);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.digits {
+    font-size: 7rem;
+    font-weight: 300;
+}
+
+.label {
+    margin: 0;
+    font-size: 1.5rem;
+    color: rgb(140, 113, 244);
+
+}

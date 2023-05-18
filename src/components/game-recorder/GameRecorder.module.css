@@ -1,0 +1,59 @@
+.scoreboard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 100%
+}
+
+.trackerContainer {
+    display: grid;
+    gap: 50px 50px;
+    align-items: center;
+    justify-content: start;
+}
+
+.score {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 3%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.scoreLabel {
+    font-size: 12rem;
+    margin: 0;
+}
+
+.teamLabel {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: rgb(140, 113, 244)
+}
+
+.decrement,
+.increment {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: none;
+    font-size: 2em;
+}
+
+.decrement {
+    background-color: rgb(116, 121, 177);
+}
+
+.increment {
+    background-color: rgb(116, 121, 177);
+}
