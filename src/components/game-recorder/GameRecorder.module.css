@@ -3,16 +3,23 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: auto;
-    width: 100%
+    height: 40%;
+    width: 100%;
+    position: sticky;
+    top: 0
 }
 
 .trackerContainer {
     display: grid;
+    width: 100%;
+    height: 60%;
     gap: 50px 50px;
     align-items: center;
     justify-content: start;
+    padding-left: 50px;
+    padding-top: 50px;
 }
+
 
 .score {
     display: flex;
@@ -23,6 +30,7 @@
     margin: 10px 3%;
 }
 
+
 .buttons {
     display: flex;
     justify-content: space-evenly;
@@ -30,15 +38,15 @@
 }
 
 .scoreLabel {
-    font-size: 12rem;
+    font-size: 13vmax;
     margin: 0;
 }
 
 .teamLabel {
     margin: 0;
     font-weight: 700;
-    font-size: 1.5rem;
-    color: rgb(140, 113, 244)
+    font-size: 1.5vmax;
+    color: rgb(140, 113, 244);
 }
 
 .decrement,
@@ -48,12 +56,42 @@
     border-radius: 100%;
     border: none;
     font-size: 2em;
-}
-
-.decrement {
     background-color: rgb(116, 121, 177);
 }
 
-.increment {
-    background-color: rgb(116, 121, 177);
+.decrement:hover,
+.increment:hover {
+    cursor: pointer;
+    filter: brightness(0.95);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.midSection {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.spacer {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.endSessionButton {
+    background-color: red;
+    border: none;
+    height: 30px;
+    width: 100px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.endSessionButton:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }

@@ -9,6 +9,7 @@ export const StatTracker = ({label, dispatcher} : StatTrackerProps) => {
 
     return (
         <>
+       {label}
         </>
     )
 }

@@ -20,22 +20,5 @@ export const metadata = {
 }
 
 export default async function Dashboard() {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-        redirect('/signin');
-    }
-    const user = await UserData.findOne({ userId: new ObjectId(session.user.id) }).exec();
-    if(!user){
-        throw new Error('User not found')
-    }
-    if(!user.selectedSport){
-        throw new Error('User sport not selected')
-    }
-
-
-    return (
-        <>
-            <GameRecorder sport={user.selectedSport}/>
-        </>
-    );
+    
 }

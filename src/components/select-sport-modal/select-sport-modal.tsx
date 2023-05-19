@@ -5,8 +5,6 @@ import styles from './SelectSportModal.module.css';
 import { useState } from 'react';
 import classNames from 'classnames';
 import { Alert, CircularProgress, createTheme, ThemeProvider } from '@mui/material';
-import Router from 'next/router';
-import { redirect } from 'next/navigation';
 import { URL } from '@/src/utils';
 
 const theme = createTheme({

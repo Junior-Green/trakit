@@ -1,6 +1,7 @@
 .main {
-    height: 200px;
-    width: 33%;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border: solid;
     border-radius: 20px;
     border-width: 6px;
@@ -12,13 +13,55 @@
 }
 
 .digits {
-    font-size: 7rem;
+    font-size: 5.8vmax;
     font-weight: 300;
+    width: 60%;
+    text-align: center;
 }
 
 .label {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.5vmax;
     color: rgb(140, 113, 244);
+}
 
+.controlButton,
+.spacer {
+    width: 20%;
+}
+
+.displayContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.buttonContainer {
+    width: 20%;
+}
+
+.button {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: none;
+    font-size: 2em;
+    background-color: rgb(116, 121, 177);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:hover {
+    cursor: pointer;
+    filter: brightness(0.95);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.buttonIcon {
+    fill: white;
+    width: 60%;
+    height: auto;
 }

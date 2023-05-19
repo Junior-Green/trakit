@@ -2,15 +2,20 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 100%
+    width: 100%;
+    overflow: hidden;
 }
 
 .child {
     width: 85%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .sidebar {
-    width: 15%
+    width: 15%;
+    height: 100%;
 }
 
 .overlay {

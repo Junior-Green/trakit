@@ -464,22 +464,29 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
     const [teamScore, setTeamScore] = useState(0)
     const [opponentScore, setOpponentScore] = useState(0)
     const [time, setTime] = useState(0);
+    const [isLoading, setLoading] = useState(false);
 
     return (
         <>
             <div className={styles.scoreboard}>
                 <div className={styles.score}>
                     <h2 className={styles.teamLabel}>Team</h2>
-                    <h1 className={styles.scoreLabel}>{String(teamScore).padStart(3,'0')}</h1>
+                    <h1 className={styles.scoreLabel}>{String(teamScore).padStart(3, '0')}</h1>
                     <div className={styles.buttons}>
                         <button className={styles.increment} onClick={() => setTeamScore(teamScore + 1)}>+</button>
                         <button className={styles.decrement} onClick={() => setTeamScore(Math.max(0, teamScore - 1))}>-</button>
                     </div>
                 </div>
-                <StopWatch time={0} setTime={(newVal: number) => { setTime(newVal) }} />
+                <div className={styles.midSection}>
+                    <div className={styles.spacer} />
+                    <StopWatch time={time} setTime={setTime} />
+                    <div className={styles.spacer}>
+                        <button className={styles.endSessionButton}>End Game</button>
+                    </div>
+                </div>
                 <div className={styles.score}>
                     <h2 className={styles.teamLabel}>Opponent</h2>
-                    <h1 className={styles.scoreLabel}>{String(opponentScore).padStart(3,'0')}</h1>
+                    <h1 className={styles.scoreLabel}>{String(opponentScore).padStart(3, '0')}</h1>
                     <div className={styles.buttons}>
                         <button className={styles.increment} onClick={() => setOpponentScore(opponentScore + 1)}>+</button>
                         <button className={styles.decrement} onClick={() => setOpponentScore(Math.max(0, opponentScore - 1))}>-</button>
