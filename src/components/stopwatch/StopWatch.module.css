@@ -5,7 +5,8 @@
     border: solid;
     border-radius: 20px;
     border-width: 6px;
-    border-color: rgb(116, 121, 177);
+    border: none;
+    background-color: rgb(45, 48, 91);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +23,7 @@
 .label {
     margin: 0;
     font-size: 1.5vmax;
-    color: rgb(140, 113, 244);
+    color: rgb(116, 121, 177);
 }
 
 .controlButton,
@@ -45,10 +46,10 @@
 .button {
     width: 40px;
     height: 40px;
-    border-radius: 100%;
+    border-radius: 10px;
     border: none;
     font-size: 2em;
-    background-color: rgb(116, 121, 177);
+    background-color: rgb(140, 113, 244);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -4,10 +4,21 @@ import { useReducer, useState } from "react";
 import styles from './GameRecorder.module.css'
 import { StatTracker } from "../stat-tracker/stat-tracker";
 import { StopWatch } from "../stopwatch/stopwatch";
+import { ThemeProvider } from "@emotion/react";
+import { Alert, CircularProgress, createTheme } from "@mui/material";
+import { redirect } from "next/navigation";
 
 type GameRecorderProps = {
     sport: 'soccer' | 'basketball' | 'hockey' | 'football'
 }
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#8C71F4',
+        },
+    },
+});
 
 const basketballIinitState = {
     pointsScored: 0,
@@ -89,68 +100,70 @@ function basektballReducer(state: any, action: { type: string, payload: 'increme
     switch (action.type) {
         case 'pointsScored':
             return {
-                pointsScored: action.payload == 'increment' ? state.pointsScored + 1 : state.pointsScored - 1,
-                ...state
+                ...state,
+                pointsScored: action.payload === 'increment' ? state.pointsScored + 1 : Math.max(0, state.pointsScored - 1),
             };
         case 'fieldGoalsMade':
             return {
-                fieldGoalsMade: action.payload == 'increment' ? state.fieldGoalsMade + 1 : state.fieldGoalsMade - 1,
-                ...state
+                ...state,
+                fieldGoalsMade: action.payload === 'increment' ? state.fieldGoalsMade + 1 : Math.max(0, state.fieldGoalsMade - 1),
+
             };
         case 'fieldGoalsMissed':
             return {
-                fieldGoalsMissed: action.payload == 'increment' ? state.fieldGoalsMissed + 1 : state.fieldGoalsMissed - 1,
-                ...state
+                ...state,
+                fieldGoalsMissed: action.payload === 'increment' ? state.fieldGoalsMissed + 1 : Math.max(0, state.fieldGoalsMissed - 1),
+
             };
         case 'threePointersMade':
             return {
-                threePointersMade: action.payload == 'increment' ? state.threePointersMade + 1 : state.threePointersMade - 1,
-                ...state
+                ...state,
+                threePointersMade: action.payload === 'increment' ? state.threePointersMade + 1 : Math.max(0, state.threePointersMade - 1),
             };
         case 'threePointersMissed':
             return {
-                threePointersMissed: action.payload == 'increment' ? state.threePointersMissed + 1 : state.threePointersMissed - 1,
-                ...state
+                ...state,
+                threePointersMissed: action.payload === 'increment' ? state.threePointersMissed + 1 : Math.max(0, state.threePointersMissed - 1),
             };
         case 'freeThrowsMade':
             return {
-                freeThrowsMade: action.payload == 'increment' ? state.freeThrowsMade + 1 : state.freeThrowsMade - 1,
-                ...state
+                ...state,
+                freeThrowsMade: action.payload === 'increment' ? state.freeThrowsMade + 1 : Math.max(0, state.freeThrowsMade - 1),
             };
         case 'freeThrowsMissed':
             return {
-                freeThrowsMissed: action.payload == 'increment' ? state.freeThrowsMissed + 1 : state.freeThrowsMissed - 1,
-                ...state
+                ...state,
+                freeThrowsMissed: action.payload === 'increment' ? state.freeThrowsMissed + 1 : Math.max(0, state.freeThrowsMissed - 1),
             };
         case 'offensiveRebounds':
             return {
-                offensiveRebound: action.payload == 'increment' ? state.offensiveRebounds + 1 : state.offensiveRebounds - 1,
-                ...state
+                ...state,
+                offensiveRebound: action.payload === 'increment' ? state.offensiveRebounds + 1 : Math.max(0, state.offensiveRebounds - 1),
             };
         case 'defensiveRebounds':
             return {
-                defensiveRebounds: action.payload == 'increment' ? state.defensiveRebounds + 1 : state.defensiveRebounds - 1,
-                ...state
+                ...state,
+                defensiveRebounds: action.payload === 'increment' ? state.defensiveRebounds + 1 : Math.max(0, state.defensiveRebounds - 1),
             };
         case 'turnovers':
             return {
-                turnovers: action.payload == 'increment' ? state.turnovers + 1 : state.turnovers - 1,
-                ...state
+                ...state,
+                turnovers: action.payload === 'increment' ? state.turnovers + 1 : Math.max(0, state.turnovers - 1),
             };
         case 'steals':
             return {
-                steals: action.payload == 'increment' ? state.steals + 1 : state.steals - 1,
-                ...state
+                ...state,
+                steals: action.payload === 'increment' ? state.steals + 1 : Math.max(0, state.steals - 1),
             };
         case 'blocks':
             return {
-                blocks: action.payload == 'increment' ? state.blocks + 1 : state.blocks - 1,
-                ...state
+                ...state,
+                blocks: action.payload === 'increment' ? state.blocks + 1 : Math.max(0, state.blocks - 1),
             };
         case 'personalFouls':
             return {
-                personalFouls: action.payload == 'increment' ? state.personalFouls + 1 : state.personalFouls - 1,
-                ...state
+                ...state,
+                personalFouls: action.payload === 'increment' ? state.personalFouls + 1 : Math.max(0, state.personalFouls - 1),
             };
         default:
             throw new Error('Invalid reducer invocation');
@@ -161,78 +174,78 @@ function soccerReducer(state: any, action: { type: string, payload: 'increment' 
     switch (action.type) {
         case 'goals':
             return {
-                goals: action.payload == 'increment' ? state.goals + 1 : state.goals - 1,
-                ...state
+                ...state,
+                goals: action.payload === 'increment' ? state.goals + 1 : Math.max(0, state.goals - 1),
             };
         case 'assists':
             return {
-                assists: action.payload == 'increment' ? state.assists + 1 : state.assists - 1,
-                ...state
+                ...state,
+                assists: action.payload === 'increment' ? state.assists + 1 : Math.max(0, state.assists - 1),
             };
         case 'foulsCommitted':
             return {
-                foulsCommitted: action.payload == 'increment' ? state.foulsCommitted + 1 : state.foulsCommitted - 1,
-                ...state
+                ...state,
+                foulsCommitted: action.payload === 'increment' ? state.foulsCommitted + 1 : Math.max(0, state.foulsCommitted - 1),
             };
         case 'redCards':
             return {
-                redCards: action.payload == 'increment' ? state.redCards + 1 : state.redCards - 1,
-                ...state
+                ...state,
+                redCards: action.payload === 'increment' ? state.redCards + 1 : Math.max(0, state.redCards - 1),
             };
         case 'yellowCards':
             return {
-                yellowCards: action.payload == 'increment' ? state.yellowCards + 1 : state.yellowCards - 1,
-                ...state
+                ...state,
+                yellowCards: action.payload === 'increment' ? state.yellowCards + 1 : Math.max(0, state.yellowCards - 1),
             };
         case 'offsides':
             return {
-                offSides: action.payload == 'increment' ? state.offSides + 1 : state.offSides - 1,
-                ...state
+                ...state,
+                offSides: action.payload === 'increment' ? state.offSides + 1 : Math.max(0, state.offSides - 1),
             };
         case 'shotsOffTarget':
             return {
-                shotsOffTarget: action.payload == 'increment' ? state.shotsOffTarget + 1 : state.shotsOffTarget - 1,
-                ...state
+                ...state,
+                shotsOffTarget: action.payload === 'increment' ? state.shotsOffTarget + 1 : Math.max(0, state.shotsOffTarget - 1),
             };
         case 'shotsOnTarget':
             return {
-                shotsOnTarget: action.payload == 'increment' ? state.shotsOnTarget + 1 : state.shotsOnTarget - 1,
-                ...state
+                ...state,
+                shotsOnTarget: action.payload === 'increment' ? state.shotsOnTarget + 1 : Math.max(0, state.shotsOnTarget - 1),
             };
         case 'tackles':
             return {
-                tackles: action.payload == 'increment' ? state.tackles + 1 : state.tackles - 1,
-                ...state
+                ...state,
+                tackles: action.payload === 'increment' ? state.tackles + 1 : Math.max(0, state.tackles - 1),
             };
         case 'blocks':
             return {
-                blocks: action.payload == 'increment' ? state.blocks + 1 : state.blocks - 1,
-                ...state
+                ...state,
+                blocks: action.payload === 'increment' ? state.blocks + 1 : Math.max(0, state.blocks - 1),
             };
         case 'interceptions':
             return {
-                interceptions: action.payload == 'increment' ? state.interceptions + 1 : state.interceptions - 1,
-                ...state
+                ...state,
+                interceptions: action.payload === 'increment' ? state.interceptions + 1 : Math.max(0, state.interceptions - 1),
             };
         case 'clearances':
             return {
-                clearances: action.payload == 'increment' ? state.clearances + 1 : state.clearances - 1,
-                ...state
+                ...state,
+                clearances: action.payload === 'increment' ? state.clearances + 1 : Math.max(0, state.clearances - 1),
             };
         case 'turnovers':
             return {
-                turnovers: action.payload == 'increment' ? state.turnovers + 1 : state.turnovers - 1,
-                ...state
+                ...state,
+                turnovers: action.payload === 'increment' ? state.turnovers + 1 : Math.max(0, state.turnovers - 1),
             };
         case 'saves':
             return {
-                saves: action.payload == 'increment' ? state.saves + 1 : state.saves - 1,
-                ...state
+                ...state,
+                saves: action.payload === 'increment' ? state.saves + 1 : Math.max(0, state.saves - 1),
             };
         case 'goalsGiven':
             return {
-                goalsGiven: action.payload == 'increment' ? state.goalsGiven + 1 : state.goalsGiven - 1,
-                ...state
+                ...state,
+                goalsGiven: action.payload === 'increment' ? state.goalsGiven + 1 : Math.max(0, state.goalsGiven - 1),
             };
         default:
             throw new Error('Invalid reducer invocation');
@@ -243,123 +256,123 @@ function footballReducer(state: any, action: { type: string, payload: 'increment
     switch (action.type) {
         case 'kickoffs':
             return {
-                kickoffs: action.payload == 'increment' ? state.kickoffs + 1 : state.kickoffs - 1,
-                ...state
+                ...state,
+                kickoffs: action.payload === 'increment' ? state.kickoffs + 1 : Math.max(0, state.kickoffs - 1),
             };
         case 'touchbacks':
             return {
-                touchbacks: action.payload == 'increment' ? state.touchbacks + 1 : state.touchbacks - 1,
-                ...state
+                ...state,
+                touchbacks: action.payload === 'increment' ? state.touchbacks + 1 : Math.max(0, state.touchbacks - 1),
             };
         case 'fieldGoalsMade':
             return {
-                fieldGoalsMade: action.payload == 'increment' ? state.fieldGoalsMade + 1 : state.fieldGoalsMade - 1,
-                ...state
+                ...state,
+                fieldGoalsMade: action.payload === 'increment' ? state.fieldGoalsMade + 1 : Math.max(0, state.fieldGoalsMade - 1),
             };
         case 'fieldGoalsMissed':
             return {
-                fieldGoalsMissed: action.payload == 'increment' ? state.fieldGoalsMissed + 1 : state.fieldGoalsMissed - 1,
-                ...state
+                ...state,
+                fieldGoalsMissed: action.payload === 'increment' ? state.fieldGoalsMissed + 1 : Math.max(0, state.fieldGoalsMissed - 1),
             };
         case 'carries':
             return {
-                carries: action.payload == 'increment' ? state.carries + 1 : state.carries - 1,
-                ...state
+                ...state,
+                carries: action.payload === 'increment' ? state.carries + 1 : Math.max(0, state.carries - 1),
             };
         case 'totalRushingYards':
             return {
-                totalRushingYards: action.payload == 'increment' ? state.totalRushingYards + 1 : state.totalRushingYards - 1,
-                ...state
+                ...state,
+                totalRushingYards: action.payload === 'increment' ? state.totalRushingYards + 1 : Math.max(0, state.totalRushingYards - 1),
             };
         case 'rushingTouchDowns':
             return {
-                rushingTouchDowns: action.payload == 'increment' ? state.rushingTouchDowns + 1 : state.rushingTouchDowns - 1,
-                ...state
+                ...state,
+                rushingTouchDowns: action.payload === 'increment' ? state.rushingTouchDowns + 1 : Math.max(0, state.rushingTouchDowns - 1),
             };
         case 'fumbles':
             return {
-                fumbles: action.payload == 'increment' ? state.fumbles + 1 : state.fumbles - 1,
-                ...state
+                ...state,
+                fumbles: action.payload === 'increment' ? state.fumbles + 1 : Math.max(0, state.fumbles - 1),
             };
         case 'receptions':
             return {
-                receptions: action.payload == 'increment' ? state.receptions + 1 : state.receptions - 1,
-                ...state
+                ...state,
+                receptions: action.payload === 'increment' ? state.receptions + 1 : Math.max(0, state.receptions - 1),
             };
         case 'targets':
             return {
-                targets: action.payload == 'increment' ? state.targets + 1 : state.targets - 1,
-                ...state
+                ...state,
+                targets: action.payload === 'increment' ? state.targets + 1 : Math.max(0, state.targets - 1),
             };
         case 'totalRecievingYards':
             return {
-                totalRecievingYards: action.payload == 'increment' ? state.totalRecievingYards + 1 : state.totalRecievingYards - 1,
-                ...state
+                ...state,
+                totalRecievingYards: action.payload === 'increment' ? state.totalRecievingYards + 1 : Math.max(0, state.totalRecievingYards - 1),
             };
         case 'receivingTouchDowns':
             return {
-                receivingTouchDowns: action.payload == 'increment' ? state.receivingTouchDowns + 1 : state.receivingTouchDowns - 1,
-                ...state
+                ...state,
+                receivingTouchDowns: action.payload === 'increment' ? state.receivingTouchDowns + 1 : Math.max(0, state.receivingTouchDowns - 1),
             };
         case 'drops':
             return {
-                drops: action.payload == 'increment' ? state.drops + 1 : state.drops - 1,
-                ...state
+                ...state,
+                drops: action.payload === 'increment' ? state.drops + 1 : Math.max(0, state.drops - 1),
             };
         case 'tackles':
             return {
-                tackles: action.payload == 'increment' ? state.tackles + 1 : state.tackles - 1,
-                ...state
+                ...state,
+                tackles: action.payload === 'increment' ? state.tackles + 1 : Math.max(0, state.tackles - 1),
             };
         case 'sacks':
             return {
-                sacks: action.payload == 'increment' ? state.sacks + 1 : state.sacks - 1,
-                ...state
+                ...state,
+                sacks: action.payload === 'increment' ? state.sacks + 1 : Math.max(0, state.sacks - 1),
             };
         case 'passesDefended':
             return {
-                passesDefended: action.payload == 'increment' ? state.passesDefended + 1 : state.passesDefended - 1,
-                ...state
+                ...state,
+                passesDefended: action.payload === 'increment' ? state.passesDefended + 1 : Math.max(0, state.passesDefended - 1),
             };
         case 'interceptions':
             return {
-                interceptions: action.payload == 'increment' ? state.interceptions + 1 : state.interceptions - 1,
-                ...state
+                ...state,
+                interceptions: action.payload === 'increment' ? state.interceptions + 1 : Math.max(0, state.interceptions - 1),
             };
         case 'hurries':
             return {
-                hurries: action.payload == 'increment' ? state.hurries + 1 : state.hurries - 1,
-                ...state
+                ...state,
+                hurries: action.payload === 'increment' ? state.hurries + 1 : Math.max(0, state.hurries - 1),
             };
         case 'safeties':
             return {
-                safeties: action.payload == 'increment' ? state.safeties + 1 : state.safeties - 1,
-                ...state
+                ...state,
+                safeties: action.payload === 'increment' ? state.safeties + 1 : Math.max(0, state.safeties - 1),
             };
         case 'passesMade':
             return {
-                passesMade: action.payload == 'increment' ? state.passesMade + 1 : state.passesMade - 1,
-                ...state
+                ...state,
+                passesMade: action.payload === 'increment' ? state.passesMade + 1 : Math.max(0, state.passesMade - 1),
             };
         case 'passesMissed':
             return {
-                passesMissed: action.payload == 'increment' ? state.passesMissed + 1 : state.passesMissed - 1,
-                ...state
+                ...state,
+                passesMissed: action.payload === 'increment' ? state.passesMissed + 1 : Math.max(0, state.passesMissed - 1),
             };
         case 'passingTouchDowns':
             return {
-                passingTouchDowns: action.payload == 'increment' ? state.passingTouchDowns + 1 : state.passingTouchDowns - 1,
-                ...state
+                ...state,
+                passingTouchDowns: action.payload === 'increment' ? state.passingTouchDowns + 1 : Math.max(0, state.passingTouchDowns - 1),
             };
         case 'interceptedPasses':
             return {
-                interceptedPasses: action.payload == 'increment' ? state.interceptedPasses + 1 : state.interceptedPasses - 1,
-                ...state
+                ...state,
+                interceptedPasses: action.payload === 'increment' ? state.interceptedPasses + 1 : Math.max(0, state.interceptedPasses - 1),
             };
         case 'totalPassingYards':
             return {
-                totalPassingYards: action.payload == 'increment' ? state.totalPassingYards + 1 : state.totalPassingYards - 1,
-                ...state
+                ...state,
+                totalPassingYards: action.payload === 'increment' ? state.totalPassingYards + 1 : Math.max(0, state.totalPassingYards - 1),
             };
         default:
             throw new Error('Invalid reducer invocation');
@@ -370,62 +383,62 @@ function hockeyReducer(state: any, action: { type: string, payload: 'increment' 
     switch (action.type) {
         case 'goals':
             return {
-                goals: action.payload == 'increment' ? state.goals + 1 : state.goals - 1,
+                goals: action.payload === 'increment' ? state.goals + 1 : Math.max(0, state.goals - 1),
                 ...state
             };
         case 'assists':
             return {
-                assists: action.payload == 'increment' ? state.assists + 1 : state.assists - 1,
+                assists: action.payload === 'increment' ? state.assists + 1 : Math.max(0, state.assists - 1),
                 ...state
             };
         case 'penaltyMinutes':
             return {
-                penaltyMinutes: action.payload == 'increment' ? state.penaltyMinutes + 1 : state.penaltyMinutes - 1,
+                penaltyMinutes: action.payload === 'increment' ? state.penaltyMinutes + 1 : Math.max(0, state.penaltyMinutes - 1),
                 ...state
             };
         case 'powerPlayGoals':
             return {
-                powerPlayGoals: action.payload == 'increment' ? state.powerPlayGoals + 1 : state.powerPlayGoals - 1,
+                powerPlayGoals: action.payload === 'increment' ? state.powerPlayGoals + 1 : Math.max(0, state.powerPlayGoals - 1),
                 ...state
             };
         case 'shortHandedGoals':
             return {
-                shortHandedGoals: action.payload == 'increment' ? state.shortHandedGoals + 1 : state.shortHandedGoals - 1,
+                shortHandedGoals: action.payload === 'increment' ? state.shortHandedGoals + 1 : Math.max(0, state.shortHandedGoals - 1),
                 ...state
             };
         case 'overTimeGoals':
             return {
-                overTimeGoals: action.payload == 'increment' ? state.overTimeGoals + 1 : state.overTimeGoals - 1,
+                overTimeGoals: action.payload === 'increment' ? state.overTimeGoals + 1 : Math.max(0, state.overTimeGoals - 1),
                 ...state
             };
         case 'shotsTaken':
             return {
-                shotsTaken: action.payload == 'increment' ? state.shotsTaken + 1 : state.shotsTaken - 1,
+                shotsTaken: action.payload === 'increment' ? state.shotsTaken + 1 : Math.max(0, state.shotsTaken - 1),
                 ...state
             };
         case 'faceoffWins':
             return {
-                faceoffWins: action.payload == 'increment' ? state.faceoffWins + 1 : state.faceoffWins - 1,
+                faceoffWins: action.payload === 'increment' ? state.faceoffWins + 1 : Math.max(0, state.faceoffWins - 1),
                 ...state
             };
         case 'faceOffLosses':
             return {
-                faceOffLosses: action.payload == 'increment' ? state.faceOffLosses + 1 : state.faceOffLosses - 1,
+                faceOffLosses: action.payload === 'increment' ? state.faceOffLosses + 1 : Math.max(0, state.faceOffLosses - 1),
                 ...state
             };
         case 'saves':
             return {
-                saves: action.payload == 'increment' ? state.saves + 1 : state.saves - 1,
+                saves: action.payload === 'increment' ? state.saves + 1 : Math.max(0, state.saves - 1),
                 ...state
             };
         case 'goalsGiven':
             return {
-                goalsGiven: action.payload == 'increment' ? state.goalsGiven + 1 : state.goalsGiven - 1,
+                goalsGiven: action.payload === 'increment' ? state.goalsGiven + 1 : Math.max(0, state.goalsGiven - 1),
                 ...state
             };
         case 'shutOuts':
             return {
-                shutOuts: action.payload == 'increment' ? state.shutOuts + 1 : state.shutOuts - 1,
+                shutOuts: action.payload === 'increment' ? state.shutOuts + 1 : Math.max(0, state.shutOuts - 1),
                 ...state
             };
         default:
@@ -436,7 +449,6 @@ function hockeyReducer(state: any, action: { type: string, payload: 'increment' 
 export const GameRecorder = ({ sport }: GameRecorderProps) => {
     let reducer: (state: any, action: { type: string, payload: 'increment' | 'decrement' }) => any;
     let initialState;
-
     switch (sport) {
         case 'basketball':
             reducer = basektballReducer
@@ -465,6 +477,17 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
     const [opponentScore, setOpponentScore] = useState(0)
     const [time, setTime] = useState(0);
     const [isLoading, setLoading] = useState(false);
+    const [error, showError] = useState(false)
+
+    if (isLoading) {
+        return (
+            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <ThemeProvider theme={theme}>
+                    <CircularProgress className={styles.circularLoader} thickness={5.0} size={100} />
+                </ThemeProvider>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -481,7 +504,7 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                     <div className={styles.spacer} />
                     <StopWatch time={time} setTime={setTime} />
                     <div className={styles.spacer}>
-                        <button className={styles.endSessionButton}>End Game</button>
+                        <button className={styles.endSessionButton} onClick={() => endGame()}>End Game</button>
                     </div>
                 </div>
                 <div className={styles.score}>
@@ -496,12 +519,29 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
             <div className={styles.trackerContainer}>
                 {
                     Object.keys(initialState).map(
-                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />
+                        (key) => {
+                            console.log(key)
+                            return <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />;
+                        }
                     )
                 }
             </div>
+            {error && <Alert className={styles.alert} severity='error' onClose={() => showError(false)} variant='filled'>Error - something went wrong</Alert>}
         </>
     )
+
+    async function endGame(): Promise<void> {
+        setLoading(true);
+        const res = await fetch(`/api/users/savegame`, { cache: 'no-store', method: 'PUT' });
+
+        if (res.status != 200) {
+            setLoading(false);
+            showError(true)
+        }
+        else {
+            redirect('/home')
+        }
+    }
 }
 
 function camelCaseToTitleCase(str: string): string {
