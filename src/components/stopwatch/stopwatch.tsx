@@ -15,8 +15,8 @@ export const StopWatch = ({ time, setTime }: StopWatchProps) => {
 
         if (!isPaused) {
             interval = setInterval(() => {
-                setTime((time) => time + 10);
-            }, 10);
+                setTime((time) => time + 1);
+            }, 1000);
         } else {
             clearInterval(interval);
         }
@@ -33,7 +33,7 @@ export const StopWatch = ({ time, setTime }: StopWatchProps) => {
                 <div className={styles.displayContainer}  >
                     <div className={styles.spacer} />
                     <span className={styles.digits}>
-                        {("0" + Math.floor((time / 60000) % 60)).slice(-2) + ":" + ("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+                        {("0" + Math.floor((time / 60))).slice(-2) + ":" + ("0" + (time % 60)).slice(-2)}
                     </span>
                     <div className={styles.buttonContainer}>
                         <button className={styles.button} onClick={() => setIsPaused(!isPaused)}>

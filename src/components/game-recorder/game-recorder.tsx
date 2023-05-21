@@ -7,6 +7,7 @@ import { StopWatch } from "../stopwatch/stopwatch";
 import { ThemeProvider } from "@emotion/react";
 import { Alert, CircularProgress, createTheme } from "@mui/material";
 import { redirect } from "next/navigation";
+import { RightArrowIcon } from "../svgs";
 
 type GameRecorderProps = {
     sport: 'soccer' | 'basketball' | 'hockey' | 'football'
@@ -138,7 +139,7 @@ function basektballReducer(state: any, action: { type: string, payload: 'increme
         case 'offensiveRebounds':
             return {
                 ...state,
-                offensiveRebound: action.payload === 'increment' ? state.offensiveRebounds + 1 : Math.max(0, state.offensiveRebounds - 1),
+                offensiveRebounds: action.payload === 'increment' ? state.offensiveRebounds + 1 : Math.max(0, state.offensiveRebounds - 1),
             };
         case 'defensiveRebounds':
             return {
@@ -478,6 +479,8 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
     const [time, setTime] = useState(0);
     const [isLoading, setLoading] = useState(false);
     const [error, showError] = useState(false)
+    const [dialog, showTeamNameDialog] = useState(false)
+    const [opponentName, setOpponentName] = useState("")
 
     if (isLoading) {
         return (
@@ -485,6 +488,20 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                 <ThemeProvider theme={theme}>
                     <CircularProgress className={styles.circularLoader} thickness={5.0} size={100} />
                 </ThemeProvider>
+            </div>
+        )
+    }
+    if (dialog) {
+        console.log(opponentName)
+        return (
+            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div className={styles.popupContainer}>
+                    <h1 style={{ margin: "0", fontSize: "1.75em", fontWeight: "400" }}>Enter opponent team name</h1>
+                    <div className={styles.form}>
+                        <input className={styles.inputField} type="text" placeholder="name" onInput={(input) => setOpponentName(input.currentTarget.value.trim())} />
+                        <button className={styles.arrowButton} onClick={() => writeToDatabase()} disabled={opponentName === ""}><RightArrowIcon /></button>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -496,23 +513,23 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                     <h2 className={styles.teamLabel}>Team</h2>
                     <h1 className={styles.scoreLabel}>{String(teamScore).padStart(3, '0')}</h1>
                     <div className={styles.buttons}>
-                        <button className={styles.increment} onClick={() => setTeamScore(teamScore + 1)}>+</button>
                         <button className={styles.decrement} onClick={() => setTeamScore(Math.max(0, teamScore - 1))}>-</button>
+                        <button className={styles.increment} onClick={() => setTeamScore(teamScore + 1)}>+</button>
                     </div>
                 </div>
                 <div className={styles.midSection}>
                     <div className={styles.spacer} />
                     <StopWatch time={time} setTime={setTime} />
                     <div className={styles.spacer}>
-                        <button className={styles.endSessionButton} onClick={() => endGame()}>End Game</button>
+                        <button className={styles.endSessionButton} onClick={() => showTeamNameDialog(true)}>End Game</button>
                     </div>
                 </div>
                 <div className={styles.score}>
                     <h2 className={styles.teamLabel}>Opponent</h2>
                     <h1 className={styles.scoreLabel}>{String(opponentScore).padStart(3, '0')}</h1>
                     <div className={styles.buttons}>
-                        <button className={styles.increment} onClick={() => setOpponentScore(opponentScore + 1)}>+</button>
                         <button className={styles.decrement} onClick={() => setOpponentScore(Math.max(0, opponentScore - 1))}>-</button>
+                        <button className={styles.increment} onClick={() => setOpponentScore(opponentScore + 1)}>+</button>
                     </div>
                 </div>
             </div>
@@ -520,7 +537,6 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                 {
                     Object.keys(initialState).map(
                         (key) => {
-                            console.log(key)
                             return <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />;
                         }
                     )
@@ -530,13 +546,30 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
         </>
     )
 
-    async function endGame(): Promise<void> {
+    async function writeToDatabase(): Promise<void> {
         setLoading(true);
-        const res = await fetch(`/api/users/savegame`, { cache: 'no-store', method: 'PUT' });
+        showTeamNameDialog(false);
+        const res = await fetch(`/api/users/savegame`,
+            {
+                cache: 'no-store',
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    sport: sport,
+                    opponentTeam: opponentName,
+                    teamScore: teamScore,
+                    opponentScore: opponentScore,
+                    minutesPlayed: Math.round(time / 60),
+                    ...state,
+                })
+            });
 
         if (res.status != 200) {
             setLoading(false);
-            showError(true)
+            showError(true);
+            setOpponentName("");
         }
         else {
             redirect('/home')

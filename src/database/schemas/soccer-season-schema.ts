@@ -2,7 +2,7 @@ import { Schema, model, Model, Document, models } from 'mongoose';
 import { ISoccerGame, soccerGameSchema } from './soccer-game-schema'
 
 export interface ISoccerSeason extends Document {
-    seasons: [ISoccerGame]
+    seasons: ISoccerGame[]
 }
 
 export const soccerSeasonSchema: Schema = new Schema({

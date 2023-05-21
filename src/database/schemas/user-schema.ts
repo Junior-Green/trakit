@@ -8,10 +8,10 @@ import { IHockeySeason, hockeySeasonSchema } from './hockey-season-schema';
 export interface IUserData extends Document {
     userId: Types.ObjectId,
     selectedSport: 'basketball' | 'football' | 'soccer' | 'hockey' | null | undefined,
-    basketballSeasons: [IBasketballSeason],
-    footballSeasons: [IFootballSeason],
-    soccerSeasons: [ISoccerSeason],
-    hockeySeasons: [IHockeySeason]
+    basketballSeasons: IBasketballSeason[],
+    footballSeasons: IFootballSeason[],
+    soccerSeasons: ISoccerSeason[],
+    hockeySeasons: IHockeySeason[]
 }
 
 
