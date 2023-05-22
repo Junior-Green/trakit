@@ -17,7 +17,7 @@ export interface IUserData extends Document {
 
 export const userDataSchema: Schema = new Schema({
     userId: {
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: [true, 'field "userId" is undefined'],
     },
     selectedSport: {

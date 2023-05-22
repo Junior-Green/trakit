@@ -6,7 +6,7 @@ import { StatTracker } from "../stat-tracker/stat-tracker";
 import { StopWatch } from "../stopwatch/stopwatch";
 import { ThemeProvider } from "@emotion/react";
 import { Alert, CircularProgress, createTheme } from "@mui/material";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { RightArrowIcon } from "../svgs";
 
 type GameRecorderProps = {
@@ -166,6 +166,10 @@ function basektballReducer(state: any, action: { type: string, payload: 'increme
                 ...state,
                 personalFouls: action.payload === 'increment' ? state.personalFouls + 1 : Math.max(0, state.personalFouls - 1),
             };
+        case 'reset':
+            return {
+                ...basketballIinitState
+            }
         default:
             throw new Error('Invalid reducer invocation');
     }
@@ -248,6 +252,10 @@ function soccerReducer(state: any, action: { type: string, payload: 'increment' 
                 ...state,
                 goalsGiven: action.payload === 'increment' ? state.goalsGiven + 1 : Math.max(0, state.goalsGiven - 1),
             };
+        case 'reset':
+            return {
+                ...soccerInitState
+            }
         default:
             throw new Error('Invalid reducer invocation');
     }
@@ -375,6 +383,10 @@ function footballReducer(state: any, action: { type: string, payload: 'increment
                 ...state,
                 totalPassingYards: action.payload === 'increment' ? state.totalPassingYards + 1 : Math.max(0, state.totalPassingYards - 1),
             };
+        case 'reset':
+            return {
+                ...footballInitState
+            }
         default:
             throw new Error('Invalid reducer invocation');
     }
@@ -442,6 +454,10 @@ function hockeyReducer(state: any, action: { type: string, payload: 'increment' 
                 shutOuts: action.payload === 'increment' ? state.shutOuts + 1 : Math.max(0, state.shutOuts - 1),
                 ...state
             };
+        case 'reset':
+            return {
+                ...hockeyInitState
+            }
         default:
             throw new Error('Invalid reducer invocation');
     }
@@ -458,12 +474,10 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
         case 'soccer':
             reducer = soccerReducer
             initialState = soccerInitState
-
             break;
         case 'hockey':
             reducer = hockeyReducer
             initialState = hockeyInitState
-            Object.keys(initialState)
             break;
         case 'football':
             reducer = footballReducer
@@ -479,6 +493,7 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
     const [time, setTime] = useState(0);
     const [isLoading, setLoading] = useState(false);
     const [error, showError] = useState(false)
+    const [success, showSuccess] = useState(false)
     const [dialog, showTeamNameDialog] = useState(false)
     const [opponentName, setOpponentName] = useState("")
 
@@ -492,7 +507,6 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
         )
     }
     if (dialog) {
-        console.log(opponentName)
         return (
             <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div className={styles.popupContainer}>
@@ -535,14 +549,13 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
             </div>
             <div className={styles.trackerContainer}>
                 {
-                    Object.keys(initialState).map(
-                        (key) => {
-                            return <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />;
-                        }
+                    Object.keys(initialState).sort((a, b) => a.localeCompare(b)).map(
+                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />
                     )
                 }
             </div>
             {error && <Alert className={styles.alert} severity='error' onClose={() => showError(false)} variant='filled'>Error - something went wrong</Alert>}
+            {success && <Alert className={styles.alert} severity='success' onClose={() => showSuccess(false)} variant='filled'>Game succesfully saved</Alert>}
         </>
     )
 
@@ -557,7 +570,6 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    sport: sport,
                     opponentTeam: opponentName,
                     teamScore: teamScore,
                     opponentScore: opponentScore,
@@ -566,14 +578,18 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
                 })
             });
 
-        if (res.status != 200) {
-            setLoading(false);
+        if (res.status !== 200) {
             showError(true);
-            setOpponentName("");
         }
         else {
-            redirect('/home')
+            dispatch({ type: 'reset', payload: 'decrement' });
+            setOpponentScore(0);
+            setTeamScore(0);
+            setTime(0);
+            showSuccess(true)
         }
+        setOpponentName("");
+        setLoading(false);
     }
 }
 
