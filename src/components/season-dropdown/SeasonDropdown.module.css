@@ -1,0 +1,31 @@
+.panelBody {
+    background-color: rgb(45, 48, 91);
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.panelBody:hover {
+    box-shadow: 0px 0px 27px -15px #000000;
+}
+
+.panelBody span {
+    font-size: 2em;
+    font-weight: 400;
+}
+
+.root {
+    width: 100%;
+    padding-top: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}

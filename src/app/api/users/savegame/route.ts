@@ -16,7 +16,6 @@ import FootballGame from "@/src/database/schemas/football-game-schema";
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const body = await req.json()
-    console.log(body)
 
     if (!session) {
         return new NextResponse(null, {
@@ -93,17 +92,18 @@ export async function POST(req: NextRequest) {
     }
 
     async function saveBasektballGame() {
-        if (user!.basketballSeasons.length === 0) {
+        if (!user) return Promise.reject(401)
+        if (user.basketballSeasons.length === 0) {
             const newSeason = new BasketballSeason({
                 seasons: [],
             })
-            user?.basketballSeasons.push(newSeason)
+            user.basketballSeasons.push(newSeason)
         }
 
-        const season = user!.basketballSeasons.at(-1)
+        const season = user.basketballSeasons.at(-1)
 
         if (!season) {
-            return Promise.reject("No season exists")
+            return Promise.reject(404)
         }
 
         try {
@@ -128,25 +128,26 @@ export async function POST(req: NextRequest) {
                 personalFouls: body.personalFouls,
             })
             season.games.push(newGame)
-            await user!.save()
-            return Promise.resolve()
+            await user.save()
+            return Promise.resolve(200)
         } catch (error) {
-            return Promise.reject("Bad request")
+            return Promise.reject(400)
         }
     }
 
     async function saveSoccerGame() {
-        if (user!.soccerSeasons.length === 0) {
+        if (!user) return Promise.reject(401)
+        if (user.soccerSeasons.length === 0) {
             const newSeason = new SoccerSeason({
                 seasons: [],
             })
-            user?.soccerSeasons.push(newSeason)
+            user.soccerSeasons.push(newSeason)
         }
 
         const season = user!.soccerSeasons.at(-1)
 
         if (!season) {
-            return Promise.reject("No season exists")
+            return Promise.reject(404)
         }
 
         try {
@@ -173,22 +174,23 @@ export async function POST(req: NextRequest) {
                 goalsGiven: body.goalsGiven,
             })
             season.games.push(newGame)
-            await user!.save()
-            return Promise.resolve()
+            await user.save()
+            return Promise.resolve(200)
         } catch (error) {
-            return Promise.reject("Bad request")
+            return Promise.reject(400)
         }
     }
 
     async function saveHockeyGame() {
-        if (user!.hockeySeasons.length === 0) {
+        if (!user) return Promise.reject(401)
+        if (user.hockeySeasons.length === 0) {
             const newSeason = new HockeySeason({
                 seasons: [],
             })
-            user?.hockeySeasons.push(newSeason)
+            user.hockeySeasons.push(newSeason)
         }
 
-        const season = user!.hockeySeasons.at(-1)
+        const season = user.hockeySeasons.at(-1)
 
         if (!season) {
             return Promise.reject("No season exists")
@@ -215,25 +217,27 @@ export async function POST(req: NextRequest) {
                 shutOuts: body.shutOuts,
             })
             season.games.push(newGame)
-            await user!.save()
-            return Promise.resolve()
+            await user.save()
+            return Promise.resolve(200)
         } catch (error) {
-            return Promise.reject("Bad request")
+            return Promise.reject(400)
         }
     }
 
     async function saveFootballGame() {
-        if (user!.footballSeasons.length === 0) {
+        if (!user) return Promise.reject(401)
+
+        if (user.footballSeasons.length === 0) {
             const newSeason = new FootballSeason({
                 seasons: [],
             })
-            user?.footballSeasons.push(newSeason)
+            user.footballSeasons.push(newSeason)
         }
 
         const season = user!.footballSeasons.at(-1)
 
         if (!season) {
-            return Promise.reject("No season exists")
+            return Promise.reject(404)
         }
 
         try {
@@ -278,10 +282,10 @@ export async function POST(req: NextRequest) {
                 },
             })
             season.games.push(newGame)
-            await user!.save()
-            return Promise.resolve()
+            await user.save()
+            return Promise.resolve(200)
         } catch (error) {
-            return Promise.reject("Bad request")
+            return Promise.reject(400)
         }
     }
 }

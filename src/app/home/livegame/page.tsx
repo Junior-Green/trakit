@@ -30,7 +30,7 @@ export default async function Dashboard() {
 
     return (
         <div style={{ width: '100%', height: '100%'}}>
-            <GameRecorder sport="football" />
+            <GameRecorder sport={user.selectedSport} />
         </div>
     );
 }
