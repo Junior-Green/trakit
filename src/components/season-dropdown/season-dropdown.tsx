@@ -7,15 +7,20 @@ import styles from "./SeasonDropdown.module.css"
 import { useState } from "react"
 
 type SeasonDropdownProps = {
-    season: IBasketballSeason | ISoccerSeason | IFootballSeason | IHockeySeason
+    season: IBasketballSeason | ISoccerSeason | IFootballSeason | IHockeySeason,
+    deleteSeason: (id: string) => void
 }
 
-export const SeasonDropdown = ({ season }: SeasonDropdownProps) => {
+export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) => {
     const [isCollapsed, setIsCollapsed] = useState(true)
+
     return (
         <div className={styles.root}>
-            <div className={styles.panelBody}>
-                <span>Start New Season + </span>
+            <div className={styles.panelBody} onClick={() => deleteSeason(season.id)}>
+                <div className={styles.mainTextContainer}>
+                    <span></span>
+                </div>
+
             </div>
             {!isCollapsed && season.games.map((game) =>
                 <div className={styles.panelBody}>
