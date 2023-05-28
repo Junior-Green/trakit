@@ -2,15 +2,14 @@ import dbConnect from "@/src/database/mongoose-connect";
 import UserData from "@/src/database/schemas/user-schema";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../../auth/[...nextauth]/route";
-import { IBasketballSeason } from "@/src/database/schemas/basketball-season-schema";
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(_: NextRequest, { params: { id } }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
     await dbConnect()
 
-    if (!params.id) {
+    if (!id) {
         return new NextResponse(null, {
             status: 400,
             statusText: 'Invalid url',
@@ -35,41 +34,52 @@ export async function DELETE({ params }: { params: { id: string } }) {
 
     switch (user.selectedSport) {
         case "basketball":
-            const bSeason = user.basketballSeasons.find((season) => season.id === params.id)
-            if (bSeason) {
-                await bSeason.deleteOne()
+            console.log(id)
+        
+            return await UserData.updateOne({ userId: new ObjectId(session.user.id) }, {
+                $pull: {
+                    basketballSeasons: { _id: new ObjectId(id) }
+                }
+            }).then((res) => {
+                console.log(res)
                 return new NextResponse(null, { status: 200 })
-            }
-            else {
-                return new NextResponse(null, { status: 404 })
-            }
+            }).catch((err) => {
+                console.error(err);
+                return new NextResponse(null, { status: 500, statusText: "Error modifying database" })
+            })
         case "soccer":
-            const sSeason = user.soccerSeasons.find((season) => season.id === params.id)
-            if (sSeason) {
-                await sSeason.deleteOne()
+            UserData.updateOne({ userId: new ObjectId(session.user.id) }, {
+                $pull: {
+                    soccerSeasons: { _id: id }
+                }
+            }).then(() => {
                 return new NextResponse(null, { status: 200 })
-            }
-            else {
-                return new NextResponse(null, { status: 404 })
-            }
-        case "football":
-            const fSeason = user.footballSeasons.find((season) => season.id === params.id)
-            if (fSeason) {
-                await fSeason.deleteOne()
-                return new NextResponse(null, { status: 200 })
-            }
-            else {
-                return new NextResponse(null, { status: 404 })
-            }
-        case "hockey":
-            const hSeason = user.hockeySeasons.find((season) => season.id === params.id)
-            if (hSeason) {
-                await hSeason.deleteOne()
-                return new NextResponse(null, { status: 200 })
-            }
-            else {
-                return new NextResponse(null, { status: 404 })
-            }
-    }
+            }).catch((err) => {
+                console.error(err);
+                return new NextResponse(null, { status: 500, statusText: "Error modifying database" })
+            })
 
+        case "football":
+            UserData.updateOne({ userId: new ObjectId(session.user.id) }, {
+                $pull: {
+                    footballSeasons: { _id: id }
+                }
+            }).then(() => {
+                return new NextResponse(null, { status: 200 })
+            }).catch((err) => {
+                console.error(err);
+                return new NextResponse(null, { status: 500, statusText: "Error modifying database" })
+            })
+        case "hockey":
+            UserData.updateOne({ userId: new ObjectId(session.user.id) }, {
+                $pull: {
+                    hockeySeasons: { _id: id }
+                }
+            }).then(() => {
+                return new NextResponse(null, { status: 200 })
+            }).catch((err) => {
+                console.error(err);
+                return new NextResponse(null, { status: 500, statusText: "Error modifying database" })
+            })
+    }
 }

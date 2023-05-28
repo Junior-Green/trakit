@@ -1,4 +1,4 @@
-import { Schema, model, Model, Document, models } from 'mongoose';
+import { Schema, model, Model, Document, models, ObjectId, Types } from 'mongoose';
 
 export interface ISoccerGame extends Document {
     opponentTeam: string,
@@ -126,6 +126,6 @@ export const soccerGameSchema: Schema = new Schema({
     },
 });
 
-const SoccerGame : Model<ISoccerGame> = models.SoccerGame || model('SoccerGame', soccerGameSchema);
+const SoccerGame: Model<ISoccerGame> = models.SoccerGame || model('SoccerGame', soccerGameSchema);
 
 export default SoccerGame;

@@ -7,8 +7,9 @@ import { ISoccerSeason } from "@/src/database/schemas/soccer-season-schema"
 import { IHockeySeason } from "@/src/database/schemas/hockey-season-schema"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import { Alert, Skeleton } from "@mui/material"
+import { Alert, Skeleton, SkeletonTypeMap } from "@mui/material"
 import { SeasonDropdown } from "../season-dropdown/season-dropdown"
+import { OverridableComponent } from "@mui/material/OverridableComponent"
 
 //TODO: ADD _id: String property to all schema definitions
 
@@ -49,12 +50,14 @@ export const SeasonDropdownMenu = () => {
 
     async function deleteSeason(id: string): Promise<boolean> {
         console.log(id)
-        const index = seasons.findIndex((season) => season.id === id)
+        const index = seasons.findIndex((season) => season._id === id)
         if (index === -1) {
             return false;
         }
 
+        setIsLoading(true)
         const res = await fetch(`/api/users/seasons/${id}`, { method: "DELETE" })
+        setIsLoading(false)
         if (res.status === 200) {
             seasons.splice(index, 1);
             setSeasons(seasons)
@@ -67,11 +70,24 @@ export const SeasonDropdownMenu = () => {
 
     return (
         <div className={styles.root}>
-            {isLoading ? <Skeleton variant="rounded" width={"50%"} height={130} /> : seasons.map((val) => <SeasonDropdown key={val.id} season={val} deleteSeason={(id: string) => deleteSeason(id)} />)}
-            <div className={styles.placeholder} onClick={() => addNewSeason()}>
-                <span>Start New Season + </span>
-            </div>
+            {isLoading ? getLoadingSkeletons() : seasons.map((val) => <SeasonDropdown key={val._id} season={val} deleteSeason={(id: string) => deleteSeason(id)} />)}
+            {
+                !isLoading && <div className={styles.placeholder} onClick={() => addNewSeason()}>
+                    <span>Start New Season + </span>
+                </div>
+            }
             {error && <Alert className={styles.alert} severity='error' onClose={() => showError(false)} variant='filled'>Error - something went wrong</Alert>}
         </div>
     )
+
+    function getLoadingSkeletons() {
+        const listOfSkeletons = []
+        const skeletonCount = 5;
+
+        for (let index = 0; index < skeletonCount; index++) {
+            listOfSkeletons.push(<Skeleton key={index} variant="rounded" width={"50%"} height={130} />)
+        }
+
+        return listOfSkeletons;
+    }
 }

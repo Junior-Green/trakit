@@ -1,4 +1,4 @@
-import { Schema, model, Model, Document, models, Types } from 'mongoose';
+import { Schema, model, Model, Document, models, Types, ObjectId } from 'mongoose';
 
 import { IBasketballSeason, basketballSeasonSchema } from './basketball-season-schema';
 import { IFootballSeason, footballSeasonSchema } from './football-season-schema';
@@ -6,7 +6,8 @@ import { ISoccerSeason, soccerSeasonSchema } from './soccer-season-schema';
 import { IHockeySeason, hockeySeasonSchema } from './hockey-season-schema';
 
 export interface IUserData extends Document {
-    userId: Types.ObjectId,
+    _id: ObjectId,
+    userId: ObjectId,
     selectedSport: 'basketball' | 'football' | 'soccer' | 'hockey' | null | undefined,
     basketballSeasons: IBasketballSeason[],
     footballSeasons: IFootballSeason[],

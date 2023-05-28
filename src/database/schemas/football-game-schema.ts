@@ -1,4 +1,4 @@
-import { Schema, model, Model, Document, models } from 'mongoose';
+import { Schema, model, Model, Document, models, Types, ObjectId } from 'mongoose';
 
 export interface IKickingStats {
     kickoffs: number,

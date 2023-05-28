@@ -8,3 +8,4 @@ export {default as HockeyIcon} from './HockeyIcon.svg';
 export {default as RightArrowIcon} from './RightArrowIcon.svg'
 export {default as PlayIcon} from './PlayIcon.svg'
 export {default as PauseIcon} from './PauseIcon.svg'
+export {default as CancelIcon} from './CancelIcon.svg'

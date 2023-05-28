@@ -1,4 +1,4 @@
-import { Schema, model, Model, Document, models } from 'mongoose';
+import { Schema, models, Model, Document, Types, model, ObjectId } from 'mongoose';
 
 export interface IBasketBallGame extends Document {
     opponentTeam: string
