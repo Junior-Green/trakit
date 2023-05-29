@@ -5,13 +5,9 @@ import styles from "./SeasonDropdownMenu.module.css"
 import { IFootballSeason } from "@/src/database/schemas/football-season-schema"
 import { ISoccerSeason } from "@/src/database/schemas/soccer-season-schema"
 import { IHockeySeason } from "@/src/database/schemas/hockey-season-schema"
-import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import { Alert, Skeleton, SkeletonTypeMap } from "@mui/material"
+import { Alert, Skeleton } from "@mui/material"
 import { SeasonDropdown } from "../season-dropdown/season-dropdown"
-import { OverridableComponent } from "@mui/material/OverridableComponent"
-
-//TODO: ADD _id: String property to all schema definitions
 
 export const SeasonDropdownMenu = () => {
     const [fetchSeasons, setFetchSeasons] = useState(true)
