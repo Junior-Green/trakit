@@ -19,7 +19,6 @@ type SeasonDropdownProps = {
 
 export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) => {
     const [isCollapsed, setIsCollapsed] = useState(true)
-    const session = useSession()
     const router = useRouter()
 
     return (
