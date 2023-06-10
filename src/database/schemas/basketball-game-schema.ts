@@ -1,10 +1,11 @@
-import { Schema, models, Model, Document, Types, model, ObjectId } from 'mongoose';
+import {Schema, models, Model, Document, Types, model, ObjectId} from 'mongoose';
 
 export interface IBasketBallGame extends Document {
-    opponentTeam: string
+    opponentTeam: string;
     teamScore: number,
     opponentScore: number,
     date: Date,
+    assists: number,
     minutesPlayed: number,
     pointsScored: number,
     fieldGoalsMade: number,
@@ -48,6 +49,11 @@ export const basketballGameSchema: Schema = new Schema({
         default: 0
     },
     pointsScored: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    assists: {
         type: Number,
         default: 0,
         min: 0
@@ -114,6 +120,6 @@ export const basketballGameSchema: Schema = new Schema({
     },
 });
 
-const BasketballGame: Model<IBasketBallGame> = models.BasketballGame || model('BasketballGame', basketballGameSchema)
+const BasketballGame: Model<IBasketBallGame> = models.BasketballGame || model('BasketballGame', basketballGameSchema);
 
 export default BasketballGame;

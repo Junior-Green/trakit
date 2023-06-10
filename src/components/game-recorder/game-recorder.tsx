@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useReducer, useState } from "react";
-import styles from './GameRecorder.module.css'
-import { StatTracker } from "../stat-tracker/stat-tracker";
-import { StopWatch } from "../stopwatch/stopwatch";
-import { ThemeProvider } from "@emotion/react";
-import { Alert, CircularProgress, createTheme } from "@mui/material";
-import { redirect, useRouter } from "next/navigation";
-import { RightArrowIcon } from "../svgs";
+import {useReducer, useState} from "react";
+import styles from './GameRecorder.module.css';
+import {StatTracker} from "../stat-tracker/stat-tracker";
+import {StopWatch} from "../stopwatch/stopwatch";
+import {ThemeProvider} from "@emotion/react";
+import {Alert, CircularProgress, createTheme} from "@mui/material";
+import {redirect, useRouter} from "next/navigation";
+import {RightArrowIcon} from "../svgs";
 
 type GameRecorderProps = {
-    sport: 'soccer' | 'basketball' | 'hockey' | 'football'
-}
+    sport: 'soccer' | 'basketball' | 'hockey' | 'football';
+};
 
 const theme = createTheme({
     palette: {
@@ -22,6 +22,7 @@ const theme = createTheme({
 });
 
 const basketballIinitState = {
+    assists: 0,
     pointsScored: 0,
     fieldGoalsMade: 0,
     fieldGoalsMissed: 0,
@@ -35,7 +36,7 @@ const basketballIinitState = {
     steals: 0,
     blocks: 0,
     personalFouls: 0,
-} as const
+} as const;
 
 const soccerInitState = {
     goals: 0,
@@ -53,7 +54,7 @@ const soccerInitState = {
     turnovers: 0,
     saves: 0,
     goalsGiven: 0,
-} as const
+} as const;
 
 const hockeyInitState = {
     goals: 0,
@@ -68,7 +69,7 @@ const hockeyInitState = {
     saves: 0,
     goalsGiven: 0,
     shutouts: 0,
-} as const
+} as const;
 
 const footballInitState = {
     kickoffs: 0,
@@ -95,14 +96,19 @@ const footballInitState = {
     passingTouchDowns: 0,
     interceptedPasses: 0,
     totalPassingYards: 0
-} as const
+} as const;
 
-function basektballReducer(state: any, action: { type: string, payload: 'increment' | 'decrement' }) {
+function basektballReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
     switch (action.type) {
         case 'pointsScored':
             return {
                 ...state,
                 pointsScored: action.payload === 'increment' ? state.pointsScored + 1 : Math.max(0, state.pointsScored - 1),
+            };
+        case 'assists':
+            return {
+                ...state,
+                assists: action.payload === 'increment' ? state.assists + 1 : Math.max(0, state.assists - 1),
             };
         case 'fieldGoalsMade':
             return {
@@ -169,13 +175,13 @@ function basektballReducer(state: any, action: { type: string, payload: 'increme
         case 'reset':
             return {
                 ...basketballIinitState
-            }
+            };
         default:
             throw new Error('Invalid reducer invocation');
     }
 }
 
-function soccerReducer(state: any, action: { type: string, payload: 'increment' | 'decrement' }) {
+function soccerReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
     switch (action.type) {
         case 'goals':
             return {
@@ -255,13 +261,13 @@ function soccerReducer(state: any, action: { type: string, payload: 'increment' 
         case 'reset':
             return {
                 ...soccerInitState
-            }
+            };
         default:
             throw new Error('Invalid reducer invocation');
     }
 }
 
-function footballReducer(state: any, action: { type: string, payload: 'increment' | 'decrement' }) {
+function footballReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
     switch (action.type) {
         case 'kickoffs':
             return {
@@ -386,13 +392,13 @@ function footballReducer(state: any, action: { type: string, payload: 'increment
         case 'reset':
             return {
                 ...footballInitState
-            }
+            };
         default:
             throw new Error('Invalid reducer invocation');
     }
 }
 
-function hockeyReducer(state: any, action: { type: string, payload: 'increment' | 'decrement' }) {
+function hockeyReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
     switch (action.type) {
         case 'goals':
             return {
@@ -457,67 +463,67 @@ function hockeyReducer(state: any, action: { type: string, payload: 'increment' 
         case 'reset':
             return {
                 ...hockeyInitState
-            }
+            };
         default:
             throw new Error('Invalid reducer invocation');
     }
 }
 
-export const GameRecorder = ({ sport }: GameRecorderProps) => {
-    let reducer: (state: any, action: { type: string, payload: 'increment' | 'decrement' }) => any;
+export const GameRecorder = ({sport}: GameRecorderProps) => {
+    let reducer: (state: any, action: {type: string, payload: 'increment' | 'decrement';}) => any;
     let initialState;
     switch (sport) {
         case 'basketball':
-            reducer = basektballReducer
-            initialState = basketballIinitState
+            reducer = basektballReducer;
+            initialState = basketballIinitState;
             break;
         case 'soccer':
-            reducer = soccerReducer
-            initialState = soccerInitState
+            reducer = soccerReducer;
+            initialState = soccerInitState;
             break;
         case 'hockey':
-            reducer = hockeyReducer
-            initialState = hockeyInitState
+            reducer = hockeyReducer;
+            initialState = hockeyInitState;
             break;
         case 'football':
-            reducer = footballReducer
-            initialState = footballInitState
+            reducer = footballReducer;
+            initialState = footballInitState;
             break;
         default:
-            throw new Error('Error initializing useReducer dependencies')
+            throw new Error('Error initializing useReducer dependencies');
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [teamScore, setTeamScore] = useState(0)
-    const [opponentScore, setOpponentScore] = useState(0)
+    const [teamScore, setTeamScore] = useState(0);
+    const [opponentScore, setOpponentScore] = useState(0);
     const [time, setTime] = useState(0);
     const [isLoading, setLoading] = useState(false);
-    const [error, showError] = useState(false)
-    const [success, showSuccess] = useState(false)
-    const [dialog, showTeamNameDialog] = useState(false)
-    const [opponentName, setOpponentName] = useState("")
+    const [error, showError] = useState(false);
+    const [success, showSuccess] = useState(false);
+    const [dialog, showTeamNameDialog] = useState(false);
+    const [opponentName, setOpponentName] = useState("");
 
     if (isLoading) {
         return (
-            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <ThemeProvider theme={theme}>
                     <CircularProgress className={styles.circularLoader} thickness={5.0} size={100} />
                 </ThemeProvider>
             </div>
-        )
+        );
     }
     if (dialog) {
         return (
-            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <div className={styles.popupContainer}>
-                    <h1 style={{ margin: "0", fontSize: "1.75em", fontWeight: "400" }}>Enter opponent team name</h1>
+                    <h1 style={{margin: "0", fontSize: "1.75em", fontWeight: "400"}}>Enter opponent team name</h1>
                     <div className={styles.form}>
                         <input className={styles.inputField} type="text" placeholder="name" onInput={(input) => setOpponentName(input.currentTarget.value.trim())} />
                         <button className={styles.arrowButton} onClick={() => writeToDatabase()} disabled={opponentName === ""}><RightArrowIcon /></button>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -550,14 +556,14 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
             <div className={styles.trackerContainer}>
                 {
                     Object.keys(initialState).sort((a, b) => a.localeCompare(b)).map(
-                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />
+                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({type: key, payload: option})} stat={state[key]} />
                     )
                 }
             </div>
             {error && <Alert className={styles.alert} severity='error' onClose={() => showError(false)} variant='filled'>Error - something went wrong</Alert>}
             {success && <Alert className={styles.alert} severity='success' onClose={() => showSuccess(false)} variant='filled'>Game succesfully saved</Alert>}
         </>
-    )
+    );
 
     async function writeToDatabase(): Promise<void> {
         setLoading(true);
@@ -582,16 +588,16 @@ export const GameRecorder = ({ sport }: GameRecorderProps) => {
             showError(true);
         }
         else {
-            dispatch({ type: 'reset', payload: 'decrement' });
+            dispatch({type: 'reset', payload: 'decrement'});
             setOpponentScore(0);
             setTeamScore(0);
             setTime(0);
-            showSuccess(true)
+            showSuccess(true);
         }
         setOpponentName("");
         setLoading(false);
     }
-}
+};
 
 function camelCaseToTitleCase(str: string): string {
     const result = str.replace(/([A-Z])/g, " $1");

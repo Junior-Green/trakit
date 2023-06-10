@@ -33,9 +33,7 @@ export async function DELETE(_: NextRequest, { params: { id } }: { params: { id:
     }
 
     switch (user.selectedSport) {
-        case "basketball":
-            console.log(id)
-        
+        case "basketball":       
             return await UserData.updateOne({ userId: new ObjectId(session.user.id) }, {
                 $pull: {
                     basketballSeasons: { _id: new ObjectId(id) }

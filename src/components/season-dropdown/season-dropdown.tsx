@@ -37,8 +37,8 @@ export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) =>
             </div>
             {
                 !isCollapsed && season.games.map((game) =>
-                    <div className={styles.gamePanelBody} onClick={() => {
-                        goToGameSummary(game.id);
+                    <div key={game._id} className={styles.gamePanelBody} onClick={() => {
+                        goToGameSummary(game._id);
                     }}>
                         <div className={styles.mainTextContainer}>
                             <h1>{`vs ${game.opponentTeam}`}</h1>
@@ -53,7 +53,7 @@ export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) =>
         </div >
     )
 
-    function goToGameSummary(id: any) {
+    function goToGameSummary(id: string) {
         router.push(`home/seasons/games/${id}`)
     }
 
@@ -94,7 +94,6 @@ export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) =>
             throw new Error("Error parsing game data")
         }
         const firstDate = new Date(firstGame)
-        console.log(firstDate.getMonth())
         const lastGame = games.at(-1)!.date;
         const lastDate = new Date(lastGame)
 
