@@ -1,0 +1,87 @@
+.root {
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.scoreContainer {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 3%;
+    background-color: rgb(45, 48, 91);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+}
+
+.teamLabel {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5vmax;
+    color: rgb(198, 201, 244);
+    text-align: center;
+}
+
+.scoreLabel {
+    font-size: 10vmax;
+    margin: 0;
+}
+
+.statContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 15vw);
+    grid-template-rows: auto;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    gap: 40px 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.statBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:flex-start;
+    width: 13vmax;
+    height: 13vmax;
+    background-color: rgb(45, 48, 91);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.statLabel {
+    margin: 0;
+    text-align: left;
+    font-size: 1.25vmax;
+    color: rgb(198, 201, 244)
+}
+
+.statCounter {
+    font-size: 5vmax;
+    margin: 0 10px 0 10px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-wrap: break-word;
+}
