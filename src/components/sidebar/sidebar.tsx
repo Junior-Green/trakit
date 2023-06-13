@@ -1,18 +1,18 @@
 "use client";
 
-import {signOut} from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import styles from './Sidebar.module.css';
 import Image from 'next/image';
-import {usePathname} from 'next/navigation';
-import {DashBoardIcon, RecordIcon, ScoreIcon} from '../svgs';
-import {useRouter} from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { DashBoardIcon, RecordIcon, ScoreIcon } from '../svgs';
+import { useRouter } from 'next/navigation';
 
 type SideBarProps = {
     username: string | null | undefined,
     profileImagePath: string | null | undefined;
 };
 
-export const SideBar = ({username, profileImagePath}: SideBarProps) => {
+export const SideBar = ({ username, profileImagePath }: SideBarProps) => {
     const currPath: string | undefined = usePathname().split('/').pop()
     const router = useRouter();
 
@@ -23,7 +23,7 @@ export const SideBar = ({username, profileImagePath}: SideBarProps) => {
                 <DashBoardIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Dashboard</p>
             </div>
-            <div className={currPath == 'seasons' ? styles.containerSelected : styles.container} onClick={() => router.push('./home/seasons')}>
+            <div className={currPath == 'seasons' ? styles.containerSelected : styles.container} onClick={() => router.push('/home/seasons')}>
                 <ScoreIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Game History</p>
             </div>

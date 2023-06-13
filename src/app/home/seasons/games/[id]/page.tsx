@@ -8,11 +8,13 @@ import UserData, { IUserData } from "@/src/database/schemas/user-schema";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import styles from "./GameSummary.module.css";
-import { camelCaseToTitleCase } from "@/src/utils";
-import { AchievementsCarousel } from "@/src/components/achievements-carousel/achievements-carousel";
+import { camelCaseToTitleCase } from "@/src/utils"
+import classNames from "classnames";
+import { AssistIcon } from "@/src/components/svgs";
 
 
 export default async function GameSummary({ params: { id } }: { params: { id: string; }; }) {
+    console.log(id)
     const session = await getServerSession(authOptions);
     if (!session) {
         throw new Error("No current user session");
@@ -57,15 +59,14 @@ export default async function GameSummary({ params: { id } }: { params: { id: st
             <div className={styles.statContainer}>
                 {
                     [
-                        <>
-                            <div className={styles.statBody}>
-                                <h1 className={styles.statLabel}>Date</h1>
-                                <div className={styles.row}>
-                                    <span style={{ fontSize: "2vmax" }}>{formatDate(new Date(game.date))}</span>
-                                </div>
 
+                        <div className={styles.statBody}>
+                            <h1 className={styles.statLabel}>Date</h1>
+                            <div className={styles.row}>
+                                <span style={{ fontSize: "2vmax" }}>{formatDate(new Date(game.date))}</span>
                             </div>
-                        </>
+                        </div>
+
                     ]
                         .concat(Object.keys(gameObj).sort((a, b) => a.localeCompare(b)).map(
                             (key) =>
@@ -78,11 +79,101 @@ export default async function GameSummary({ params: { id } }: { params: { id: st
                         ))
                 }
             </div>
-            <div style={{display:"flex", alignItems: "center", justifyContent:"center", width: "100%"}}>
-                <AchievementsCarousel game={game.toObject()} sport={"basketball"}></AchievementsCarousel>
+            <hr className={styles.roundedDivider} />
+            <div className={styles.achievementContainer}>
+                {
+                    Object.keys(gameObj).map((key) => {
+                        if (user.selectedSport === "basketball") {
+                            return verifyBasketballAchievement(key);
+                        }
+                        else if (user.selectedSport === "football") {
+                            return verifyFootballAchievement(key);
+                        }
+                        else if (user.selectedSport === "hockey") {
+                            return verifyHockeyAchievement(key);
+                        }
+                        else {
+                            return verifySoccerAchievement(key);
+                        }
+                    })
+                }
             </div>
         </div>
     );
+
+    function verifyBasketballAchievement(key: string): JSX.Element | null {
+        switch (key) {
+            case "assists":
+                const assists: number = gameObj['assists']
+                if (assists > 8) {
+                    return getAchievmentBadgeComponent('Dimer', <></>, 'gold')
+                }
+                else if (assists > 5) {
+                    return getAchievmentBadgeComponent('Dimer', <div></div>, 'silver')
+                }
+                else if (assists > 3) {
+                    return getAchievmentBadgeComponent('Dimer', <div></div>, 'bronze')
+                }
+            default:
+                return <></>
+        }
+    }
+
+    function verifySoccerAchievement(key: string): JSX.Element | null {
+        switch (key) {
+            case "assists":
+
+                break;
+            default:
+                return <></>
+        }
+
+        return null
+    }
+
+    function verifyFootballAchievement(key: string): JSX.Element | null {
+        switch (key) {
+            case "assists":
+
+                break;
+            default:
+                return <></>
+        }
+        return null
+    }
+
+    function verifyHockeyAchievement(key: string): JSX.Element | null {
+        switch (key) {
+            case "assists":
+
+                break;
+            default:
+                return <></>
+        }
+        return null
+    }
+}
+
+function getAchievmentBadgeComponent(achievementName: string, badge: any, tier: 'bronze' | 'silver' | 'gold'): JSX.Element {
+    let tierClassName = '';
+
+    if (tier === 'bronze') {
+        tierClassName = styles.bronze
+    }
+    if (tier === 'bronze') {
+        tierClassName = styles.silver
+    }
+    if (tier === 'bronze') {
+        tierClassName = styles.gold
+    }
+    return (
+        <div className={styles.achievementBody}>
+            <div className={classNames(styles.row, tierClassName)}>
+         
+            </div>
+            <h2 className={styles.statLabel}>{achievementName}</h2>
+        </div>
+    )
 }
 
 function formatDate(date: Date): string {

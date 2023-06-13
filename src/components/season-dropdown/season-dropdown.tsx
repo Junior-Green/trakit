@@ -54,7 +54,7 @@ export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) =>
     )
 
     function goToGameSummary(id: string) {
-        router.push(`home/seasons/games/${id}`)
+        router.push(`/home/seasons/games/${id}`)
     }
 
     function getResultLabel(teamScore: number, opponentScore: number): string {

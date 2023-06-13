@@ -18,7 +18,7 @@ export const metadata = {
     },
 };
 
-export default async function Dashboard() {
+export default async function LiveGame() {
     const session = await getServerSession(authOptions)
     if (!session) {
         throw new Error('No user session')
