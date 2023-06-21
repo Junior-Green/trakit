@@ -1,19 +1,19 @@
 "use client";
 
-import { signOut } from 'next-auth/react';
+import {signOut} from 'next-auth/react';
 import styles from './Sidebar.module.css';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { DashBoardIcon, RecordIcon, ScoreIcon } from '../svgs';
-import { useRouter } from 'next/navigation';
+import {usePathname} from 'next/navigation';
+import {useRouter} from 'next/navigation';
+import {DashBoardIcon, RecordIcon, ScoreIcon} from '../svgs';
 
 type SideBarProps = {
     username: string | null | undefined,
     profileImagePath: string | null | undefined;
 };
 
-export const SideBar = ({ username, profileImagePath }: SideBarProps) => {
-    const currPath: string | undefined = usePathname().split('/').pop()
+export const SideBar = ({username, profileImagePath}: SideBarProps) => {
+    const currPath: string | undefined = usePathname().split('/').pop();
     const router = useRouter();
 
     return (
@@ -27,7 +27,7 @@ export const SideBar = ({ username, profileImagePath }: SideBarProps) => {
                 <ScoreIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Game History</p>
             </div>
-            <div className={currPath == 'livegame' ? styles.containerSelected : styles.container} onClick={() => router.push('./home/livegame')}>
+            <div className={currPath == 'livegame' ? styles.containerSelected : styles.container} onClick={() => router.push('/home/livegame')}>
                 <RecordIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Record Game</p>
             </div>

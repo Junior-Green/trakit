@@ -17,7 +17,7 @@ export const SeasonDropdownMenu = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("/api/users/seasons", { cache: "force-cache", method: "GET" }).then((res) => {
+        fetch("/api/users/seasons", { cache: "default", method: "GET" }).then((res) => {
             if (res.status != 200) {
                 console.error("Error fetching game data")
                 return

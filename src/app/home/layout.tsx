@@ -18,7 +18,6 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
     }
     else {
         const user = await UserData.findOne({ userId: new ObjectId(session.user.id) });
-        console.log(user);
         if (!user) {
             isSportSelected = false;
             const newUser = new UserData({ userId: new ObjectId(session.user.id) });

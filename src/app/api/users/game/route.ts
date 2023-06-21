@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
-import { NextRequest, NextResponse } from "next/server";
+import {getServerSession} from "next-auth";
+import {authOptions} from "../../auth/[...nextauth]/route";
+import {NextRequest, NextResponse} from "next/server";
 import dbConnect from "@/src/database/mongoose-connect";
 import UserData from "@/src/database/schemas/user-schema";
-import { ObjectId } from "mongodb";
+import {ObjectId} from "mongodb";
 import BasketballSeason from "@/src/database/schemas/basketball-season-schema";
 import BasketballGame from "@/src/database/schemas/basketball-game-schema";
 import SoccerSeason from "@/src/database/schemas/soccer-season-schema";
@@ -15,24 +15,24 @@ import FootballGame from "@/src/database/schemas/football-game-schema";
 
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
-    const body = await req.json()
+    const body = await req.json();
 
     if (!session) {
         return new NextResponse(null, {
             status: 403,
             statusText: 'No user session detected',
-        })
+        });
     }
 
-    await dbConnect()
+    await dbConnect();
 
-    const user = await UserData.findOne({ userId: new ObjectId(session.user.id) }).exec()
+    const user = await UserData.findOne({userId: new ObjectId(session.user.id)}).exec();
 
     if (!user) {
         return new NextResponse(null, {
             status: 404,
             statusText: 'User not found',
-        })
+        });
     }
 
     switch (user.selectedSport) {
@@ -40,70 +40,70 @@ export async function POST(req: NextRequest) {
             return saveBasektballGame().then(_ => {
                 return new NextResponse(null, {
                     status: 200
-                })
-            }).catch(err => {
-                console.log(err)
-                return new NextResponse(null, {
-                    status: 500,
-                    statusText: 'Internal server error'
-                })
-            })
-        case "soccer":
-            return saveSoccerGame().then(_ => {
-                return new NextResponse(null, {
-                    status: 200
-                })
-            }).catch(err => {
-                console.log(err)
-                return new NextResponse(null, {
-                    status: 500,
-                    statusText: 'Internal server error'
-                })
-            })
-        case "football":
-            return saveFootballGame().then(_ => {
-                return new NextResponse(null, {
-                    status: 200
-                })
+                });
             }).catch(err => {
                 console.log(err);
                 return new NextResponse(null, {
                     status: 500,
                     statusText: 'Internal server error'
-                })
-            })
+                });
+            });
+        case "soccer":
+            return saveSoccerGame().then(_ => {
+                return new NextResponse(null, {
+                    status: 200
+                });
+            }).catch(err => {
+                console.log(err);
+                return new NextResponse(null, {
+                    status: 500,
+                    statusText: 'Internal server error'
+                });
+            });
+        case "football":
+            return saveFootballGame().then(_ => {
+                return new NextResponse(null, {
+                    status: 200
+                });
+            }).catch(err => {
+                console.log(err);
+                return new NextResponse(null, {
+                    status: 500,
+                    statusText: 'Internal server error'
+                });
+            });
         case "hockey":
             return saveHockeyGame().then(_ => {
                 return new NextResponse(null, {
                     status: 200
-                })
+                });
             }).catch(err => {
-                console.log(err)
+                console.log(err);
                 return new NextResponse(null, {
                     status: 500,
                     statusText: 'Internal server error'
-                })
-            })
+                });
+            });
         default:
             return new NextResponse(null, {
                 status: 500,
                 statusText: 'Internal server error'
-            })
+            });
     }
 
     async function saveBasektballGame() {
-        if (!user) return Promise.reject(401)
+        if (!user) return Promise.reject(401);
         if (user.basketballSeasons.length === 0) {
             const newSeason = new BasketballSeason({
                 seasons: [],
-            })
-            user.basketballSeasons.push(newSeason)
+            });
+            user.basketballSeasons.push(newSeason);
         }
 
-        const season = user.basketballSeasons.at(-1)
+        const season = user.basketballSeasons.at(-1);
 
         if (!season) {
-            return Promise.reject(404)
+            return Promise.reject(404);
         }
 
         try {
@@ -112,6 +112,8 @@ export async function POST(req: NextRequest) {
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,
                 date: Date.now(),
+                assists: body.assists,
+                dunks: body.dunks,
                 minutesPlayed: body.minutesPlayed,
                 pointsScored: body.pointsScored,
                 fieldGoalsMade: body.fieldGoalsMade,
@@ -126,28 +128,28 @@ export async function POST(req: NextRequest) {
                 steals: body.steals,
                 blocks: body.blocks,
                 personalFouls: body.personalFouls,
-            })
-            season.games.push(newGame)
-            await user.save()
-            return Promise.resolve(200)
+            });
+            season.games.push(newGame);
+            await user.save();
+            return Promise.resolve(200);
         } catch (error) {
-            return Promise.reject(400)
+            return Promise.reject(400);
         }
     }
 
     async function saveSoccerGame() {
-        if (!user) return Promise.reject(401)
+        if (!user) return Promise.reject(401);
         if (user.soccerSeasons.length === 0) {
             const newSeason = new SoccerSeason({
                 seasons: [],
-            })
-            user.soccerSeasons.push(newSeason)
+            });
+            user.soccerSeasons.push(newSeason);
         }
 
-        const season = user!.soccerSeasons.at(-1)
+        const season = user!.soccerSeasons.at(-1);
 
         if (!season) {
-            return Promise.reject(404)
+            return Promise.reject(404);
         }
 
         try {
@@ -172,28 +174,28 @@ export async function POST(req: NextRequest) {
                 turnovers: body.turnovers,
                 saves: body.saves,
                 goalsGiven: body.goalsGiven,
-            })
-            season.games.push(newGame)
-            await user.save()
-            return Promise.resolve(200)
+            });
+            season.games.push(newGame);
+            await user.save();
+            return Promise.resolve(200);
         } catch (error) {
-            return Promise.reject(400)
+            return Promise.reject(400);
         }
     }
 
     async function saveHockeyGame() {
-        if (!user) return Promise.reject(401)
+        if (!user) return Promise.reject(401);
         if (user.hockeySeasons.length === 0) {
             const newSeason = new HockeySeason({
                 seasons: [],
-            })
-            user.hockeySeasons.push(newSeason)
+            });
+            user.hockeySeasons.push(newSeason);
         }
 
-        const season = user.hockeySeasons.at(-1)
+        const season = user.hockeySeasons.at(-1);
 
         if (!season) {
-            return Promise.reject("No season exists")
+            return Promise.reject("No season exists");
         }
 
         try {
@@ -215,29 +217,29 @@ export async function POST(req: NextRequest) {
                 saves: body.saves,
                 goalsGiven: body.goalsGiven,
                 shutOuts: body.shutOuts,
-            })
-            season.games.push(newGame)
-            await user.save()
-            return Promise.resolve(200)
+            });
+            season.games.push(newGame);
+            await user.save();
+            return Promise.resolve(200);
         } catch (error) {
-            return Promise.reject(400)
+            return Promise.reject(400);
         }
     }
 
     async function saveFootballGame() {
-        if (!user) return Promise.reject(401)
+        if (!user) return Promise.reject(401);
 
         if (user.footballSeasons.length === 0) {
             const newSeason = new FootballSeason({
                 seasons: [],
-            })
-            user.footballSeasons.push(newSeason)
+            });
+            user.footballSeasons.push(newSeason);
         }
 
-        const season = user!.footballSeasons.at(-1)
+        const season = user!.footballSeasons.at(-1);
 
         if (!season) {
-            return Promise.reject(404)
+            return Promise.reject(404);
         }
 
         try {
@@ -280,12 +282,12 @@ export async function POST(req: NextRequest) {
                     fieldGoalsMade: body.fieldGoalsMade,
                     fieldGoalsMissed: body.fieldGoalsMissed
                 },
-            })
-            season.games.push(newGame)
-            await user.save()
-            return Promise.resolve(200)
+            });
+            season.games.push(newGame);
+            await user.save();
+            return Promise.resolve(200);
         } catch (error) {
-            return Promise.reject(400)
+            return Promise.reject(400);
         }
     }
 }

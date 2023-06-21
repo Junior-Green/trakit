@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ["mongoose"]
+    serverComponentsExternalPackages: ["mongoose"],
+    serverActions: true
   },
   images: {
     domains: ['lh3.googleusercontent.com', 'fcdn.discordapp.com', 'cdn.discordapp.com'],
@@ -11,7 +12,7 @@ const nextConfig = {
 
   webpack(config) {
     config.experiments.topLevelAwait = true;
-    
+
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),

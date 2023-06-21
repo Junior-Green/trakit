@@ -6,6 +6,7 @@ export interface IBasketBallGame extends Document {
     opponentScore: number,
     date: Date,
     assists: number,
+    dunks: number
     minutesPlayed: number,
     pointsScored: number,
     fieldGoalsMade: number,
@@ -54,6 +55,11 @@ export const basketballGameSchema: Schema = new Schema({
         min: 0
     },
     assists: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    dunks: {
         type: Number,
         default: 0,
         min: 0

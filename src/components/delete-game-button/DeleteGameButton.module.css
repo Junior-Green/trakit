@@ -1,0 +1,21 @@
+.container {
+    background-color: transparent;
+    border-radius: 100%;
+    padding: 10px;
+    transition: background .2s ease-in;
+    cursor: pointer;
+}
+
+
+.icon {
+    fill: red;
+    transition: fill .2s ease-in
+}
+
+.container:hover {
+    background-color: red;
+}
+
+.container:hover .icon {
+    fill: white;
+}
