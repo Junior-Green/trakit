@@ -213,7 +213,7 @@ export async function POST(req: NextRequest) {
                 overTimeGoals: body.overTimeGoals,
                 shotsTaken: body.shotsTaken,
                 faceoffWins: body.faceoffWins,
-                faceOffLosses: body.faceOffLosses,
+                faceoffLosses: body.faceOffLosses,
                 saves: body.saves,
                 goalsGiven: body.goalsGiven,
                 shutOuts: body.shutOuts,
@@ -248,40 +248,30 @@ export async function POST(req: NextRequest) {
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,
                 date: Date.now(),
-                passingStats: {
-                    passesMade: body.passesMade,
-                    passesMissed: body.passesMissed,
-                    passingTouchDowns: body.passingTouchDowns,
-                    interceptedPasses: body.interceptedPasses,
-                    totalPassingYards: body.totalPassingYards
-                },
-                rushingStats: {
-                    carries: body.carries,
-                    totalRushingYards: body.totalRushingYards,
-                    rushingTouchDowns: body.rushingTouchDowns,
-                    fumbles: body.fumbles
-                },
-                recievingStats: {
-                    receptions: body.receptions,
-                    targets: body.targets,
-                    totalRecievingYards: body.totalRecievingYards,
-                    receivingTouchDowns: body.receivingTouchDowns,
-                    drops: body.drops,
-                },
-                defenceStats: {
-                    tackles: body.tackles,
-                    sacks: body.sacks,
-                    passesDefended: body.passesDefended,
-                    interceptions: body.interceptions,
-                    hurries: body.hurries,
-                    safeties: body.safeties
-                },
-                kickingStats: {
-                    kickoffs: body.kickoffs,
-                    touchbacks: body.touchbacks,
-                    fieldGoalsMade: body.fieldGoalsMade,
-                    fieldGoalsMissed: body.fieldGoalsMissed
-                },
+                passesMade: body.passesMade,
+                passesMissed: body.passesMissed,
+                passingTouchDowns: body.passingTouchDowns,
+                interceptedPasses: body.interceptedPasses,
+                totalPassingYards: body.totalPassingYards,
+                carries: body.carries,
+                totalRushingYards: body.totalRushingYards,
+                rushingTouchDowns: body.rushingTouchDowns,
+                fumbles: body.fumbles,
+                receptions: body.receptions,
+                targets: body.targets,
+                totalRecievingYards: body.totalRecievingYards,
+                receivingTouchDowns: body.receivingTouchDowns,
+                drops: body.drops,
+                tackles: body.tackles,
+                sacks: body.sacks,
+                passesDefended: body.passesDefended,
+                interceptions: body.interceptions,
+                hurries: body.hurries,
+                safeties: body.safeties,
+                kickoffs: body.kickoffs,
+                touchbacks: body.touchbacks,
+                fieldGoalsMade: body.fieldGoalsMade,
+                fieldGoalsMissed: body.fieldGoalsMissed
             });
             season.games.push(newGame);
             await user.save();

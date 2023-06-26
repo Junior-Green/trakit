@@ -67,7 +67,7 @@ const hockeyInitState = {
     overTimeGoals: 0,
     shotsTaken: 0,
     faceoffWins: 0,
-    faceOffLosses: 0,
+    faceoffLosses: 0,
     saves: 0,
     goalsGiven: 0,
 } as const;
@@ -408,60 +408,63 @@ function hockeyReducer(state: any, action: {type: string, payload: 'increment' |
     switch (action.type) {
         case 'goals':
             return {
+                ...state,
                 goals: action.payload === 'increment' ? state.goals + 1 : Math.max(0, state.goals - 1),
-                ...state
+
             };
         case 'assists':
             return {
+                ...state,
                 assists: action.payload === 'increment' ? state.assists + 1 : Math.max(0, state.assists - 1),
-                ...state
             };
         case 'penaltyMinutes':
             return {
+                ...state,
                 penaltyMinutes: action.payload === 'increment' ? state.penaltyMinutes + 1 : Math.max(0, state.penaltyMinutes - 1),
-                ...state
             };
         case 'powerPlayGoals':
             return {
+                ...state,
                 powerPlayGoals: action.payload === 'increment' ? state.powerPlayGoals + 1 : Math.max(0, state.powerPlayGoals - 1),
-                ...state
             };
         case 'shortHandedGoals':
             return {
+                ...state,
                 shortHandedGoals: action.payload === 'increment' ? state.shortHandedGoals + 1 : Math.max(0, state.shortHandedGoals - 1),
-                ...state
             };
         case 'overTimeGoals':
             return {
+                ...state,
                 overTimeGoals: action.payload === 'increment' ? state.overTimeGoals + 1 : Math.max(0, state.overTimeGoals - 1),
-                ...state
             };
         case 'shotsTaken':
             return {
+                ...state,
                 shotsTaken: action.payload === 'increment' ? state.shotsTaken + 1 : Math.max(0, state.shotsTaken - 1),
-                ...state
+
             };
         case 'faceoffWins':
             return {
+                ...state,
                 faceoffWins: action.payload === 'increment' ? state.faceoffWins + 1 : Math.max(0, state.faceoffWins - 1),
-                ...state
             };
-        case 'faceOffLosses':
+        case 'faceoffLosses':
             return {
+                ...state,
                 faceOffLosses: action.payload === 'increment' ? state.faceOffLosses + 1 : Math.max(0, state.faceOffLosses - 1),
-                ...state
             };
         case 'saves':
             return {
+                ...state,
                 saves: action.payload === 'increment' ? state.saves + 1 : Math.max(0, state.saves - 1),
-                ...state
             };
         case 'goalsGiven':
             const newGoalsGiven = action.payload === 'increment' ? state.goalsGiven + 1 : Math.max(0, state.goalsGiven - 1);
             return {
+                ...state,
                 goalsGiven: newGoalsGiven,
                 shutOuts: newGoalsGiven === 0 ? 1 : 0,
-                ...state
+
             };
         case 'reset':
             return {

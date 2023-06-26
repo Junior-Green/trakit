@@ -314,7 +314,7 @@ export default async function GameSummary({params: {id}}: {params: {id: string;}
             case "shotsOnTarget":
                 const shotsOnTarget = gameObj['shotsOnTarget'];
                 const shotsOffTarget = gameObj['shotsOffTarget'];
-                const shotAccuracy = shotsOnTarget / ((shotsOnTarget + shotsOffTarget)) * 100;
+                const shotAccuracy = (shotsOnTarget / (shotsOnTarget + shotsOffTarget)) * 100;
                 const shotAccuracyBadgeName = 'Sniper';
                 if (shotAccuracy >= 60) {
                     return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />);
@@ -397,24 +397,267 @@ export default async function GameSummary({params: {id}}: {params: {id: string;}
 
     function getFootballAchievement(key: string): JSX.Element | null {
         switch (key) {
-            case "assists":
+            case "passesMade":
+                const passesMade = gameObj['passesMade'];
+                const passesMissed = gameObj['passesMissed'];
+                const passAccuracy = (passesMade / (passesMissed + passesMade)) * 100;
+                const shotAccuracyBadgeName = 'Sniper';
+                if (passAccuracy >= 0.70) {
+                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />);
+                }
+                else if (passAccuracy >= 0.60) {
+                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />);
+                }
+                else if (passAccuracy >= 0.5) {
+                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />);
+                }
+                return null;
+            case "passingTouchDowns":
+                const passingTouchDowns = gameObj['passingTouchDowns'];
+                const passingTouchDownsName = 'Tunnel Vision';
+                if (passingTouchDowns >= 3) {
+                    return getAchievmentBadgeComponent(passingTouchDownsName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />);
+                }
+                else if (passingTouchDowns >= 2) {
+                    return getAchievmentBadgeComponent(passingTouchDownsName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />);
+                }
+                else if (passingTouchDowns >= 1) {
+                    return getAchievmentBadgeComponent(passingTouchDownsName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />);
+                }
+                return null;
+            case "totalPassingYards":
+                const totalPassingYards = gameObj['totalPassingYards'];
+                const totalPassingYardsName = 'Strong Arm';
+                if (totalPassingYards >= 200) {
+                    return getAchievmentBadgeComponent(totalPassingYardsName, <AchievementBadge badgeIcon={'arm'} tier={'gold'} />);
+                }
+                else if (totalPassingYards >= 100) {
+                    return getAchievmentBadgeComponent(totalPassingYardsName, <AchievementBadge badgeIcon={'arm'} tier={'silver'} />);
+                }
+                else if (totalPassingYards >= 50) {
+                    return getAchievmentBadgeComponent(totalPassingYardsName, <AchievementBadge badgeIcon={'arm'} tier={'bronze'} />);
+                }
+                return null;
+            case "tackles":
+                const tackles = gameObj['tackles'];
+                const tacklesBadgeName = 'Brick Wall';
+                if (tackles >= 4) {
+                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />);
+                }
+                else if (tackles >= 3) {
+                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />);
+                }
+                else if (tackles >= 2) {
+                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />);
+                }
+                return null;
+            case "sacks":
+                const sacks = gameObj['sacks'];
+                const sacksBadgeName = 'Slicky';
+                if (sacks >= 3) {
+                    return getAchievmentBadgeComponent(sacksBadgeName, <AchievementBadge badgeIcon={'bug'} tier={'gold'} />);
+                }
+                else if (sacks >= 2) {
+                    return getAchievmentBadgeComponent(sacksBadgeName, <AchievementBadge badgeIcon={'bug'} tier={'silver'} />);
+                }
+                else if (sacks >= 1) {
+                    return getAchievmentBadgeComponent(sacksBadgeName, <AchievementBadge badgeIcon={'bug'} tier={'bronze'} />);
+                }
+                return null;
+            case "interceptions":
+                const interceptions = gameObj['interceptions'];
+                const interceptionsBadgeName = 'Ninja';
+                if (interceptions >= 3) {
+                    return getAchievmentBadgeComponent(interceptionsBadgeName, <AchievementBadge badgeIcon={'ninja'} tier={'gold'} />);
+                }
+                else if (interceptions >= 2) {
+                    return getAchievmentBadgeComponent(interceptionsBadgeName, <AchievementBadge badgeIcon={'ninja'} tier={'silver'} />);
+                }
+                else if (interceptions >= 1) {
+                    return getAchievmentBadgeComponent(interceptionsBadgeName, <AchievementBadge badgeIcon={'ninja'} tier={'bronze'} />);
+                }
+                return null;
+            case "receptions":
+                const receptions = gameObj['receptions'];
+                const receptionsBadgeName = 'Sticky Fingers';
+                if (receptions >= 5) {
+                    return getAchievmentBadgeComponent(receptionsBadgeName, <AchievementBadge badgeIcon={'slime'} tier={'gold'} />);
+                }
+                else if (receptions >= 3) {
+                    return getAchievmentBadgeComponent(receptionsBadgeName, <AchievementBadge badgeIcon={'slime'} tier={'silver'} />);
+                }
+                else if (receptions >= 2) {
+                    return getAchievmentBadgeComponent(receptionsBadgeName, <AchievementBadge badgeIcon={'slime'} tier={'bronze'} />);
+                }
+                return null;
+            case "targets":
+                const targets = gameObj['targets'];
+                const targetsBadgeName = 'Reliable Catcher';
+                if (targets >= 8) {
+                    return getAchievmentBadgeComponent(targetsBadgeName, <AchievementBadge badgeIcon={'catch-football'} tier={'gold'} />);
+                }
+                else if (targets >= 5) {
+                    return getAchievmentBadgeComponent(targetsBadgeName, <AchievementBadge badgeIcon={'catch-football'} tier={'silver'} />);
+                }
+                else if (targets >= 3) {
+                    return getAchievmentBadgeComponent(targetsBadgeName, <AchievementBadge badgeIcon={'catch-football'} tier={'bronze'} />);
+                }
+                return null;
+            case "totalRecievingYards":
+                const totalRecievingYards = gameObj['totalRecievingYards'];
+                const totalRecievingYardsBadgeName = 'Distant Catcher';
+                if (totalRecievingYards >= 45) {
+                    return getAchievmentBadgeComponent(totalRecievingYardsBadgeName, <AchievementBadge badgeIcon={'measuring-tape'} tier={'gold'} />);
+                }
+                else if (totalRecievingYards >= 30) {
+                    return getAchievmentBadgeComponent(totalRecievingYardsBadgeName, <AchievementBadge badgeIcon={'measuring-tape'} tier={'silver'} />);
+                }
+                else if (totalRecievingYards >= 10) {
+                    return getAchievmentBadgeComponent(totalRecievingYardsBadgeName, <AchievementBadge badgeIcon={'measuring-tape'} tier={'bronze'} />);
+                }
+                return null;
+            case "totalRushingYards":
+                const totalRushingYards = gameObj['totalRushingYards'];
+                const totalRushingYardsBadgeName = 'Track Star';
+                if (totalRushingYards >= 50) {
+                    return getAchievmentBadgeComponent(totalRushingYardsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />);
+                }
+                else if (totalRushingYards >= 30) {
+                    return getAchievmentBadgeComponent(totalRushingYardsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />);
+                }
+                else if (totalRushingYards >= 10) {
+                    return getAchievmentBadgeComponent(totalRushingYardsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />);
+                }
+                return null;
+            case "receivingTouchDowns":
+                const receivingTouchDowns: number = gameObj['receivingTouchDowns'];
+                const rushingTouchDowns: number = gameObj['rushingTouchDowns'];
+                const totalTouchDowns: number = receivingTouchDowns + rushingTouchDowns;
+                const totalTouchDownsName: string = "Juggernuat";
 
-                break;
+                if (totalTouchDowns >= 3) {
+                    return getAchievmentBadgeComponent(totalTouchDownsName, <AchievementBadge badgeIcon={'gas-mask'} tier={'gold'} />);
+                }
+                else if (totalTouchDowns >= 2) {
+                    return getAchievmentBadgeComponent(totalTouchDownsName, <AchievementBadge badgeIcon={'gas-mask'} tier={'silver'} />);
+                }
+                else if (totalTouchDowns >= 1) {
+                    return getAchievmentBadgeComponent(totalTouchDownsName, <AchievementBadge badgeIcon={'gas-mask'} tier={'bronze'} />);
+                }
+                return null;
+            case "fieldGoalsMade":
+                const fieldGoalsMade: number = gameObj['fieldGoalsMade'];
+                const fieldGoalsMissed: number = gameObj['fieldGoalsMissed'];
+                const fieldAGoalAccuracy = (fieldGoalsMade / (fieldGoalsMade + fieldGoalsMissed)) * 100;
+                const fieldGoalName: string = "Steel Toe";
+
+                if (fieldAGoalAccuracy >= 80) {
+                    return getAchievmentBadgeComponent(fieldGoalName, <AchievementBadge badgeIcon={'anvil'} tier={'gold'} />);
+                }
+                else if (fieldAGoalAccuracy >= 70) {
+                    return getAchievmentBadgeComponent(fieldGoalName, <AchievementBadge badgeIcon={'anvil'} tier={'silver'} />);
+                }
+                else if (fieldAGoalAccuracy >= 60) {
+                    return getAchievmentBadgeComponent(fieldGoalName, <AchievementBadge badgeIcon={'anvil'} tier={'bronze'} />);
+                }
+                return null;
             default:
-                return <></>;
+                return null;
         }
-        return null;
     }
 
     function getHockeyAchievement(key: string): JSX.Element | null {
         switch (key) {
+            case "goals":
+                const goals: number = gameObj['goals'];
+                const goalsName = 'Scoring Machine';
+                if (goals >= 3) {
+                    return getAchievmentBadgeComponent(goalsName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />);
+                }
+                else if (goals > 2) {
+                    return getAchievmentBadgeComponent(goalsName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />);
+                }
+                else if (goals > 1) {
+                    return getAchievmentBadgeComponent(goalsName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />);
+                }
+                return null;
             case "assists":
-
-                break;
+                const assists: number = gameObj['assists'];
+                const assistBadgeName = 'Tunnel Vision';
+                if (assists >= 3) {
+                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />);
+                }
+                else if (assists >= 2) {
+                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />);
+                }
+                else if (assists >= 1) {
+                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />);
+                }
+                return null;
+            case "penaltyMinutes":
+                const penaltyMinutes: number = gameObj['penaltyMinutes'];
+                const penaltyMinutesBadgeName = 'Clean Player';
+                if (penaltyMinutes === 0) {
+                    return getAchievmentBadgeComponent(penaltyMinutesBadgeName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />);
+                }
+                return null;
+            case "shortHandedGoals":
+                const shortHandedGoals: number = gameObj['shortHandedGoals'];
+                const shortHandedGoalsBadgeName = 'Underdog';
+                if (shortHandedGoals >= 3) {
+                    return getAchievmentBadgeComponent(shortHandedGoalsBadgeName, <AchievementBadge badgeIcon={'reverse-arrows'} tier={'gold'} />);
+                }
+                else if (shortHandedGoals >= 2) {
+                    return getAchievmentBadgeComponent(shortHandedGoalsBadgeName, <AchievementBadge badgeIcon={'reverse-arrows'} tier={'silver'} />);
+                }
+                else if (shortHandedGoals >= 1) {
+                    return getAchievmentBadgeComponent(shortHandedGoalsBadgeName, <AchievementBadge badgeIcon={'reverse-arrows'} tier={'bronze'} />);
+                }
+                return null;
+            case "overTimeGoals":
+                const overTimeGoals: number = gameObj['overTimeGoals'];
+                const overTimeGoalsBadgeName = 'Clutch';
+                if (overTimeGoals >= 3) {
+                    return getAchievmentBadgeComponent(overTimeGoalsBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'gold'} />);
+                }
+                else if (overTimeGoals >= 2) {
+                    return getAchievmentBadgeComponent(overTimeGoalsBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'silver'} />);
+                }
+                else if (overTimeGoals >= 1) {
+                    return getAchievmentBadgeComponent(overTimeGoalsBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'bronze'} />);
+                }
+                return null;
+            case "saves":
+                const saves: number = gameObj['saves'];
+                const savesName = 'Savior';
+                if (saves >= 3) {
+                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />);
+                }
+                else if (saves === 2) {
+                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'silver'} />);
+                }
+                else if (saves === 1) {
+                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'bronze'} />);
+                }
+                return null;
+            case "faceoffWins":
+                const faceoffWins: number = gameObj['faceoffWins'];
+                const faceoffLosses: number = gameObj['faceoffLosses'];
+                const faceoffPercentage = (faceoffWins / (faceoffWins + faceoffLosses)) * 100;
+                const faceoffPercentageName = 'Duelist';
+                if (faceoffPercentage >= 60) {
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />);
+                }
+                else if (faceoffPercentage >= 55) {
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'silver'} />);
+                }
+                else if (faceoffPercentage >= 50) {
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'bronze'} />);
+                }
+                return null;
             default:
-                return <></>;
+                return null;
         }
-        return null;
     }
 
     function getAchievmentBadgeComponent(achievementName: string, badgeIcon: JSX.Element): JSX.Element {

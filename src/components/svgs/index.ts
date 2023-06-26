@@ -36,3 +36,7 @@ export {default as PenguinIcon} from './PenguinIcon.svg';
 export {default as AngelWingsIcon} from './AngelWingIcon.svg';
 export {default as NinjaIcon} from './NinjaIcon.svg';
 export {default as TrashIcon} from './TrashIcon.svg';
+export {default as ArmIcon} from './ArmIcon.svg';
+export {default as GasMaskIcon} from './GasMaskIcon.svg';
+export {default as AnvilIcon} from './AnvilIcon.svg';
+export {default as CogIcon} from './CogIcon.svg';

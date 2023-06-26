@@ -5,7 +5,7 @@ import styles from './Sidebar.module.css';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
 import {useRouter} from 'next/navigation';
-import {DashBoardIcon, RecordIcon, ScoreIcon} from '../svgs';
+import {CogIcon, DashBoardIcon, RecordIcon, ScoreIcon} from '../svgs';
 
 type SideBarProps = {
     username: string | null | undefined,
@@ -30,6 +30,10 @@ export const SideBar = ({username, profileImagePath}: SideBarProps) => {
             <div className={currPath == 'livegame' ? styles.containerSelected : styles.container} onClick={() => router.push('/home/livegame')}>
                 <RecordIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Record Game</p>
+            </div>
+            <div className={currPath == 'settings' ? styles.containerSelected : styles.container} onClick={() => router.push('/home/settings')}>
+                <CogIcon className={styles.containerIcon} />
+                <p className={styles.containerLabel}>Settings</p>
             </div>
             <div className={styles.spacer}></div>
             <div className={styles.userInfoContainer}>

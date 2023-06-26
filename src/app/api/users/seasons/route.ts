@@ -37,7 +37,7 @@ export async function GET() {
         case "football":
             return NextResponse.json(user.footballSeasons)
         case "hockey":
-            return NextResponse.json(user.basketballSeasons)
+            return NextResponse.json(user.hockeySeasons)
     }
 
 }

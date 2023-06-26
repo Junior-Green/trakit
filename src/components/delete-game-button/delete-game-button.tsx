@@ -30,7 +30,7 @@ export const DeleteGameButton = ({id}: {id: string;}) => {
 
     return (
         <div className={styles.container} onClick={debouncedFunc}>
-            <TrashIcon width={40} className={styles.icon} />
+            <TrashIcon width={35} className={styles.icon} />
         </div>
     );
 }

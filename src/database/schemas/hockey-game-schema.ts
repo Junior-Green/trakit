@@ -13,7 +13,7 @@ export interface IHockeyGame extends Document {
     overTimeGoals: number,
     shotsTaken: number,
     faceoffWins: number,
-    faceOffLosses: number,
+    faceoffLosses: number,
     saves: number,
     goalsGiven: number,
     shutOuts: number,
@@ -80,7 +80,7 @@ export const hockeyGameSchema: Schema = new Schema({
         default: 0,
         min: 0
     },
-    faceOffLosses: {
+    faceoffLosses: {
         type: Number,
         default: 0,
         min: 0
