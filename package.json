@@ -16,7 +16,6 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
-    "@types/react-select": "^5.0.1",
     "chroma-js": "^2.4.2",
     "classnames": "^2.3.2",
     "css-module-class-lister": "^1.2.0",
@@ -35,7 +34,10 @@
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
     "@types/chroma-js": "^2.4.0",
-    "eslint-config-next": "^12.0.4"
+    "autoprefixer": "^10.4.14",
+    "eslint-config-next": "^12.0.4",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2"
   },
   "overrides": {
     "semver": "^7.5.3"

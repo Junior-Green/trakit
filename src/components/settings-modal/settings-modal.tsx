@@ -15,7 +15,7 @@ export const SettingsModal = ({teamName, selectedSport}: SettingsModalType) => {
 
     return (
         <div className={styles.container}>
-            <label style={{fontSize: "1rem", fontWeight: 600}}> Team Name </label>
+            <label className="text-2xl font-semibold"> Team Name </label>
             <input className={styles.inputField} type="text" defaultValue={teamName} />
             <SelectSportDropdown defaultSport={selectedSport} setSport={setSport} />
             <div className={styles.spacer} />

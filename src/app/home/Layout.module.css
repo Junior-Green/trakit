@@ -9,8 +9,7 @@
 .child {
     width: 85%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 .sidebar {

@@ -646,13 +646,13 @@ export default async function GameSummary({params: {id}}: {params: {id: string;}
                 const faceoffPercentage = (faceoffWins / (faceoffWins + faceoffLosses)) * 100;
                 const faceoffPercentageName = 'Duelist';
                 if (faceoffPercentage >= 60) {
-                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />);
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'swords'} tier={'gold'} />);
                 }
                 else if (faceoffPercentage >= 55) {
-                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'silver'} />);
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'swords'} tier={'silver'} />);
                 }
                 else if (faceoffPercentage >= 50) {
-                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'angel-wings'} tier={'bronze'} />);
+                    return getAchievmentBadgeComponent(faceoffPercentageName, <AchievementBadge badgeIcon={'swords'} tier={'bronze'} />);
                 }
                 return null;
             default:
