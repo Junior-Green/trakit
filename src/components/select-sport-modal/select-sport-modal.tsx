@@ -5,7 +5,7 @@ import styles from './SelectSportModal.module.css';
 import { useState } from 'react';
 import classNames from 'classnames';
 import { Alert, CircularProgress, createTheme, ThemeProvider } from '@mui/material';
-import { URL } from '@/src/utils';
+import { URL } from '@/src/utils/utils';
 
 const theme = createTheme({
     palette: {

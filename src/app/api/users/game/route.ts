@@ -1,9 +1,9 @@
-import {getServerSession} from "next-auth";
-import {authOptions} from "../../auth/[...nextauth]/route";
-import {NextRequest, NextResponse} from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/src/database/mongoose-connect";
 import UserData from "@/src/database/schemas/user-schema";
-import {ObjectId} from "mongodb";
+import { ObjectId } from "mongodb";
 import BasketballSeason from "@/src/database/schemas/basketball-season-schema";
 import BasketballGame from "@/src/database/schemas/basketball-game-schema";
 import SoccerSeason from "@/src/database/schemas/soccer-season-schema";
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     await dbConnect();
 
-    const user = await UserData.findOne({userId: new ObjectId(session.user.id)}).exec();
+    const user = await UserData.findOne({ userId: new ObjectId(session.user.id) }).exec();
 
     if (!user) {
         return new NextResponse(null, {
@@ -108,6 +108,7 @@ export async function POST(req: NextRequest) {
 
         try {
             const newGame = new BasketballGame({
+                team: body.team,
                 opponentTeam: body.opponentTeam,
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,
@@ -154,6 +155,7 @@ export async function POST(req: NextRequest) {
 
         try {
             const newGame = new SoccerGame({
+                team: body.team,
                 opponentTeam: body.opponentTeam,
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,
@@ -200,6 +202,7 @@ export async function POST(req: NextRequest) {
 
         try {
             const newGame = new HockeyGame({
+                team: body.team,
                 opponentTeam: body.opponentTeam,
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,
@@ -244,6 +247,7 @@ export async function POST(req: NextRequest) {
 
         try {
             const newGame = new FootballGame({
+                team: body.team,
                 opponentTeam: body.opponentTeam,
                 teamScore: body.teamScore,
                 opponentScore: body.opponentScore,

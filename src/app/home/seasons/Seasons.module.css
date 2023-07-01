@@ -5,8 +5,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    padding-top: 5%;
+    overflow-y: scroll;
 }
 
 .header {
-    font-size: 5rem;
+    font-size: 4rem;
 }

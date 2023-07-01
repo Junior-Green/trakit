@@ -7,11 +7,12 @@ import {AngelWingsIcon, AnvilIcon, ArmIcon, AssistIcon, BasketballBlockIcon, Bas
 const badgeIconsList = ['assist', 'block', 'brick-wall', 'bug', 'clock', 'catch-football', 'pickup-football', 'measuring-tape', 'pass-ball', 'pin', 'rescue', 'save-goal', 'star', 'steal', 'reverse-arrows', 'swords', 'target', 'warning-card', 'eye', 'dunk-ball', 'slime', 'coins', 'penguin', 'angel-wings', 'ninja', 'arm', 'gas-mask', 'anvil'] as const;
 type AchievementBadgeProps = {
     tier: 'bronze' | 'silver' | 'gold',
-    badgeIcon: typeof badgeIconsList[number];
+    badgeIcon: typeof badgeIconsList[number],
+    size?: number;
 };
 
-export const AchievementBadge = ({badgeIcon, tier}: AchievementBadgeProps) => {
-    const iconSize = "5vmax";
+export const AchievementBadge = ({badgeIcon, tier, size = 5}: AchievementBadgeProps) => {
+    const iconSize =`${size}vmax`;
     let tierClassName: string = styles.bronze;
     if (tier === 'silver') {
         tierClassName = styles.silver;

@@ -1,7 +1,7 @@
 .container {
     background-color: rgb(45, 48, 91);
-    width: 30%;
     height: 50%;
+    min-height: 50%;
     display: flex;
     border-radius: 15px;
     flex-direction: column;
@@ -21,11 +21,6 @@
     margin-top: 5px;
     text-align: center;
 
-}
-
-.inputField:focus {
-    outline: none !important;
-    border: none;
 }
 
 .spacer {

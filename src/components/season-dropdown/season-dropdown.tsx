@@ -33,7 +33,7 @@ export const SeasonDropdown = ({ season, deleteSeason }: SeasonDropdownProps) =>
                         <CancelIcon className={styles.cancelIcon} />
                     </button>
                 </div>
-                <DownArrowIcon className={styles.downArrowIcon} />
+                <DownArrowIcon width={30} height={30}/>
             </div>
             {
                 !isCollapsed && season.games.map((game) =>

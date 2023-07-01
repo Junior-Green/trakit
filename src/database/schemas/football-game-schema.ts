@@ -1,6 +1,7 @@
-import {Schema, model, Model, Document, models, Types, ObjectId} from 'mongoose';
+import { Schema, model, Model, Document, models, Types, ObjectId } from 'mongoose';
 
 export interface IFootballGame extends Document {
+    team: string,
     opponentTeam: string,
     teamScore: number,
     opponentScore: number,
@@ -32,6 +33,12 @@ export interface IFootballGame extends Document {
 }
 
 export const footballGameSchema: Schema = new Schema({
+    team: {
+        type: String,
+        required: [true, 'Team cannot be undefined'],
+        trim: true,
+        minLength: 1
+    },
     opponentTeam: {
         type: String,
         required: [true, 'Opponent team cannot be undefined'],

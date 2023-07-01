@@ -19,7 +19,7 @@ export const SideBar = ({username, profileImagePath}: SideBarProps) => {
     return (
         <div className={styles.panel}>
             <Image className={styles.logo} src={'/trakit_logo.png'} alt={'logo'} width={65} height={80}></Image>
-            <div className={currPath == 'home' ? styles.containerSelected : styles.container} onClick={() => router.push('/home')}>
+            <div className={currPath == 'dashboard' ? styles.containerSelected : styles.container} onClick={() => router.push('/home/dashboard')}>
                 <DashBoardIcon className={styles.containerIcon} />
                 <p className={styles.containerLabel}>Dashboard</p>
             </div>

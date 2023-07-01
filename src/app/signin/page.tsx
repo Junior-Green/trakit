@@ -23,7 +23,7 @@ export const metadata = {
 export default async function SignIn() {
     const session = await getServerSession(authOptions);
     if (session) {
-        redirect('/home');
+        redirect('/home/dashboard');
     }
     return (
         <div className={styles.background}>

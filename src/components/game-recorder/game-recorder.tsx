@@ -1,16 +1,16 @@
 'use client';
 
-import {useReducer, useState} from "react";
+import { useReducer, useState } from "react";
 import styles from './GameRecorder.module.css';
-import {StatTracker} from "../stat-tracker/stat-tracker";
-import {StopWatch} from "../stopwatch/stopwatch";
-import {ThemeProvider} from "@emotion/react";
-import {Alert, CircularProgress, createTheme} from "@mui/material";
-import {redirect, useRouter} from "next/navigation";
-import {RightArrowIcon} from "../svgs";
-import {camelCaseToTitleCase} from "@/src/utils";
+import { StatTracker } from "../stat-tracker/stat-tracker";
+import { StopWatch } from "../stopwatch/stopwatch";
+import { ThemeProvider } from "@emotion/react";
+import { Alert, CircularProgress, createTheme } from "@mui/material";
+import { RightArrowIcon } from "../svgs";
+import { camelCaseToTitleCase } from "@/src/utils/utils";
 
 type GameRecorderProps = {
+    teamName: string,
     sport: 'soccer' | 'basketball' | 'hockey' | 'football';
 };
 
@@ -99,7 +99,7 @@ const footballInitState = {
     totalPassingYards: 0
 } as const;
 
-function basektballReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
+function basektballReducer(state: any, action: { type: string, payload: 'increment' | 'decrement'; }) {
     switch (action.type) {
         case 'pointsScored':
             return {
@@ -187,7 +187,7 @@ function basektballReducer(state: any, action: {type: string, payload: 'incremen
     }
 }
 
-function soccerReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
+function soccerReducer(state: any, action: { type: string, payload: 'increment' | 'decrement'; }) {
     switch (action.type) {
         case 'goals':
             return {
@@ -273,7 +273,7 @@ function soccerReducer(state: any, action: {type: string, payload: 'increment' |
     }
 }
 
-function footballReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
+function footballReducer(state: any, action: { type: string, payload: 'increment' | 'decrement'; }) {
     switch (action.type) {
         case 'kickoffs':
             return {
@@ -404,7 +404,7 @@ function footballReducer(state: any, action: {type: string, payload: 'increment'
     }
 }
 
-function hockeyReducer(state: any, action: {type: string, payload: 'increment' | 'decrement';}) {
+function hockeyReducer(state: any, action: { type: string, payload: 'increment' | 'decrement'; }) {
     switch (action.type) {
         case 'goals':
             return {
@@ -475,8 +475,8 @@ function hockeyReducer(state: any, action: {type: string, payload: 'increment' |
     }
 }
 
-export const GameRecorder = ({sport}: GameRecorderProps) => {
-    let reducer: (state: any, action: {type: string, payload: 'increment' | 'decrement';}) => any;
+export const GameRecorder = ({ teamName, sport }: GameRecorderProps) => {
+    let reducer: (state: any, action: { type: string, payload: 'increment' | 'decrement'; }) => any;
     let initialState;
     switch (sport) {
         case 'basketball':
@@ -511,7 +511,7 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
 
     if (isLoading) {
         return (
-            <div style={{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <ThemeProvider theme={theme}>
                     <CircularProgress className={styles.circularLoader} thickness={5.0} size={100} />
                 </ThemeProvider>
@@ -520,12 +520,12 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
     }
     if (dialog) {
         return (
-            <div style={{height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div className={styles.popupContainer}>
-                    <h1 style={{margin: "0", fontSize: "1.75em", fontWeight: "400"}}>Enter opponent team name</h1>
+                    <h1 style={{ margin: "0", fontSize: "1.75em", fontWeight: "400" }}>Enter opponent team name</h1>
                     <div className={styles.form}>
                         <input className={styles.inputField} type="text" placeholder="name" onInput={(input) => setOpponentName(input.currentTarget.value.trim())} />
-                        <button className={styles.arrowButton} onClick={() => saveGame()} disabled={opponentName === ""}><RightArrowIcon /></button>
+                        <button className={styles.arrowButton} onClick={() => saveGame()} disabled={opponentName === ""}><RightArrowIcon width={25}/></button>
                     </div>
                 </div>
             </div>
@@ -536,7 +536,7 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
         <>
             <div className={styles.scoreboard}>
                 <div className={styles.score}>
-                    <h2 className={styles.teamLabel}>Team</h2>
+                    <h2 className={styles.teamLabel}>{teamName}</h2>
                     <h1 className={styles.scoreLabel}>{String(teamScore).padStart(3, '0')}</h1>
                     <div className={styles.buttons}>
                         <button className={styles.decrement} onClick={() => setTeamScore(Math.max(0, teamScore - 1))}>-</button>
@@ -562,7 +562,7 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
             <div className={styles.trackerContainer}>
                 {
                     Object.keys(initialState).sort((a, b) => a.localeCompare(b)).map(
-                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({type: key, payload: option})} stat={state[key]} />
+                        (key) => <StatTracker key={key} label={camelCaseToTitleCase(key)} dispatcher={(option: 'increment' | 'decrement') => dispatch({ type: key, payload: option })} stat={state[key]} />
                     )
                 }
             </div>
@@ -582,6 +582,7 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    team: teamName,
                     opponentTeam: opponentName,
                     teamScore: teamScore,
                     opponentScore: opponentScore,
@@ -594,7 +595,7 @@ export const GameRecorder = ({sport}: GameRecorderProps) => {
             showError(true);
         }
         else {
-            dispatch({type: 'reset', payload: 'decrement'});
+            dispatch({ type: 'reset', payload: 'decrement' });
             setOpponentScore(0);
             setTeamScore(0);
             setTime(0);

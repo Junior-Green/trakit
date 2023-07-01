@@ -1,14 +1,16 @@
 .placeholder {
-    border-style: dashed;
     padding: 20px;
     border-radius: 15px;
     width: 50%;
-    height: 90px;  
+    height: 100px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-width: 2px;
+    border-color: white;
+    border-style: dashed;
 }
 
 .placeholder span {
@@ -17,7 +19,7 @@
 }
 
 .root {
-    width: 100%; 
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: flex-start;
@@ -25,7 +27,7 @@
     flex-direction: column;
 }
 
-.root > * {
+.root>* {
     margin: 0 0 40px 0;
 }
 

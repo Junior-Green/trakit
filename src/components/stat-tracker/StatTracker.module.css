@@ -1,4 +1,8 @@
 .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 2;
     width: 35px;
     height: 35px;
     border-radius: 10px;
@@ -18,8 +22,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 13vmax;
-    height: 13vmax;
+    width: 15vmax;
+    height: 15vmax;
     background-color: rgb(45, 48, 91);
     border-radius: 20px;
     padding: 20px;

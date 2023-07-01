@@ -22,8 +22,8 @@
     justify-content: center;
     margin: 10px 3%;
     background-color: rgb(45, 48, 91);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 20px;
 }
 
@@ -58,8 +58,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 13vmax;
-    height: 13vmax;
+    width: 15vmax;
+    height: 15vmax;
     background-color: rgb(45, 48, 91);
     border-radius: 20px;
     padding: 20px;
@@ -70,8 +70,8 @@
     max-lines: 1;
     white-space: nowrap;
     line-height: 1.5;
-    text-align: left;
-    font-size: 1.25vmax;
+    text-align: center;
+    font-size: 1.5vmax;
     color: rgb(198, 201, 244)
 }
 
@@ -92,6 +92,9 @@
 }
 
 .roundedDivider {
+    display:  inline-flex;
+    margin-left: auto;
+    margin: auto;
     width: 80%;
     border-top: 5px solid #2d305b;
     border-bottom: 0px;
@@ -120,8 +123,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 9vmax;
-    height: 9vmax;
+    width: 12vmax;
+    height: 12vmax;
     background-color: rgb(45, 48, 91);
     border-radius: 20px;
     padding: 20px;

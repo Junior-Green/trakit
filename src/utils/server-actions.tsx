@@ -1,13 +1,13 @@
 'use server';
 
 import dbConnect from "../database/mongoose-connect";
-import {ObjectId} from "mongodb";
+import { ObjectId } from "mongodb";
 import UserData from "../database/schemas/user-schema";
 
 export async function deleteGame(userId: string, id: string): Promise<boolean> {
     await dbConnect();
 
-    const user = await UserData.findOne({userId: new ObjectId(userId)});
+    const user = await UserData.findOne({ userId: new ObjectId(userId) });
 
     if (!user) return Promise.reject('User not found');
 
@@ -23,11 +23,11 @@ export async function deleteGame(userId: string, id: string): Promise<boolean> {
 
     const pullQueryKey = `${user.selectedSport}Seasons.$.games`;
     const pullQuery: any = {};
-    pullQuery[pullQueryKey] = {"_id": new ObjectId(id)};
+    pullQuery[pullQueryKey] = { "_id": new ObjectId(id) };
 
     return await UserData.updateOne(
         filterQuery,
-        {$pull: pullQuery}
+        { $pull: pullQuery }
     ).then((res) => {
         console.log(res);
         return res.modifiedCount != 0;
@@ -35,4 +35,19 @@ export async function deleteGame(userId: string, id: string): Promise<boolean> {
         console.error(err);
         return false;
     });
+}
+
+export async function updateSettings({ teamName, sport, userId }: {
+    teamName: string,
+    sport: "basketball" | "football" | "soccer" | "hockey",
+    userId: string
+}): Promise<boolean> {
+    await dbConnect()
+
+    const user = await UserData.findOne({ userId: new ObjectId(userId) }).exec();
+    if (!user) return false;
+
+    user.selectedSport = sport;
+    user.teamName = teamName;
+    return user.save().then(() => true, () => false)
 }
