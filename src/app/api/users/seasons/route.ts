@@ -6,7 +6,7 @@ import SoccerSeason from "@/src/database/schemas/soccer-season-schema";
 import UserData from "@/src/database/schemas/user-schema";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET() {

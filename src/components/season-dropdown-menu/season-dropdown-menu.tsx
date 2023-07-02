@@ -81,7 +81,7 @@ export const SeasonDropdownMenu = () => {
         const skeletonCount = 5;
 
         for (let index = 0; index < skeletonCount; index++) {
-            listOfSkeletons.push(<Skeleton key={index} variant="rounded" width={"50%"} height={130} />)
+            listOfSkeletons.push(<Skeleton variant="rounded" width={"50%"} height={130} />)
         }
 
         return listOfSkeletons;
