@@ -158,26 +158,26 @@ export default async function Dashboard() {
                 const minutes: number = game['minutesPlayed'];
                 const minutesPlayedBadgeName = 'X-Factor';
                 if (minutes > 25) {
-                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'gold'} />) })
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'gold'} />) })
                 }
                 else if (minutes > 15) {
-                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'silver'} />) })
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'silver'} />) })
                 }
                 else if (minutes > 10) {
-                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'bronze'} />) })
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'bronze'} />) })
                 }
                 return null;
             case "pointsScored":
                 const pointsScored: number = game['pointsScored'];
                 const pointsScoredBadgeName = 'Scoring Machine';
                 if (pointsScored > 25) {
-                    return getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />) })
                 }
                 else if (pointsScored > 15) {
-                    return getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />) })
                 }
                 else if (pointsScored > 8) {
-                    return getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(pointsScoredBadgeName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />) })
                 }
                 return null;
             case "fieldGoalsMade":
@@ -186,13 +186,13 @@ export default async function Dashboard() {
                 const fgPercentage: number = (fgMade / (fgMade + fgMissed)) * 100;
                 const fieldGoalsBadgeName = 'Deadeye';
                 if (fgPercentage >= 60) {
-                    return getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />) })
                 }
                 else if (fgPercentage >= 50) {
-                    return getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />) })
                 }
                 else if (fgPercentage >= 40) {
-                    return getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(fieldGoalsBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />) })
                 }
                 return null;
             case "threePointersMade":
@@ -201,13 +201,13 @@ export default async function Dashboard() {
                 const threePercentage: number = (threesMade / (threesMade + threesMissed)) * 100;
                 const threesBadgeName = 'Sniper';
                 if (threePercentage >= 40) {
-                    return getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />) })
                 }
                 else if (threePercentage >= 35) {
-                    return getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />) })
                 }
                 else if (threePercentage >= 30) {
-                    return getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(threesBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />) })
                 }
                 return null;
             case "freeThrowsMade":
@@ -216,91 +216,91 @@ export default async function Dashboard() {
                 const freePercentage: number = (freesMade / (freesMade + freesMissed)) * 100;
                 const freeBadgeName = 'Free Throw Ace';
                 if (freePercentage >= 80) {
-                    return getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />) })
                 }
                 else if (freePercentage >= 75) {
-                    return getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />) })
                 }
                 else if (freePercentage >= 70) {
-                    return getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(freeBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />) })
                 }
                 return null;
             case "offensiveRebounds":
                 const oRebounds: number = game['offensiveRebounds'];
                 const offensiveReboundName = 'Glass Crasher';
                 if (oRebounds >= 5) {
-                    return getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'gold'} />) })
                 }
                 else if (oRebounds >= 3) {
-                    return getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'silver'} />) })
                 }
                 else if (oRebounds >= 1) {
-                    return getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(offensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'bronze'} />) })
                 }
                 return null;
             case "defensiveRebounds":
                 const dRebounds: number = game['defensiveRebounds'];
                 const defensiveReboundName = 'Rim Protector';
                 if (dRebounds >= 5) {
-                    return getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'gold'} />) })
                 }
                 else if (dRebounds >= 3) {
-                    return getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'silver'} />) })
                 }
                 else if (dRebounds >= 1) {
-                    return getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(defensiveReboundName, <AchievementBadge badgeIcon={'block'} tier={'bronze'} />) })
                 }
                 return null;
             case "dunks":
                 const dunks: number = game['dunks'];
                 const dunksName = 'Acrobatic';
                 if (dunks >= 5) {
-                    return getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'gold'} />) })
                 }
                 else if (dunks >= 3) {
-                    return getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'silver'} />) })
                 }
                 else if (dunks >= 2) {
-                    return getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(dunksName, <AchievementBadge badgeIcon={'dunk-ball'} tier={'bronze'} />) })
                 }
                 return null;
             case "turnovers":
                 const to: number = game['turnovers'];
                 const toName = 'Sticky Fingers';
                 if (to === 0) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'gold'} />) })
                 }
                 else if (to === 1) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'silver'} />) })
                 }
                 else if (to === 2) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'bronze'} />) })
                 }
                 return null;
             case "steals":
                 const steals: number = game['steals'];
                 const stealsName = 'Pickpocketer';
                 if (steals >= 5) {
-                    return getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'gold'} />) })
                 }
                 else if (steals >= 3) {
-                    return getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'silver'} />) })
                 }
                 else if (steals >= 2) {
-                    return getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(stealsName, <AchievementBadge badgeIcon={'coins'} tier={'bronze'} />) })
                 }
                 return null;
             case "blocks":
                 const blocks: number = game['blocks'];
                 const blocksName = 'Brick Wall';
                 if (blocks >= 3) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />) })
                 }
                 else if (blocks >= 2) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />) })
                 }
                 else if (blocks >= 1) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />) })
                 }
                 return null;
             default:
@@ -314,26 +314,26 @@ export default async function Dashboard() {
                 const assists: number = game['assists'];
                 const assistBadgeName = 'Tunnel Vision';
                 if (assists >= 3) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'gold'} />) })
                 }
                 else if (assists >= 2) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'silver'} />) })
                 }
                 else if (assists >= 1) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'eye'} tier={'bronze'} />) })
                 }
                 return null;
             case "goals":
                 const goals: number = game['goals'];
                 const goalsBadgeName = 'Scoring Machine';
                 if (goals >= 3) {
-                    return getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'gold'} />) })
                 }
                 else if (goals >= 2) {
-                    return getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'silver'} />) })
                 }
                 else if (goals >= 1) {
-                    return getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(goalsBadgeName, <AchievementBadge badgeIcon={'star'} tier={'bronze'} />) })
                 }
                 return null;
             case "redCards":
@@ -341,10 +341,10 @@ export default async function Dashboard() {
                 const yellowCards: number = game['yellowCards'];
                 const redCardsBadgeName = 'Clean Player';
                 if (redCards === 0 && yellowCards === 0) {
-                    return getAchievmentBadgeComponent(redCardsBadgeName, <AchievementBadge badgeIcon={'warning-card'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(redCardsBadgeName, <AchievementBadge badgeIcon={'warning-card'} tier={'gold'} />) })
                 }
                 else if (yellowCards === 1 && redCards === 0) {
-                    return getAchievmentBadgeComponent(redCardsBadgeName, <AchievementBadge badgeIcon={'warning-card'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(redCardsBadgeName, <AchievementBadge badgeIcon={'warning-card'} tier={'bronze'} />) })
                 }
                 return null;
             case "shotsOnTarget":
@@ -353,77 +353,77 @@ export default async function Dashboard() {
                 const shotAccuracy = (shotsOnTarget / (shotsOnTarget + shotsOffTarget)) * 100;
                 const shotAccuracyBadgeName = 'Sniper';
                 if (shotAccuracy >= 60) {
-                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'gold'} />) })
                 }
                 else if (shotAccuracy >= 50) {
-                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'silver'} />) })
                 }
                 else if (shotAccuracy >= 45) {
-                    return getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(shotAccuracyBadgeName, <AchievementBadge badgeIcon={'target'} tier={'bronze'} />) })
                 }
             case "tackles":
                 const tackles = game['tackles'];
                 const tacklesBadgeName = 'Penguin';
                 if (tackles >= 4) {
-                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'gold'} />) })
                 }
                 else if (tackles >= 3) {
-                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'silver'} />) })
                 }
                 else if (tackles >= 2) {
-                    return getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(tacklesBadgeName, <AchievementBadge badgeIcon={'penguin'} tier={'bronze'} />) })
                 }
                 return null;
             case "blocks":
                 const blocks: number = game['blocks'];
                 const blocksName = 'Brick Wall';
                 if (blocks >= 3) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />) })
                 }
                 else if (blocks >= 2) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />) })
                 }
                 else if (blocks >= 1) {
-                    return getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(blocksName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />) })
                 }
                 return null;
             case "turnovers":
                 const to: number = game['turnovers'];
                 const toName = 'Sticky Feet';
                 if (to === 0) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} />) })
                 }
                 else if (to === 1) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} />) })
                 }
                 else if (to === 2) {
-                    return getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} />) })
                 }
                 return null;
             case "saves":
                 const saves: number = game['saves'];
                 const savesName = 'Savior';
                 if (saves >= 3) {
-                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'gold'} />) })
                 }
                 else if (saves === 2) {
-                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'silver'} />) })
                 }
                 else if (saves === 1) {
-                    return getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(savesName, <AchievementBadge badgeIcon={'angel-wings'} tier={'bronze'} />) })
                 }
                 return null;
             case "interceptions":
                 const interceptions: number = game['interceptions'];
                 const interceptionsName = 'Ninja';
                 if (interceptions >= 3) {
-                    return getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'gold'} />) })
                 }
                 else if (interceptions === 2) {
-                    return getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'silver'} />) })
                 }
                 else if (interceptions === 1) {
-                    return getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(interceptionsName, <AchievementBadge badgeIcon={'ninja'} tier={'bronze'} />) })
                 }
                 return null;
             default:
