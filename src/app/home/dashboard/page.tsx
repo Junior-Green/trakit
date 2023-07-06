@@ -1,4 +1,12 @@
 import { AchievementBadge } from "@/src/components/achievement-badge/achievement-badge"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../../api/auth/[...nextauth]/route"
+import { IBasketballSeason } from "@/src/database/schemas/basketball-season-schema"
+import { ISoccerSeason } from "@/src/database/schemas/soccer-season-schema"
+import { IFootballSeason } from "@/src/database/schemas/football-season-schema"
+import { IHockeySeason } from "@/src/database/schemas/hockey-season-schema"
+import UserData from "@/src/database/schemas/user-schema"
+import { ObjectId } from "mongodb"
 
 export const metadata = {
     title: 'Dashboard',
@@ -15,12 +23,121 @@ export const metadata = {
 }
 
 export default async function Dashboard() {
-    const percentStats = new Set<{ statName: string, stat: number }>()
-    const nonPercentStats = new Set<{ statName: string, stat: number }>()
-    const statMap = new Map()
-    const badges: { tier: 'bronze' | 'silver' | 'gold', badge: JSX.Element }[] = []
+    const session = await getServerSession(authOptions)
+    if (!session) {
+        throw new Error('No user session')
+    }
+    const user = await UserData.findOne({ userId: new ObjectId(session.user.id) });
+    if (!user || !user.selectedSport) {
+        throw new Error('Invalid or missing user information');
+    }
 
-    await new Promise((res) => setTimeout(() => {res('1')}, 2000000))
+    const percentStats = new Set<string>([
+        'fieldGoalsMade',
+        'threePointersMade',
+        'freeThrowsMade',
+        'passesMade',
+        'faceoffWins',
+        'shotsOnTarget'
+    ])
+    const nonPercentStats = new Set<[
+        'assists',
+        'dunks',
+        'minutesPlayed',
+        'pointsScored',
+        'offensiveRebounds',
+        'defensiveRebounds',
+        'turnovers',
+        'steals',
+        'blocks',
+        'personalFouls',
+        'passingTouchDowns',
+        'interceptedPasses',
+        'totalPassingYards',
+        'tackles',
+        'sacks',
+        'passesDefended',
+        'interceptions',
+        'hurries',
+        'safeties',
+        'receptions',
+        'targets',
+        'totalRecievingYards',
+        'receivingTouchDowns',
+        'drops',
+        'carries',
+        'totalRushingYards',
+        'rushingTouchDowns',
+        'fumbles',
+        'kickoffs',
+        'touchbacks',
+        'goals',
+        'penaltyMinutes',
+        'powerPlayGoals',
+        'shortHandedGoals',
+        'overTimeGoals',
+        'shotsTaken',
+        'saves',
+        'foulsCommitted',
+        'redCards',
+        'yellowCards',
+        'offSides',
+        'tackles',
+        'blocks',
+        'interceptions',
+        'clearances',
+    ]>()
+    const statMap = new Map<string, number[]>()
+    const badges: { tier: 'bronze' | 'silver' | 'gold', badge: JSX.Element }[] = []
+    let seasons: IBasketballSeason[] | ISoccerSeason[] | IFootballSeason[] | IHockeySeason[] = []
+
+    switch (user.selectedSport) {
+        case 'basketball':
+            seasons = user.basketballSeasons
+            break;
+        case 'soccer':
+            seasons = user.soccerSeasons;
+            break;
+        case 'football':
+            seasons = user.footballSeasons;
+            break;
+        case 'hockey':
+            seasons = user.hockeySeasons;
+            break;
+        default:
+            seasons = []
+    }
+
+    seasons.forEach((season) => {
+        season.games.forEach((game) => {
+            const obj = game.toObject()
+            // console.log(obj)
+            delete obj.opponentTeam
+            delete obj.opponentScore
+            delete obj.teamScore
+            delete obj.date
+            delete obj._id
+            delete obj.team
+
+            Object.keys(obj).forEach((key) => {
+                statMap.has(key) ? statMap.get(key)?.push(obj[key]) : statMap.set(key, [obj[key]])
+
+                switch (user.selectedSport) {
+                    case 'basketball':
+                        processBasketballStat(key, obj)
+                    case 'soccer':
+                        processSoccerStat(key, obj)
+                    case 'football':
+                        processFootballStat(key, obj)
+                    case 'hockey':
+                        processHockeyStat(key, obj)
+                }
+            })
+        })
+    })
+
+    console.log(statMap)
+
 
     const processBasketballStat = (key: string, game: any) => {
         switch (key) {
@@ -28,26 +145,26 @@ export default async function Dashboard() {
                 const assists: number = game['assists'];
                 const assistBadgeName = 'Dimer';
                 if (assists >= 5) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'gold'} />) })
                 }
                 else if (assists >= 3) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'silver'} />) })
                 }
                 else if (assists >= 2) {
-                    return getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(assistBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'bronze'} />) })
                 }
                 return null;
             case "minutesPlayed":
                 const minutes: number = game['minutesPlayed'];
                 const minutesPlayedBadgeName = 'X-Factor';
                 if (minutes > 25) {
-                    return getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'gold'} />);
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'gold'} />) })
                 }
                 else if (minutes > 15) {
-                    return getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'silver'} />);
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'silver'} />) })
                 }
                 else if (minutes > 10) {
-                    return getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'clock'} tier={'bronze'} />);
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(minutesPlayedBadgeName, <AchievementBadge badgeIcon={'assist'} tier={'bronze'} />) })
                 }
                 return null;
             case "pointsScored":
@@ -582,8 +699,17 @@ export default async function Dashboard() {
 
     return (
         <div className="flex w-full h-full items-center justify-center p-10">
-            <div className="grid lg:grid-cols-5 md:grid-cols-5 sm:grid-cols-2 w-full h-full items-center justify-center">
-
+            <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-rows-5  w-full h-full items-start justify-center gap-5 place-items-center overflow-scroll">
+                {/* <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton className="row-span-2" variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
+                <Skeleton className="col-span-3 row-span-2" variant="rounded" width={"100%"} height={"100%"} /> */}
             </div>
         </div>
 

@@ -61,8 +61,4 @@ export const SettingsModal = ({ teamName, selectedSport }: SettingsModalType) =>
             {success && <Alert className="absolute bottom-5 left-auto right-auto" severity='success' onClose={() => showSuccess(false)} variant='filled'>Settings updated</Alert>}
         </div>
     );
-
-    function handleSave() {
-
-    }
 };

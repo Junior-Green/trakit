@@ -45,9 +45,15 @@ export async function updateSettings({ teamName, sport, userId }: {
     await dbConnect()
 
     const user = await UserData.findOne({ userId: new ObjectId(userId) }).exec();
-    if (!user) return false;
+    if (!user) {
+        console.log("hello user")
+        return false;
+    }
 
     user.selectedSport = sport;
     user.teamName = teamName;
-    return user.save().then(() => true, () => false)
+    return user.save().then(() => true, (err) => {
+        console.log(err)
+        return false;
+    })
 }
