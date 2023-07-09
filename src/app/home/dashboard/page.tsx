@@ -7,6 +7,12 @@ import { IFootballSeason } from "@/src/database/schemas/football-season-schema"
 import { IHockeySeason } from "@/src/database/schemas/hockey-season-schema"
 import UserData from "@/src/database/schemas/user-schema"
 import { ObjectId } from "mongodb"
+import { IBasketBallGame } from "@/src/database/schemas/basketball-game-schema"
+import { IFootballGame } from "@/src/database/schemas/football-game-schema"
+import { IHockeyGame } from "@/src/database/schemas/hockey-game-schema"
+import { ISoccerGame } from "@/src/database/schemas/soccer-game-schema"
+import { camelCaseToTitleCase } from "@/src/utils/utils"
+
 
 export const metadata = {
     title: 'Dashboard',
@@ -41,7 +47,7 @@ export default async function Dashboard() {
         'shotsOnTarget',
         'winrate'
     ])
-    const nonPercentStats = new Set<[
+    const nonPercentStats: Set<string> = new Set<string>([
         'assists',
         'dunks',
         'minutesPlayed',
@@ -87,15 +93,15 @@ export default async function Dashboard() {
         'blocks',
         'interceptions',
         'clearances',
-    ]>()
+    ])
     const statMap = new Map<string, number[]>()
     const badges: { tier: 'bronze' | 'silver' | 'gold', badge: JSX.Element }[] = []
     let seasons: IBasketballSeason[] | ISoccerSeason[] | IFootballSeason[] | IHockeySeason[] = []
-    const games = []
+    const games: (ISoccerGame | IBasketBallGame | IFootballGame | IHockeyGame)[] = []
 
     switch (user.selectedSport) {
         case 'basketball':
-            seasons = user.basketballSeasons
+            seasons = user.basketballSeasons;
             break;
         case 'soccer':
             seasons = user.soccerSeasons;
@@ -138,9 +144,9 @@ export default async function Dashboard() {
                 }
             })
         })
-    })
-
-
+    }
+    )
+    console.log(statMap)
 
     function processBasketballStat(key: string, game: any) {
         switch (key) {
@@ -699,11 +705,129 @@ export default async function Dashboard() {
         }
     }
 
-    function oneByOne(stat: number, statName: string, change: 'increase' | 'decrease' | 'neutral'): JSX.Element {
+    function getNonPercentStatName(): string | undefined {
+        const stats: string[] = Array.from(nonPercentStats)
+        let statName: string = ""
+
+        while (true) {
+            if (games.length === 0 || stats.length === 0)
+                break
+            const index = Math.floor(Math.random() * stats.length)
+            const stat = stats[index]
+            if (Object.keys(games[0].toObject()).includes(stat)) {
+                statName = stat
+                nonPercentStats.delete(statName)
+                break
+            }
+            stats.splice(index, 1)
+        }
+
+        return statName === "" ? undefined : statName
+    }
+
+    function getPercentStatName(): string | undefined {
+        const stats: string[] = Array.from(percentStats)
+        let statName: string = ""
+
+        while (true) {
+            if (games.length === 0 || stats.length === 0)
+                break
+            const index = Math.floor(Math.random() * stats.length)
+            const stat = stats[index]
+            if (Object.keys(games[0].toObject()).includes(stat)) {
+                statName = stat
+                percentStats.delete(statName)
+                break
+            }
+            stats.splice(index, 1)
+        }
+
+        return statName === "" ? undefined : statName
+    }
+
+    function oneByOne(): JSX.Element {
+        const statName = getNonPercentStatName()
+
+        if (!statName) {
+            throw new Error('No valid fields')
+        }
+
+
+        const nums = statMap.get(statName)
+        if (!nums) {
+            throw new Error('Invalid field')
+        }
+
+        const avg1 = calculateNonPercentAverage(nums)
+        nums.pop()
+        const avg2 = calculateNonPercentAverage(nums)
+
+        let fontColor: string = ""
+
+        if (avg1 > avg2) {
+            fontColor = "text-green-500"
+        }
+        else if (avg1 < avg2) {
+            fontColor = "text-red-600"
+        }
+        else {
+            fontColor = "text-white"
+        }
+
+
+        return (games.length === 0 || statName === '') ?
+            (
+                <div className="w-full h-full rounded-xl bg-trakit-500 flex flex-col place-items-start p-3 shadow-lg">
+                    <span className="text-trakit-100 font-semibold text-sm">No Data</span>
+                </div>
+            )
+            : (
+                <div className="w-full h-full rounded-xl bg-trakit-500 flex flex-col place-items-start p-3 shadow-lg">
+                    <span className="text-trakit-100 font-semibold text-sm">{camelCaseToTitleCase(statName)}</span>
+                    <div className="flex flex-col w-full h-5/6 items-center justify-center">
+                        <span className={`${fontColor} text-3xl font-semibold`}>{avg1}</span>
+                    </div>
+                </div>
+            )
+
+
+    }
+
+    function twoByTwoLineGraph(): JSX.Element {
+        let statName = getNonPercentStatName()
+
+        if (!statName) {
+            statName = getPercentStatName()
+        }
+
+        if (!statName) {
+            throw new Error("Invalid field")
+        }
+
+
+        const nums = statMap.get(statName)
+        if (!nums) {
+            throw new Error('Invalid field')
+        }
 
         return (
+            <div className="w-full h-full rounded-xl bg-trakit-500 flex flex-col place-items-start p-3 col-span-2 row-span-2">
+                <span className="text-trakit-100 font-semibold text-sm">{camelCaseToTitleCase(statName)}</span>
+                <div className="flex flex-col w-full h-5/6 items-center justify-center">
 
-            <div className="rounded-md flex flex-col items/ssName=grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-rows-5  w-full h-full items-start justify-center gap-5 place-items-center">
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className="flex w-full h-full items-center justify-center p-10 animate-fade">
+            <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-rows-5  w-full h-full items-start justify-center gap-5 place-items-center overflow-scroll">
+                {oneByOne()}
+                {oneByOne()}
+                {oneByOne()}
+                {oneByOne()}
+                {oneByOne()}
                 {/* <Skeleton variant="rounded" width={"100%"} height={"100%"} />
                 <Skeleton variant="rounded" width={"100%"} height={"100%"} />
                 <Skeleton variant="rounded" width={"100%"} height={"100%"} />
@@ -715,19 +839,26 @@ export default async function Dashboard() {
                 <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
                 <Skeleton className="col-span-3 row-span-2" variant="rounded" width={"100%"} height={"100%"} /> */}
             </div>
+        </div>
+    );
+}
 
-        )
-
-    }
-
-    function getAchievmentBadgeComponent(achievementName: string, badgeIcon: JSX.Element): JSX.Element {
-        return (
+function getAchievmentBadgeComponent(achievementName: string, badgeIcon: JSX.Element): JSX.Element {
+    return (
+        <div className="">
             <div className="">
-                <div className="">
-                    {badgeIcon}
-                </div>
-                <h2 className="">{achievementName}</h2>
+                {badgeIcon}
             </div>
-        );
+            <h2 className="">{achievementName}</h2>
+        </div>
+    );
+}
+
+function calculateNonPercentAverage(array: number[]): number {
+    if (array.length === 0) {
+        return 0
     }
+
+    const total: number = array.reduce((prev, curr) => prev + curr)
+    return Math.round(total / array.length * 10) / 10
 }

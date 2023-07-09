@@ -11,6 +11,23 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      animation: {
+        fade: 'fadeIn 500ms ease-in-out',
+      },
+
+      // that is actual animation
+      keyframes: theme => ({
+        fadeIn: {
+          '100%': {
+            opacity: 1,
+            transform: "translateY(0px)"
+          },
+          '0%': {
+            opacity: 0,
+            transform: "translateY(50px)"
+          },
+        },
+      }),
       colors: {
         trakit: {
           100: "#C6C9F4",
