@@ -8,7 +8,7 @@ import UserData, { IUserData } from "@/src/database/schemas/user-schema";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import styles from "./GameSummary.module.css";
-import { camelCaseToTitleCase } from "@/src/utils/utils";
+import { camelCaseToTitleCase, formatDate } from "@/src/utils/utils";
 import classNames from "classnames";
 import { AchievementBadge } from "@/src/components/achievement-badge/achievement-badge";
 import { DeleteGameButton } from "@/src/components/delete-game-button/delete-game-button";
@@ -717,23 +717,4 @@ function getAchievmentBadgeComponent(achievementName: string, badgeIcon: JSX.Ele
             <h2 className={styles.statLabel}>{achievementName}</h2>
         </div>
     );
-}
-
-function formatDate(date: Date): string {
-    const months: any = {
-        0: 'January',
-        1: 'February',
-        2: 'March',
-        3: 'April',
-        4: 'May',
-        5: 'June',
-        6: 'July',
-        7: 'August',
-        8: 'September',
-        9: 'October',
-        10: 'Novemeber',
-        11: 'December'
-    };
-
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 }
