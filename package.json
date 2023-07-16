@@ -43,5 +43,9 @@
   },
   "overrides": {
     "semver": "^7.5.3"
+  },
+  "browser": {
+  "crypto": false,
+    "os": false
   }
 }
