@@ -3,11 +3,12 @@
     align-items: center;
     justify-content: center;
     line-height: 2;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
     border-radius: 10px;
     border: none;
-    font-size: 1.75em;
+    font-size: 1em;
     background-color: rgb(140, 113, 244);
 }
 
@@ -46,7 +47,7 @@
 }
 
 .counter {
-    font-size: 5vmax;
+    font-size: 4vmax;
     margin: 0 10px 0 10px;
     font-weight: 300;
 }

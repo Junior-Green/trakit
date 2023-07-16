@@ -168,10 +168,10 @@ export default async function Dashboard() {
         })
     }
     )
-    if (statMap.size === 0) {
+    if (games.length === 0) {
         return (
             <div className="h-full w-full flex items-center justify-center">
-                <Link href={"/home/livegame"} className="text-4xl hover:underline hover:text-trakit-200 hover:scale-110 hover:-translate-y-2">Record a Game to Populate</Link>
+                <Link href={"/home/livegame"} className="text-4xl hover:underline hover:text-trakit-200 hover:scale-110 hover:-translate-y-2 animate-bounce">Record a Game to Populate</Link>
             </div>
         )
     }
@@ -428,13 +428,13 @@ export default async function Dashboard() {
                 const to: number = game['turnovers'];
                 const toName = 'Sticky Feet';
                 if (to === 0) {
-                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'gold'} size={3} />) })
+                    badges.push({ tier: 'gold', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'gold'} size={3} />) })
                 }
                 else if (to === 1) {
-                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'silver'} size={3} />) })
+                    badges.push({ tier: 'silver', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'silver'} size={3} />) })
                 }
                 else if (to === 2) {
-                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'brick-wall'} tier={'bronze'} size={3} />) })
+                    badges.push({ tier: 'bronze', badge: getAchievmentBadgeComponent(toName, <AchievementBadge badgeIcon={'slime'} tier={'bronze'} size={3} />) })
                 }
                 return null;
             case "saves":
@@ -956,21 +956,34 @@ export default async function Dashboard() {
 
         const posAvg = calculateAverage(posArr.map(({ data }) => data))
         const negAvg = calculateAverage(negArr.map(({ data }) => data))
-        const avg = posAvg / (negAvg + posAvg)
+        const avg = Number.isNaN(posAvg / (negAvg + posAvg)) ? 0 : posAvg / (negAvg + posAvg)
 
-        const data: ChartData<"doughnut", number[]> = {
-            labels: [camelCaseToTitleCase(pos), camelCaseToTitleCase(neg)],
-            datasets: [
-                {
-                    data: [posTotal, negTotal],
-                    borderWidth: 0,
-                    backgroundColor: [
-                        "#48bb78",
-                        "#e53e3e"
-                    ]
-                }
-            ]
-        }
+
+
+        const data: ChartData<"doughnut", number[]> = posTotal === 0 && negTotal === 0 ?
+            {
+                labels: ["No data"],
+                datasets: [
+                    {
+                        data: [1],
+                        borderWidth: 0,
+                        backgroundColor: ["#202344"]
+                    }
+                ]
+            } :
+            {
+                labels: [camelCaseToTitleCase(pos), camelCaseToTitleCase(neg)],
+                datasets: [
+                    {
+                        data: [posTotal, negTotal],
+                        borderWidth: 0,
+                        backgroundColor: [
+                            "#48bb78",
+                            "#e53e3e"
+                        ]
+                    }
+                ]
+            }
 
         return (
             <div className="w-full h-full rounded-xl bg-trakit-500 flex flex-col place-items-start p-4 col-span-2 row-span-2 shadow-lg">
@@ -1015,14 +1028,6 @@ export default async function Dashboard() {
                 <TwoByTwoPieChart />
                 <TwoByTwoPieChart />
                 <RecentAchievments />
-                {/* <Skeleton variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton className="row-span-2" variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton className="col-span-2 row-span-2" variant="rounded" width={"100%"} height={"100%"} />
-                <Skeleton className="col-span-3 row-span-2" variant="rounded" width={"100%"} height={"100%"} /> */}
             </div>
         </div>
     );

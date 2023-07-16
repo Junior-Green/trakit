@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-;
+    ;
 }
 
 .header {
@@ -67,10 +67,7 @@
 
 .statLabel {
     margin: 0;
-    max-lines: 1;
-    white-space: nowrap;
-    line-height: 1.5;
-    text-align: center;
+    text-align: left;
     font-size: 1.5vmax;
     color: rgb(198, 201, 244)
 }
@@ -92,7 +89,7 @@
 }
 
 .roundedDivider {
-    display:  inline-flex;
+    display: inline-flex;
     margin-left: auto;
     margin: auto;
     width: 80%;

@@ -714,7 +714,7 @@ function getAchievmentBadgeComponent(achievementName: string, badgeIcon: JSX.Ele
             <div className={classNames(styles.row)}>
                 {badgeIcon}
             </div>
-            <h2 className={styles.statLabel}>{achievementName}</h2>
+            <h2 className="text-center text-trakit-100 text-sm whitespace-nowrap font-medium">{achievementName}</h2>
         </div>
     );
 }
