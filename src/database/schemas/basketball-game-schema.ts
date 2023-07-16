@@ -1,6 +1,36 @@
-import mongoose from 'mongoose';
+import { Schema, models, Model, Document, Types, model, ObjectId } from 'mongoose';
 
-export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
+export interface IBasketBallGame extends Document {
+    team: string;
+    opponentTeam: string;
+    teamScore: number,
+    opponentScore: number,
+    date: Date,
+    assists: number,
+    dunks: number
+    minutesPlayed: number,
+    pointsScored: number,
+    fieldGoalsMade: number,
+    fieldGoalsMissed: number,
+    threePointersMade: number,
+    threePointersMissed: number,
+    freeThrowsMade: number,
+    freeThrowsMissed: number,
+    offensiveRebounds: number,
+    defensiveRebounds: number,
+    turnovers: number,
+    steals: number,
+    blocks: number,
+    personalFouls: number,
+}
+
+export const basketballGameSchema: Schema = new Schema({
+    team: {
+        type: String,
+        required: [true, 'Team cannot be undefined'],
+        trim: true,
+        minLength: 1
+    },
     opponentTeam: {
         type: String,
         required: [true, 'Opponent team cannot be undefined'],
@@ -31,12 +61,22 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
         default: 0,
         min: 0
     },
+    assists: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    dunks: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
     fieldGoalsMade: {
         type: Number,
         default: 0,
         min: 0
     },
-    fieldGoalsAttempted: {
+    fieldGoalsMissed: {
         type: Number,
         default: 0,
         min: 0
@@ -46,7 +86,7 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
         default: 0,
         min: 0
     },
-    threePointersAttempted: {
+    threePointersMissed: {
         type: Number,
         default: 0,
         min: 0
@@ -56,7 +96,7 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
         default: 0,
         min: 0
     },
-    freeThrowsAttempted: {
+    freeThrowsMissed: {
         type: Number,
         default: 0,
         min: 0
@@ -93,6 +133,6 @@ export const basketballGameSchema: mongoose.Schema = new mongoose.Schema({
     },
 });
 
-const basketballGame = mongoose.model('Basketball Game', basketballGameSchema);
+const BasketballGame: Model<IBasketBallGame> = models.BasketballGame || model('BasketballGame', basketballGameSchema);
 
-export default basketballGame;
+export default BasketballGame;

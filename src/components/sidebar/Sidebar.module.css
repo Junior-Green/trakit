@@ -1,0 +1,120 @@
+.panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(45, 48, 91);
+    overflow: hidden;
+}
+
+.logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 430px;
+    max-height: 250px;
+    width: auto;
+    height: 35px;
+}
+
+.navigationContainer {
+    align-items: left;
+    width: 100%;
+}
+
+.spacer {
+    height: 70vh
+}
+
+.containerSelected {
+    background-color: rgb(140, 113, 244);
+    color: white;
+}
+
+.containerIcon {
+    margin-left: 5%;
+    fill: rgb(116, 121, 177);
+    width: 20px;
+    height: auto;
+    font-size: 1px;
+}
+
+.container {
+    color: rgb(116, 121, 177);
+    transition: background .2s ease-in
+}
+
+.container:hover .containerIcon {
+    fill: white;
+}
+
+.container:hover {
+    background-color: rgb(140, 113, 244);
+    color: white;
+    fill: white;
+}
+
+.container,
+.containerSelected {
+    height: 35px;
+    width: 85%;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.containerSelected .containerIcon {
+    fill: white;
+}
+
+.containerLabel {
+    margin-left: 5%;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.userInfoContainer {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+
+.profilePicture {
+    border-radius: 100%;
+}
+
+.username {
+    width: 100%;
+    text-align: left;
+    margin-left: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+    font-size: 0.8em;
+}
+
+.signout {
+    width: 85%;
+    height: 40px;
+    min-height: 30px;
+    border: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: rgb(116, 121, 177);
+    color: white;
+}
+
+.signout:hover {
+    filter: brightness(0.95);
+}

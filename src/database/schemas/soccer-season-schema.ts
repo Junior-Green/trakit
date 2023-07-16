@@ -1,10 +1,14 @@
-import mongoose from 'mongoose';
-import {soccerGameSchema} from './soccer-game-schema'
+import { Schema, model, Model, Document, models, Types, ObjectId } from 'mongoose';
+import { ISoccerGame, soccerGameSchema } from './soccer-game-schema'
 
-export const soccerSeasonSchema: mongoose.Schema = new mongoose.Schema({
-    seasons: [soccerGameSchema]
+export interface ISoccerSeason extends Document {
+    games: ISoccerGame[]
+}
+
+export const soccerSeasonSchema: Schema = new Schema({
+    games: [soccerGameSchema]
 });
 
-const soccerSeason = mongoose.model('Soccer Season', soccerSeasonSchema);
+const SoccerSeason: Model<ISoccerSeason> = models.SoccerSeason || model('SoccerSeason', soccerSeasonSchema);
 
-export default soccerSeason;
+export default SoccerSeason;

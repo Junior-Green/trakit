@@ -1,0 +1,38 @@
+.placeholder {
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-width: 2px;
+    border-color: white;
+    border-style: dashed;
+}
+
+.placeholder span {
+    font-size: 2em;
+    font-weight: 400;
+}
+
+.root {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.root>* {
+    margin: 0 0 40px 0;
+}
+
+.alert {
+    position: fixed;
+    bottom: 1vh;
+    left: 50vw;
+}

@@ -1,0 +1,26 @@
+.main {
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    padding-left: 5%;
+}
+
+.main:hover {
+    cursor: pointer;
+    filter: brightness(0.95);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+
+.label {
+    margin: 0;
+    margin-left: 3%;
+    vertical-align: middle;
+    display: inline-flex;
+    line-height: 100%;
+    font-size: 1em
+}
