@@ -105,7 +105,7 @@ export default async function GameSummary({ params: { id } }: { params: { id: st
         </div>
     );
 
-    
+
 
     function getGameFromId(id: string, user: IUserData): IBasketBallGame | ISoccerGame | IFootballGame | IHockeyGame | null | undefined {
         switch (user.selectedSport) {
@@ -151,7 +151,7 @@ export default async function GameSummary({ params: { id } }: { params: { id: st
     }
 }
 
-export function getBasketballAchievement(key: string, gameObj: any): JSX.Element | null {
+function getBasketballAchievement(key: string, gameObj: any): JSX.Element | null {
     switch (key) {
         case "assists":
             const assists: number = gameObj['assists'];
@@ -320,7 +320,7 @@ export function getBasketballAchievement(key: string, gameObj: any): JSX.Element
     }
 }
 
-export function getSoccerAchievement(key: string, gameObj: any): JSX.Element | null {
+function getSoccerAchievement(key: string, gameObj: any): JSX.Element | null {
     switch (key) {
         case "assists":
             const assists: number = gameObj['assists'];
@@ -443,7 +443,7 @@ export function getSoccerAchievement(key: string, gameObj: any): JSX.Element | n
     }
 }
 
-export function getFootballAchievement(key: string, gameObj: any): JSX.Element | null {
+function getFootballAchievement(key: string, gameObj: any): JSX.Element | null {
     switch (key) {
         case "passesMade":
             const passesMade = gameObj['passesMade'];
@@ -614,7 +614,7 @@ export function getFootballAchievement(key: string, gameObj: any): JSX.Element |
     }
 }
 
-export function getHockeyAchievement(key: string, gameObj: any): JSX.Element | null {
+function getHockeyAchievement(key: string, gameObj: any): JSX.Element | null {
     switch (key) {
         case "goals":
             const goals: number = gameObj['goals'];
