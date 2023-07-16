@@ -7,8 +7,6 @@ import TwitterProvider from "next-auth/providers/twitter";
 import clientPromise from "@/src/database/mongo-client";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-export const runtime = 'edge'
-
 const REDDIT_ID = process.env.REDDIT_ID;
 const REDDIT_SECRET = process.env.REDDIT_SECRET;
 
