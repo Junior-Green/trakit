@@ -1,11 +1,11 @@
-import {randomBytes, randomUUID} from "crypto";
-import NextAuth, {NextAuthOptions} from "next-auth";
+import { randomBytes, randomUUID } from "crypto";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import RedditProvider from "next-auth/providers/reddit";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
 import clientPromise from "@/src/database/mongo-client";
-import {MongoDBAdapter} from "@next-auth/mongodb-adapter";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
 const REDDIT_ID = process.env.REDDIT_ID;
 const REDDIT_SECRET = process.env.REDDIT_SECRET;
@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
         }
     },
     callbacks: {
-        async session({session, token, user}) {
+        async session({ session, token, user }) {
             // Send properties to the client, like an access_token and user id from a provider.
             session.user.id = user.id;
             return session;
@@ -98,4 +98,4 @@ export const authOptions: NextAuthOptions = {
 };
 
 const handler = NextAuth(authOptions);
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST }
