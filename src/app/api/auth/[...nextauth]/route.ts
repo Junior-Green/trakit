@@ -7,6 +7,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import clientPromise from "@/src/database/mongo-client";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
+
 const REDDIT_ID = process.env.REDDIT_ID;
 const REDDIT_SECRET = process.env.REDDIT_SECRET;
 
@@ -35,11 +36,17 @@ export const authOptions: NextAuthOptions = {
     providers: [
         RedditProvider({
             clientId: REDDIT_ID,
-            clientSecret: REDDIT_SECRET
+            clientSecret: REDDIT_SECRET,
+            httpOptions: {
+                timeout: 10000,
+            }
         }),
         DiscordProvider({
             clientId: DISCORD_ID,
-            clientSecret: DISCORD_SECRET
+            clientSecret: DISCORD_SECRET,
+            httpOptions: {
+                timeout: 10000,
+            }
         }),
         GoogleProvider({
             clientId: GOOGLE_ID,
@@ -50,12 +57,18 @@ export const authOptions: NextAuthOptions = {
                     access_type: 'offline',
                     response_type: 'code'
                 }
+            },
+            httpOptions: {
+                timeout: 10000,
             }
         }),
         TwitterProvider({
             clientId: TWITTER_ID,
             clientSecret: TWITTER_SECRET,
             version: "2.0", // opt-in to Twitter OAuth 2.0
+            httpOptions: {
+                timeout: 10000,
+            }
         })
         // ...add more providers here
     ],
