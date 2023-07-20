@@ -1016,8 +1016,8 @@ export default async function Dashboard() {
     }
 
     return (
-        <div className="flex w-full h-full items-center justify-center p-10 animate-fade">
-            <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-rows-5  w-full h-full items-start justify-center gap-5 place-items-center overflow-scroll">
+        <div className="flex w-full h-full items-center justify-center p-10 animate-fade overflow-hidden">
+            <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-rows-5  w-full h-full items-start justify-center gap-5 place-items-cente">
                 <OneByOne />
                 <OneByOne />
                 <OneByOne />

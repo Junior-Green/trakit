@@ -23,61 +23,61 @@ export const AchievementBadge = ({badgeIcon, tier, size = 5}: AchievementBadgePr
 
     switch (badgeIcon) {
         case 'assist':
-            return <AssistIcon width={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
+            return <AssistIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
         case 'block':
-            return <BasketballBlockIcon width={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
+            return <BasketballBlockIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
         case 'brick-wall':
-            return <BrickWallIcon width={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
+            return <BrickWallIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badgeIcon)} />;
         case 'bug':
-            return <BugIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <BugIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'catch-football':
-            return <FootballCatchIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <FootballCatchIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'clock':
-            return <ClockIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <ClockIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'measuring-tape':
-            return <MeasuringTapeIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <MeasuringTapeIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'pass-ball':
-            return <PassIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <PassIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'pickup-football':
-            return <FootballPickupIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <FootballPickupIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'pin':
-            return <PinIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <PinIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'rescue':
-            return <RescueIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <RescueIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'reverse-arrows':
-            return <TurnoverIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <TurnoverIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'save-goal':
-            return <SaveGoalIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <SaveGoalIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'star':
-            return <StarIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <StarIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'steal':
-            return <StealIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <StealIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'swords':
-            return <SwordsIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <SwordsIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'target':
-            return <TargetIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <TargetIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'warning-card':
-            return <WarningCardIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <WarningCardIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'eye':
-            return <EyeIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <EyeIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'dunk-ball':
-            return <BasketballDunkIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <BasketballDunkIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'slime':
-            return <SlimeIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <SlimeIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'coins':
-            return <CoinsIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <CoinsIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'penguin':
-            return <PenguinIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <PenguinIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'angel-wings':
-            return <AngelWingsIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <AngelWingsIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'ninja':
-            return <NinjaIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <NinjaIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'arm':
-            return <ArmIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <ArmIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'gas-mask':
-            return <GasMaskIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <GasMaskIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         case 'anvil':
-            return <AnvilIcon width={iconSize} className={classNames(tierClassName, styles.badge)} />;
+            return <AnvilIcon width={iconSize} height={iconSize} className={classNames(tierClassName, styles.badge)} />;
         default:
             return <></>;
     }
